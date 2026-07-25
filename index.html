@@ -238,14 +238,14 @@
 
     <!-- 現代化極簡底部品牌列 (Sticky Footer) - 增加 bottom-[60px] 避開免空平台廣告 -->
     <div id="brand-footer" class="fixed bottom-[60px] left-0 w-full z-40 pointer-events-none transition-opacity duration-300">
-        <div class="h-8 bg-gradient-to-t from-[#F4F3ED]/95 to-transparent"></div>
-        <div class="bg-[#F4F3ED]/90 backdrop-blur-xl border-t border-[#EBE9E0] py-3 pointer-events-auto shadow-[0_-10px_20px_-5px_rgba(0,0,0,0.02)]">
+        <div id="footer-gradient" class="h-8 bg-gradient-to-t from-[#0F172A]/95 to-transparent transition-colors duration-300"></div>
+        <div id="footer-bg" class="bg-[#0F172A]/90 backdrop-blur-xl border-t border-slate-800 py-3 pointer-events-auto shadow-lg transition-colors duration-300">
             <div class="max-w-3xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-0">
                 <p class="text-slate-400 text-[11px] sm:text-xs font-semibold tracking-widest uppercase">
                     System Design & Technical Support
                 </p>
-                <div class="flex items-center bg-slate-50 border border-slate-200/80 px-3.5 py-1.5 rounded-full text-slate-800 font-extrabold text-sm sm:text-base tracking-wide shadow-sm hover:shadow hover:border-blue-300 hover:text-blue-600 transition-all cursor-default">
-                    <svg class="w-4 h-4 sm:w-4.5 sm:h-4.5 text-blue-600 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <div id="footer-pill" class="flex items-center bg-slate-800 border border-slate-700 px-3.5 py-1.5 rounded-full text-slate-300 font-extrabold text-sm sm:text-base tracking-wide shadow-sm hover:shadow hover:border-blue-500 hover:text-blue-400 transition-all cursor-default">
+                    <svg class="w-4 h-4 sm:w-4.5 sm:h-4.5 text-blue-500 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
                     </svg>
                     ChamiVision
