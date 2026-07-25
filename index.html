@@ -37,21 +37,26 @@
         body.theme-light .badge-bg { background-color: #e0e7ff; border: 1px solid #c7d2fe; color: #4338ca; }
         body.theme-light .wrong-card { background-color: #fef2f2; border-color: #fecaca; }
 
-        /* 動態設定按鈕的樣式 */
+        /* 動態設定按鈕的樣式 (高亮當前選項) */
         .setting-btn-inactive { border: 2px solid transparent; border-radius: 0.75rem; padding: 0.5rem 0; font-weight: 600; text-align: center; transition: all 0.2s; }
         .setting-btn-active { border-radius: 0.75rem; padding: 0.5rem 0; text-align: center; transition: all 0.2s; border: 2px solid #3b82f6 !important; background-color: rgba(59, 130, 246, 0.15) !important; color: #2563eb !important; font-weight: 800 !important; }
         
-        body.theme-dark .setting-btn-inactive { background-color: rgba(51, 65, 85, 0.5); color: #94a3b8; border-color: #334155; }
+        body.theme-dark .setting-btn-inactive { border-color: #334155; background-color: transparent; color: #94a3b8; }
         body.theme-dark .setting-btn-active { border-color: #60a5fa !important; background-color: rgba(59, 130, 246, 0.2) !important; color: #60a5fa !important; }
         
-        body.theme-light .setting-btn-inactive, body.theme-warm .setting-btn-inactive { background-color: #f8fafc; color: #64748b; border-color: #e2e8f0; }
+        body.theme-light .setting-btn-inactive, body.theme-warm .setting-btn-inactive { border-color: #cbd5e1; background-color: transparent; color: #64748b; }
 
         .footer-fixed { position: fixed; bottom: 0; left: 0; width: 100%; padding: 12px 0; text-align: center; z-index: 40; backdrop-filter: blur(8px); }
         
         /* 答題按鈕 */
         .option-btn { width: 100%; text-align: left; border: 2px solid #334155; border-radius: 12px; margin-bottom: 12px; transition: all 0.2s; background: transparent; color: inherit; }
         body.theme-warm .option-btn, body.theme-light .option-btn { border-color: #cbd5e1; }
-        .option-btn:hover { border-color: #64748b; }
+        
+        /* 解決手機上的 Sticky Hover 殘留亮框問題：只在支援 hover 的滑鼠設備上啟用 hover 效果 */
+        @media (hover: hover) and (pointer: fine) {
+            .option-btn:hover { border-color: #64748b; }
+        }
+        
         .option-btn:active { transform: scale(0.98); }
         
         .option-btn.correct { border-color: #22c55e !important; background-color: rgba(34, 197, 94, 0.15) !important; color: #166534 !important; }
@@ -76,10 +81,11 @@
 </head>
 <body class="antialiased theme-dark font-normal">
 
+    <!-- 自訂提示框 (取代 alert/confirm) -->
     <div id="custom-modal" class="hidden fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
         <div class="panel w-full max-w-sm rounded-3xl p-6 border shadow-2xl transform scale-95 transition-transform duration-300 text-center">
             <h3 id="modal-title" class="font-bold text-xl mb-3">系統提示</h3>
-            <p id="modal-message" class="mb-6 opacity-80 text-sm leading-relaxed">訊息內容</p>
+            <p id="modal-message" class="mb-6 opacity-80 text-sm leading-relaxed whitespace-pre-wrap">訊息內容</p>
             <div class="flex gap-3 justify-center">
                 <button id="modal-cancel" class="hidden w-1/2 px-4 py-3 rounded-xl bg-slate-500/20 hover:bg-slate-500/30 transition-colors font-bold">取消</button>
                 <button id="modal-confirm" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-500 transition-colors shadow-lg">確定</button>
@@ -87,6 +93,7 @@
         </div>
     </div>
 
+    <!-- 設定面板 (字體與主題) -->
     <div id="settings-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
         <div class="panel w-full max-w-sm rounded-3xl p-6 border shadow-2xl transform scale-95 transition-transform duration-300" id="settings-content">
             <h3 class="font-bold mb-4 text-xl flex items-center justify-between">
@@ -127,12 +134,12 @@
                     <h1 class="text-xl sm:text-2xl font-black tracking-wide">專業操作證刷題系統</h1>
                 </div>
                 <!-- 首頁專屬齒輪 -->
-                <button class="gear-btn bg-slate-500/10 p-2.5 rounded-full border shadow-sm hover:bg-slate-500/20 transition-colors">
-                    <span class="text-xl leading-none block">⚙️</span>
+                <button class="gear-btn bg-slate-500/10 p-2.5 rounded-full border shadow-sm hover:bg-slate-500/20 transition-colors flex items-center justify-center h-10 w-10 shrink-0">
+                    <span class="text-xl leading-none">⚙️</span>
                 </button>
             </div>
             
-            <!-- 首頁：模式切換開關 (超大按鈕) -->
+            <!-- 首頁：模式切換開關 -->
             <div class="flex bg-slate-500/10 p-1.5 rounded-2xl mb-6 relative border dark:border-slate-700 shadow-inner">
                 <button id="toggle-exam" class="w-1/2 py-3.5 rounded-xl transition-all z-10 font-bold text-[15px]">⏱️ 測驗模式</button>
                 <button id="toggle-study" class="w-1/2 py-3.5 rounded-xl transition-all z-10 font-bold text-[15px]">📖 看題庫</button>
@@ -171,9 +178,10 @@
                 <div class="text-xs font-normal text-orange-100 mt-1">專注閱讀曾答錯的題目，突破盲點</div>
             </button>
 
-            <button id="btn-reset" class="w-full opacity-50 text-xs underline mt-6 pb-2 text-center block hover:opacity-100 transition-opacity">🔄 重置進度 (將一切紀錄歸零)</button>
+            <button id="btn-reset" class="w-full opacity-50 text-xs underline mt-6 text-center block hover:opacity-100 transition-opacity">🔄 重置進度 (將一切記錄歸零)</button>
 
-            <a href="https://www.instagram.com/chamivision/" target="_blank" rel="noopener noreferrer" class="mt-6 flex items-center justify-center gap-3 w-full p-4 rounded-2xl bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-indigo-500/10 border border-purple-500/20 hover:scale-[1.02] transition-transform shadow-sm group">
+            <!-- 專屬廣告版位 (加入 iframe 安全跳轉防護) -->
+            <a href="https://www.instagram.com/chamivision/" target="_blank" rel="noopener noreferrer" id="ig-link-btn" class="mt-6 flex items-center justify-center gap-3 w-full p-4 rounded-2xl bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-indigo-500/10 border border-purple-500/20 hover:scale-[1.02] transition-transform shadow-sm group">
                 <div class="bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white p-2 rounded-xl group-hover:scale-110 transition-transform shadow-md">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
                 </div>
@@ -186,14 +194,14 @@
 
         <!-- ================= 測驗/題庫畫面 ================= -->
         <div id="quiz-screen" class="hidden panel p-6 rounded-3xl border shadow-xl mb-12">
-            <!-- 標籤列與齒輪融合 -->
+            <!-- 標籤列與齒輪融合 (Flex 排版) -->
             <div class="flex justify-between items-center mb-4">
                 <div id="quiz-mode-badge" class="badge-bg px-4 py-1.5 rounded-full text-sm font-bold flex items-center gap-1.5 shadow-sm">
                     標籤載入中...
                 </div>
                 <!-- 測驗專屬齒輪 -->
-                <button class="gear-btn bg-slate-500/10 p-2 rounded-full border shadow-sm hover:bg-slate-500/20 transition-colors">
-                    <span class="text-xl leading-none block">⚙️</span>
+                <button class="gear-btn bg-slate-500/10 p-2 rounded-full border shadow-sm hover:bg-slate-500/20 transition-colors flex items-center justify-center h-9 w-9 shrink-0">
+                    <span class="text-lg leading-none">⚙️</span>
                 </button>
             </div>
             
@@ -204,16 +212,16 @@
             <h2 id="question-text" class="question-text font-bold mb-6 leading-relaxed">題目載入中...</h2>
             <div id="options-container" class="flex flex-col gap-3"></div>
 
-            <div id="explanation-container" class="hidden mt-6 p-4 rounded-xl explanation-box text-sm leading-relaxed">
-                <div class="font-bold mb-1 flex items-center gap-1">💡 解題說明：</div>
-                <div id="explanation-text">這裡顯示解析...</div>
+            <div id="explanation-container" class="hidden mt-6 p-4 rounded-xl explanation-box text-sm leading-relaxed shadow-inner">
+                <div class="font-bold mb-1 flex items-center gap-1 text-[15px]">💡 解題說明：</div>
+                <div id="explanation-text" class="text-[15px]">這裡顯示解析...</div>
             </div>
 
-            <!-- 底部按鈕區 (加入 上一題) -->
+            <!-- 底部按鈕區 -->
             <div class="flex gap-2 mt-6">
-                <button id="exit-btn" class="flex-1 bg-slate-500/20 text-current py-4 rounded-xl font-bold hover:bg-slate-500/30 transition-colors text-sm sm:text-base">離開</button>
-                <button id="prev-btn" class="hidden flex-1 bg-slate-500/20 text-current py-4 rounded-xl font-bold hover:bg-slate-500/30 transition-colors text-sm sm:text-base">← 上一題</button>
-                <button id="next-btn" class="hidden flex-[2] bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-500 transition-colors shadow-lg text-sm sm:text-base">下一題 →</button>
+                <button id="exit-btn" class="flex-1 bg-slate-500/20 text-current py-4 rounded-xl font-bold hover:bg-slate-500/30 transition-colors text-sm sm:text-base shadow-sm">離開</button>
+                <button id="prev-btn" class="hidden flex-1 bg-slate-500/20 text-current py-4 rounded-xl font-bold hover:bg-slate-500/30 transition-colors text-sm sm:text-base shadow-sm">← 上一題</button>
+                <button id="next-btn" class="hidden flex-[2] bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-500 transition-colors shadow-md text-sm sm:text-base">下一題 →</button>
             </div>
         </div>
 
@@ -227,9 +235,9 @@
             <p class="opacity-70 mb-2">本次得分</p>
             <div class="text-7xl font-black text-blue-500 mb-8" id="final-score">0</div>
             
-            <div class="bg-slate-500/10 rounded-xl p-4 mb-6 text-sm flex justify-around">
-                <div><span class="block opacity-60">答對</span><span id="result-correct" class="text-green-500 font-bold text-2xl">0</span></div>
-                <div><span class="block opacity-60">答錯</span><span id="result-wrong" class="text-red-500 font-bold text-2xl">0</span></div>
+            <div class="bg-slate-500/10 rounded-xl p-4 mb-6 text-sm flex justify-around shadow-inner">
+                <div><span class="block opacity-60 mb-1">答對</span><span id="result-correct" class="text-green-500 font-black text-2xl">0</span></div>
+                <div><span class="block opacity-60 mb-1">答錯</span><span id="result-wrong" class="text-red-500 font-black text-2xl">0</span></div>
             </div>
 
             <div id="wrong-review-section" class="hidden text-left mt-8">
@@ -237,14 +245,15 @@
                     <span class="text-red-500">⚠️</span> 錯題解析與補強 <span class="text-xs opacity-60 font-normal">(已自動加入待加強)</span>
                 </h3>
                 <div id="wrong-answers-list" class="flex flex-col gap-4">
-                    <!-- 錯題卡片將動態產生於此 -->
+                    <!-- 錯題卡片動態產生 -->
                 </div>
             </div>
 
-            <button id="btn-return-home" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold shadow-lg mt-8 hover:bg-blue-500">回首頁繼續刷題</button>
+            <button id="btn-return-home" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold shadow-lg mt-8 hover:bg-blue-500 transition-all">回首頁繼續刷題</button>
         </div>
     </div>
 
+    <!-- 底部商標列 -->
     <footer class="footer-fixed">
         <div class="text-[10px] tracking-widest opacity-60 font-bold mb-1 uppercase">System Design & Technical Support</div>
         <div class="inline-flex items-center px-4 py-1.5 rounded-full border border-current opacity-80 text-xs font-bold gap-1 shadow-sm">
@@ -253,7 +262,7 @@
     </footer>
 
     <script>
-        // 高度壓縮版的 324 題題庫 (完全內建，不需網路即可運作)
+        // --- 完整題庫資料庫 (324題) 完美寫入 ---
         const compressedDB = [
             "1 下列何者為於遙控無人機飛航活動期間,實際操控遙控無人機並應負飛航安全責任之人員?|(A)遙控無人機操作人。|(B)目視觀察員。|(C)觀察員。|(D)協調員。|0",
             "2 下列何者為於延伸視距飛航作業時,持有遙控無人機操作證,並於遙控無人機活動期間,提供實際操控遙控無人機之操作人必要飛航資訊之人員?|(A)遙控無人機操作人。|(B)目視觀察員。|(C)觀察員。|(D)協調員。|1",
@@ -370,7 +379,7 @@
             "113 功率的定義為下列何者?|(A)每單位時間所施加的力。|(B)每單位時間所作的功或所消耗的能量。|(C)每單位時間所增加或減少的溫度。|(D)每單位時間所施加的扭矩。|1",
             "114 功率的常用單位有下列哪些?|(A)公制單位為瓦(W);英制單位為馬力(HP)。|(B)公制單位為焦耳(J);英制單位為BTU。|(C)公制單位為牛頓(N);英制單位為磅(lb)。|(D)以上皆是。|0",
             "115 在1,013.25 hPa、15℃時,空氣密度大約為下列何者?|(A)1.005 kg/m3。|(B)1.115 kg/m3。|(C)1.225 kg/m3。|(D)1.335 kg/m3。|2",
-            "116 升力公式中的升力係數的單位為下列何者?|(A)hPa|(B)無因次(dimensionless)。|(C)m/s。|(D)kg/m2。|1",
+            "116 升力公式中的升力係數的單位為下列何者?|(A)hPa。|(B)無因次(dimensionless)。|(C)m/s。|(D)kg/m2。|1",
             "117 空氣密度與密度高度的關係為下列何者?|(A)空氣密度減少表示較低的密度高度,空氣密度增加表示較高的密度高度。|(B)空氣密度不論減少或增加均與密度高度無關。|(C)視狀況而定,空氣密度減少有時表示較高的密度高度,有時表示較低的密度高度。|(D)空氣密度減少表示較高的密度高度,空氣密度增加表示較低的密度高度。|3",
             "118 空氣密度與動力輸出的關係為下列何者?|(A)空氣密度減少,動力輸出隨之增加。|(B)空氣密度減少,動力輸出隨之降低。|(C)空氣密度與動力輸出無關。|(D)以上皆非。|1",
             "119 空氣密度受下列哪些因素影響?|(A)高度、溫度、及濕度等。|(B)推力、升力、阻力、及重力等。|(C)空速、航向、及姿態等。|(D)以上皆是。|0",
@@ -436,9 +445,9 @@
             "179 無人機飛行控制器系統,其上傳鏈路(遙控訊號)之失效保護(Fail Safe)預設值,其觸發動作下列何者為非?|(A)自主飛行。|(B)自動返航。|(C)原地降落。|(D)原地盤旋或懸停。|0",
             "180 無人飛機在視距外發生「上傳鏈路失效」,若無法恢復控制鏈路或航機接收端異常,其失效保護機制(Fail Safe)將觸發下列何者?|(A)自主飛行。|(B)自動拉高。|(C)自動降落。|(D)自動返航。|3",
             "181 無人飛機在視距外發生「上傳鏈路失效」,緊急處置程序之一為下列何者?|(A)關閉無人機上不必要之電力裝置。|(B)分析上傳鏈路失效原因為干擾/遮蔽、地面導控站(發射端)異常、或航機(接收端)異常。|(C)開啟自動避障系統。|(D)飄降回本場。|1",
-            "182 無人飛機在視距外發生「上傳鏈路失效」,若失效原因為干擾/遮蔽,則等待無人飛機脫離干擾/遮蔽位置後應採取下列何種動作?|(A)檢查確認導控站硬體接線、更換模組、或重新開機。|(B)應立即以地圖介面或酬載影像檢視週遭遮蔽物及干擾源,待航機恢復控制後應立即轉向或爬升脱離。|(C)若干擾/遮蔽狀況持續,應立即切換自動導航模式,繼續飛行。|(D)關閉無人機上不必要之電力裝置。|1",
+            "182 無人飛機在視距外發生「上傳鏈路失效」,若失效原因為干擾/遮蔽,則等待無人飛機脫離干擾/遮蔽位置後應採取下列何種動作?|(A)檢查確認導控站硬體接線、更換模組、或重新開機。|(B)應立即以地圖介面或酬載影像檢視週遭遮蔽物及干擾源,待航機恢復控制後應立即轉向或爬升脫離。|(C)若干擾/遮蔽狀況持續,應立即切換自動導航模式,繼續飛行。|(D)關閉無人機上不必要之電力裝置。|1",
             "183 無人飛機在視距外發生「上傳鏈路失效」,若失效原因為導控站(亦即上傳發射端)異常,則應採取下列何種動作?|(A)檢查確認導控站硬體接線、更換模組、或重新開機,嘗試恢復控制後飛回本場。|(B)關閉無人飛機上不必要之電力裝置。|(C)在歸航點盤旋至油量/電量耗盡。|(D)開啟自動避障系統。|0",
-            "184 無人直昇機與多旋翼機在視距外發生「上傳鏈路失效」,若失效原因為干擾/遮蔽,則等待無人飛機脫離干擾/遮蔽位置後應採取下列何種動作?|(A)檢查確認導控站硬體接線、更換模組、或重新開機。|(B)應立即以地圖介面或酬載影像檢視週遭遮蔽物及干擾源,待航機恢復控制後應立即轉向或升高脱離。|(C)若干擾/遮蔽狀況持續,應立即切換自動導航模式,繼續飛行。|(D)關閉無人機上不必要之電力裝置。|1",
+            "184 無人直昇機與多旋翼機在視距外發生「上傳鏈路失效」,若失效原因為干擾/遮蔽,則等待無人飛機脫離干擾/遮蔽位置後應採取下列何種動作?|(A)檢查確認導控站硬體接線、更換模組、或重新開機。|(B)應立即以地圖介面或酬載影像檢視週遭遮蔽物及干擾源,待航機恢復控制後應立即轉向或升高脫離。|(C)若干擾/遮蔽狀況持續,應立即切換自動導航模式,繼續飛行。|(D)關閉無人機上不必要之電力裝置。|1",
             "185 無人飛機在視距外發生「上傳鏈路失效」,若失效原因為航機(亦即上傳接收端)異常,則應採取下列何種動作?|(A)關閉無人飛機上不必要之電力裝置。|(B)無人飛機將在歸航點盤旋至油量/電量耗盡。|(C)檢查確認導控站硬體接線、更換模組、或重新開機。|(D)可利用地圖介面、即時飛航資訊及酬載影像,全程監控航機是否正確返回歸航點盤旋或降落。|3",
             "186 無人飛機在視距內發生「上傳鏈路失效」,若失效原因為干擾/遮蔽,則等待無人飛機脫離干擾/遮蔽位置後應採取下列何種動作?|(A)檢查確認導控站硬體接線、更換模組、或重新開機。|(B)以肉眼檢視週遭潛在遮蔽物及干擾源,待航機恢復控制後應立即轉向或爬升脫離。|(C)關閉無人飛機上不必要之電力裝置。|(D)切換至適當之操作模式,儘速以穩定之滾轉角、俯仰角等飛行姿態落地。|1",
             "187 無人飛機在視距外發生「下傳鏈路失效」,緊急處置程序之一為下列何者?|(A)關閉無人飛機上不必要之電力裝置。|(B)調整俯仰姿態以飄降飛回本場。|(C)參考航機飛行軌跡及斷訊前回傳之飛航資訊與酬載影像,儘速執行轉向或爬升操作以脫離干擾/遮蔽區域。|(D)開啟自動避障系統。|2",
@@ -605,6 +614,7 @@
         let examRecords = []; 
         let autoAdvanceTimer = null; 
         
+        // 雙軌獨立記憶系統
         let quizMasteredIds = [], quizWrongIds = [];
         let studyMasteredIds = [], studyWrongIds = [];
         let studyProgressIndex = 0;
@@ -613,12 +623,14 @@
             loadProgress();
             loadSettings();
             
+            // 綁定畫面上所有的齒輪按鈕 (包含首頁與測驗中)
             document.querySelectorAll('.gear-btn').forEach(btn => btn.onclick = toggleSettings);
             document.getElementById('close-settings-btn').onclick = toggleSettings;
             document.getElementById('close-settings-btn-bottom').onclick = toggleSettings;
             
             document.getElementById('toggle-exam').onclick = () => selectMode(false);
             document.getElementById('toggle-study').onclick = () => selectMode(true);
+            
             document.getElementById('btn-start-main').onclick = () => startSession(isStudyMode ? 'normal_study' : 'normal_quiz');
             document.getElementById('btn-intensive-quiz').onclick = () => startSession('intensive_quiz');
             document.getElementById('btn-quick-review-study').onclick = () => startSession('review_study');
@@ -629,6 +641,14 @@
             document.getElementById('btn-return-home').onclick = returnToHome;
             document.getElementById('btn-reset').onclick = resetProgress;
             
+            // IG 廣告連結防呆保護
+            document.getElementById('ig-link-btn').onclick = function(e) {
+                if (window.self !== window.top) {
+                    e.preventDefault();
+                    showModal('📢 這是您的 IG 廣告連結！\n\n(附註：因為目前在開發預覽模式中，直接點擊會被 Instagram 的安全機制阻擋。等您將檔案存到電腦或手機上開啟時，就能正常跳轉囉！)', false);
+                }
+            };
+            
             ['dark', 'warm', 'light'].forEach(t => {
                 document.getElementById(`theme-${t}`).onclick = () => setTheme(t);
             });
@@ -637,6 +657,7 @@
             });
         });
 
+        // 彈出視窗模組
         function showModal(message, isConfirm = false, onConfirm = null) {
             const modal = document.getElementById('custom-modal');
             document.getElementById('modal-message').innerText = message;
@@ -644,8 +665,13 @@
             const btnCancel = document.getElementById('modal-cancel');
             const btnConfirm = document.getElementById('modal-confirm');
 
-            if(isConfirm) btnCancel.classList.remove('hidden');
-            else btnCancel.classList.add('hidden');
+            if(isConfirm) {
+                btnCancel.classList.remove('hidden');
+                btnConfirm.innerText = '確定';
+            } else {
+                btnCancel.classList.add('hidden');
+                btnConfirm.innerText = '我知道了';
+            }
 
             const closeModal = () => {
                 modal.classList.add('opacity-0');
@@ -665,7 +691,6 @@
 
         function selectMode(isStudy) {
             if (isQuizRunning) return; 
-            if (navigator.vibrate) navigator.vibrate(50);
             isStudyMode = isStudy;
             updateDashboard();
         }
@@ -799,7 +824,6 @@
         }
 
         function startSession(type) {
-            if (navigator.vibrate) navigator.vibrate(50);
             if (window.confetti) confetti.reset(); 
             
             isQuizRunning = true;
@@ -825,7 +849,6 @@
             
             const exitBtn = document.getElementById('exit-btn');
             exitBtn.innerText = currentSessionType.includes('study') ? '離開並記錄' : '提早交卷';
-            exitBtn.classList.remove('hidden');
 
             renderQuestion();
         }
@@ -859,7 +882,7 @@
             document.getElementById('next-btn').classList.add('hidden');
             document.getElementById('explanation-container').classList.add('hidden');
             
-            // 只有「測驗模式 (不包含 study)」且「不是第一題」時，才顯示上一題按鈕
+            // 只有「非看題庫模式」且「不是第一題」時，才顯示上一題按鈕
             if (currentQuizIndex > 0 && !currentSessionType.includes('study')) {
                 document.getElementById('prev-btn').classList.remove('hidden');
             } else {
@@ -888,10 +911,8 @@
 
             if(currentSessionType.includes('study')) {
                 if(isCorrect) {
-                    if(navigator.vibrate) navigator.vibrate(50);
                     btnElement.classList.add('correct');
                 } else {
-                    if(navigator.vibrate) navigator.vibrate([50, 50, 50]);
                     btnElement.classList.add('wrong');
                     container.children[qData.answer].classList.add('correct');
                 }
@@ -906,7 +927,6 @@
                 }
                 
             } else {
-                if(navigator.vibrate) navigator.vibrate(50);
                 btnElement.classList.add('option-btn-selected');
                 if(isCorrect) scoreCorrect++; else scoreWrong++;
                 
@@ -1089,7 +1109,7 @@
                     localStorage.setItem('drone_quiz_wrong', '[]');
                 }
                 updateDashboard();
-                showModal("進度已重置。", false);
+                showModal("進度已為您重新重置。", false);
             });
         }
 
