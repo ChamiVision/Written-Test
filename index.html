@@ -19,31 +19,32 @@
         body.theme-dark { background-color: #0F172A; color: #cbd5e1; }
         body.theme-dark .panel { background-color: #1E293B; border-color: #334155; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
         body.theme-dark .footer-fixed { background: rgba(15, 23, 42, 0.85); border-top: 1px solid #1E293B; color: #64748b; }
-        body.theme-dark .explanation-box { background: #312e81; color: #a5b4fc; border: 1px solid #4338ca; }
+        body.theme-dark .explanation-box { background: #1e1b4b; color: #a5b4fc; border: 1px solid #3730a3; }
         body.theme-dark .badge-bg { background-color: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); color: #a5b4fc; }
         body.theme-dark .wrong-card { background-color: rgba(239, 68, 68, 0.05); border-color: rgba(239, 68, 68, 0.2); }
 
         body.theme-warm { background-color: #FCF8E8; color: #3F3E3A; }
         body.theme-warm .panel { background-color: #FFFFFF; border-color: #E6E4DD; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
         body.theme-warm .footer-fixed { background: rgba(252, 248, 232, 0.9); border-top: 1px solid #E6E4DD; color: #8C8A84; }
-        body.theme-warm .explanation-box { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
-        body.theme-warm .badge-bg { background-color: #e0f2fe; border: 1px solid #bae6fd; color: #0284c7; }
+        body.theme-warm .explanation-box { background: #f0f9ff; color: #075985; border: 1px solid #bae6fd; }
+        body.theme-warm .badge-bg { background-color: #e0f2fe; border: 1px solid #bae6fd; color: #0369a1; }
         body.theme-warm .wrong-card { background-color: #fef2f2; border-color: #fecaca; }
 
         body.theme-light { background-color: #F1F5F9; color: #334155; }
         body.theme-light .panel { background-color: #FFFFFF; border-color: #E2E8F0; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
         body.theme-light .footer-fixed { background: rgba(241, 245, 249, 0.9); border-top: 1px solid #E2E8F0; color: #94A3B8; }
-        body.theme-light .explanation-box { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+        body.theme-light .explanation-box { background: #f0f9ff; color: #075985; border: 1px solid #bae6fd; }
         body.theme-light .badge-bg { background-color: #e0e7ff; border: 1px solid #c7d2fe; color: #4338ca; }
         body.theme-light .wrong-card { background-color: #fef2f2; border-color: #fecaca; }
 
-        /* 動態設定按鈕的樣式 (解決明亮模式看不見的問題) */
+        /* 動態設定按鈕的樣式 */
         .setting-btn-inactive { border: 2px solid transparent; border-radius: 0.75rem; padding: 0.5rem 0; font-weight: 600; text-align: center; transition: all 0.2s; }
         .setting-btn-active { border-radius: 0.75rem; padding: 0.5rem 0; text-align: center; transition: all 0.2s; border: 2px solid #3b82f6 !important; background-color: rgba(59, 130, 246, 0.15) !important; color: #2563eb !important; font-weight: 800 !important; }
         
-        body.theme-dark .setting-btn-inactive { background-color: rgba(51, 65, 85, 0.5); color: #94a3b8; }
+        body.theme-dark .setting-btn-inactive { background-color: rgba(51, 65, 85, 0.5); color: #94a3b8; border-color: #334155; }
         body.theme-dark .setting-btn-active { border-color: #60a5fa !important; background-color: rgba(59, 130, 246, 0.2) !important; color: #60a5fa !important; }
-        body.theme-light .setting-btn-inactive, body.theme-warm .setting-btn-inactive { background-color: rgba(148, 163, 184, 0.15); color: #64748b; }
+        
+        body.theme-light .setting-btn-inactive, body.theme-warm .setting-btn-inactive { background-color: #f8fafc; color: #64748b; border-color: #e2e8f0; }
 
         .footer-fixed { position: fixed; bottom: 0; left: 0; width: 100%; padding: 12px 0; text-align: center; z-index: 40; backdrop-filter: blur(8px); }
         
@@ -75,7 +76,6 @@
 </head>
 <body class="antialiased theme-dark font-normal">
 
-    <!-- 頂層自訂訊息彈窗 (取代 Alert / Confirm) -->
     <div id="custom-modal" class="hidden fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
         <div class="panel w-full max-w-sm rounded-3xl p-6 border shadow-2xl transform scale-95 transition-transform duration-300 text-center">
             <h3 id="modal-title" class="font-bold text-xl mb-3">系統提示</h3>
@@ -87,12 +87,6 @@
         </div>
     </div>
 
-    <!-- 右上角設定按鈕 (常駐，考試中也可按) -->
-    <button id="gear-btn" class="fixed top-4 right-4 z-50 panel p-3 rounded-full border shadow-lg hover:opacity-80 transition-opacity">
-        <span class="text-xl">⚙️</span>
-    </button>
-
-    <!-- 設定面板 (Modal) -->
     <div id="settings-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
         <div class="panel w-full max-w-sm rounded-3xl p-6 border shadow-2xl transform scale-95 transition-transform duration-300" id="settings-content">
             <h3 class="font-bold mb-4 text-xl flex items-center justify-between">
@@ -126,15 +120,22 @@
         
         <!-- ================= 首頁畫面 ================= -->
         <div id="start-screen" class="panel p-6 rounded-3xl border shadow-xl">
-            <div class="text-center mb-6">
-                <div class="inline-block p-4 rounded-full bg-blue-500/20 text-blue-500 text-4xl mb-3">📖</div>
-                <h1 class="text-2xl font-black tracking-wide">專業操作證學科刷題系統</h1>
+            <!-- 標題列與齒輪融合 -->
+            <div class="flex justify-between items-center mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="p-3 rounded-full bg-blue-500/20 text-blue-500 text-2xl sm:text-3xl">📖</div>
+                    <h1 class="text-xl sm:text-2xl font-black tracking-wide">專業操作證刷題系統</h1>
+                </div>
+                <!-- 首頁專屬齒輪 -->
+                <button class="gear-btn bg-slate-500/10 p-2.5 rounded-full border shadow-sm hover:bg-slate-500/20 transition-colors">
+                    <span class="text-xl leading-none block">⚙️</span>
+                </button>
             </div>
             
             <!-- 首頁：模式切換開關 (超大按鈕) -->
-            <div class="flex bg-slate-500/10 p-1 rounded-2xl mb-6 relative border dark:border-slate-700">
-                <button id="toggle-exam" class="w-1/2 py-3 rounded-xl transition-all z-10 font-bold text-[15px]">⏱️ 測驗模式</button>
-                <button id="toggle-study" class="w-1/2 py-3 rounded-xl transition-all z-10 font-bold text-[15px]">📖 看題庫</button>
+            <div class="flex bg-slate-500/10 p-1.5 rounded-2xl mb-6 relative border dark:border-slate-700 shadow-inner">
+                <button id="toggle-exam" class="w-1/2 py-3.5 rounded-xl transition-all z-10 font-bold text-[15px]">⏱️ 測驗模式</button>
+                <button id="toggle-study" class="w-1/2 py-3.5 rounded-xl transition-all z-10 font-bold text-[15px]">📖 看題庫</button>
             </div>
 
             <!-- 統計數據 -->
@@ -170,15 +171,30 @@
                 <div class="text-xs font-normal text-orange-100 mt-1">專注閱讀曾答錯的題目，突破盲點</div>
             </button>
 
-            <button id="btn-reset" class="w-full opacity-50 text-xs underline mt-6 pb-2 text-center block hover:opacity-100 transition-opacity">🔄 重置進度 (一切記錄歸零)</button>
+            <button id="btn-reset" class="w-full opacity-50 text-xs underline mt-6 pb-2 text-center block hover:opacity-100 transition-opacity">🔄 重置進度 (將一切紀錄歸零)</button>
+
+            <a href="https://www.instagram.com/chamivision/" target="_blank" rel="noopener noreferrer" class="mt-6 flex items-center justify-center gap-3 w-full p-4 rounded-2xl bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-indigo-500/10 border border-purple-500/20 hover:scale-[1.02] transition-transform shadow-sm group">
+                <div class="bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white p-2 rounded-xl group-hover:scale-110 transition-transform shadow-md">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </div>
+                <div class="text-left">
+                    <div class="text-xs font-bold text-purple-600 dark:text-purple-400">System Design & Technical Support</div>
+                    <div class="text-sm font-black text-slate-800 dark:text-slate-200 tracking-wide">Follow @ChamiVision</div>
+                </div>
+            </a>
         </div>
 
         <!-- ================= 測驗/題庫畫面 ================= -->
         <div id="quiz-screen" class="hidden panel p-6 rounded-3xl border shadow-xl mb-12">
+            <!-- 標籤列與齒輪融合 -->
             <div class="flex justify-between items-center mb-4">
-                <div id="quiz-mode-badge" class="badge-bg px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                <div id="quiz-mode-badge" class="badge-bg px-4 py-1.5 rounded-full text-sm font-bold flex items-center gap-1.5 shadow-sm">
                     標籤載入中...
                 </div>
+                <!-- 測驗專屬齒輪 -->
+                <button class="gear-btn bg-slate-500/10 p-2 rounded-full border shadow-sm hover:bg-slate-500/20 transition-colors">
+                    <span class="text-xl leading-none block">⚙️</span>
+                </button>
             </div>
             
             <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2 mb-6 overflow-hidden">
@@ -201,24 +217,24 @@
             </div>
         </div>
 
-        <!-- ================= 結算畫面 (測驗模式專用) ================= -->
+        <!-- ================= 結算畫面 ================= -->
         <div id="result-screen" class="hidden panel p-6 rounded-3xl border shadow-xl text-center mb-12">
-            <h2 class="text-2xl font-bold mb-2">本回合測驗結果</h2>
+            <h2 class="text-2xl font-bold mb-2" id="result-title">本回合測驗結果</h2>
             <div id="result-badge" class="inline-block px-4 py-1 rounded-full text-sm font-bold mb-6 border">
                 判定中...
             </div>
             
             <p class="opacity-70 mb-2">本次得分</p>
-            <div class="text-6xl font-black text-blue-500 mb-8" id="final-score">0</div>
+            <div class="text-7xl font-black text-blue-500 mb-8" id="final-score">0</div>
             
             <div class="bg-slate-500/10 rounded-xl p-4 mb-6 text-sm flex justify-around">
-                <div><span class="block opacity-60">答對</span><span id="result-correct" class="text-green-500 font-bold text-xl">0</span></div>
-                <div><span class="block opacity-60">答錯</span><span id="result-wrong" class="text-red-500 font-bold text-xl">0</span></div>
+                <div><span class="block opacity-60">答對</span><span id="result-correct" class="text-green-500 font-bold text-2xl">0</span></div>
+                <div><span class="block opacity-60">答錯</span><span id="result-wrong" class="text-red-500 font-bold text-2xl">0</span></div>
             </div>
 
             <div id="wrong-review-section" class="hidden text-left mt-8">
                 <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
-                    <span class="text-red-500">⚠️</span> 錯題解析與補強 <span class="text-xs opacity-60 font-normal">(已自動加入待加強區塊)</span>
+                    <span class="text-red-500">⚠️</span> 錯題解析與補強 <span class="text-xs opacity-60 font-normal">(已自動加入待加強)</span>
                 </h3>
                 <div id="wrong-answers-list" class="flex flex-col gap-4">
                     <!-- 錯題卡片將動態產生於此 -->
@@ -237,7 +253,7 @@
     </footer>
 
     <script>
-        // 核心 324 題題庫 (壓縮格式)
+        // 高度壓縮版的 324 題題庫 (完全內建，不需網路即可運作)
         const compressedDB = [
             "1 下列何者為於遙控無人機飛航活動期間,實際操控遙控無人機並應負飛航安全責任之人員?|(A)遙控無人機操作人。|(B)目視觀察員。|(C)觀察員。|(D)協調員。|0",
             "2 下列何者為於延伸視距飛航作業時,持有遙控無人機操作證,並於遙控無人機活動期間,提供實際操控遙控無人機之操作人必要飛航資訊之人員?|(A)遙控無人機操作人。|(B)目視觀察員。|(C)觀察員。|(D)協調員。|1",
@@ -573,7 +589,7 @@
                 question: parts[0].substring(parts[0].indexOf(' ') + 1),
                 options: [parts[1], parts[2], parts[3], parts[4]],
                 answer: ansIndex,
-                explanation: `正確解答為 ${parts[ansIndex + 1]}。`
+                explanation: `正確解答為 ${parts[ansIndex + 1]}`
             };
         });
 
@@ -587,12 +603,39 @@
         let scoreCorrect = 0;
         let scoreWrong = 0;
         let examRecords = []; 
-        let autoAdvanceTimer = null; // 防呆計時器，避免狂點
+        let autoAdvanceTimer = null; 
         
-        // 雙軌獨立記憶系統
         let quizMasteredIds = [], quizWrongIds = [];
         let studyMasteredIds = [], studyWrongIds = [];
         let studyProgressIndex = 0;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadProgress();
+            loadSettings();
+            
+            document.querySelectorAll('.gear-btn').forEach(btn => btn.onclick = toggleSettings);
+            document.getElementById('close-settings-btn').onclick = toggleSettings;
+            document.getElementById('close-settings-btn-bottom').onclick = toggleSettings;
+            
+            document.getElementById('toggle-exam').onclick = () => selectMode(false);
+            document.getElementById('toggle-study').onclick = () => selectMode(true);
+            document.getElementById('btn-start-main').onclick = () => startSession(isStudyMode ? 'normal_study' : 'normal_quiz');
+            document.getElementById('btn-intensive-quiz').onclick = () => startSession('intensive_quiz');
+            document.getElementById('btn-quick-review-study').onclick = () => startSession('review_study');
+            
+            document.getElementById('next-btn').onclick = nextQuestion;
+            document.getElementById('prev-btn').onclick = prevQuestion;
+            document.getElementById('exit-btn').onclick = exitMode;
+            document.getElementById('btn-return-home').onclick = returnToHome;
+            document.getElementById('btn-reset').onclick = resetProgress;
+            
+            ['dark', 'warm', 'light'].forEach(t => {
+                document.getElementById(`theme-${t}`).onclick = () => setTheme(t);
+            });
+            ['normal', 'large', 'xlarge'].forEach(s => {
+                document.getElementById(`font-${s}`).onclick = () => setFontSize(s);
+            });
+        });
 
         function showModal(message, isConfirm = false, onConfirm = null) {
             const modal = document.getElementById('custom-modal');
@@ -619,37 +662,6 @@
                 modal.children[0].classList.remove('scale-95');
             }, 10);
         }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            loadProgress();
-            loadSettings();
-            
-            // 綁定所有按鈕
-            document.getElementById('gear-btn').onclick = toggleSettings;
-            document.getElementById('close-settings-btn').onclick = toggleSettings;
-            document.getElementById('close-settings-btn-bottom').onclick = toggleSettings;
-            
-            document.getElementById('toggle-exam').onclick = () => selectMode(false);
-            document.getElementById('toggle-study').onclick = () => selectMode(true);
-            
-            document.getElementById('btn-start-main').onclick = () => startSession(isStudyMode ? 'normal_study' : 'normal_quiz');
-            document.getElementById('btn-intensive-quiz').onclick = () => startSession('intensive_quiz');
-            document.getElementById('btn-quick-review-study').onclick = () => startSession('review_study');
-            
-            // 綁定底部功能列
-            document.getElementById('next-btn').onclick = nextQuestion;
-            document.getElementById('prev-btn').onclick = prevQuestion;
-            document.getElementById('exit-btn').onclick = exitMode;
-            document.getElementById('btn-return-home').onclick = returnToHome;
-            document.getElementById('btn-reset').onclick = resetProgress;
-            
-            ['dark', 'warm', 'light'].forEach(t => {
-                document.getElementById(`theme-${t}`).onclick = () => setTheme(t);
-            });
-            ['normal', 'large', 'xlarge'].forEach(s => {
-                document.getElementById(`font-${s}`).onclick = () => setFontSize(s);
-            });
-        });
 
         function selectMode(isStudy) {
             if (isQuizRunning) return; 
@@ -709,8 +721,8 @@
             const intensiveBtn = document.getElementById('btn-intensive-quiz');
             const reviewBtn = document.getElementById('btn-quick-review-study');
             
-            const activeClass = "w-1/2 py-3 rounded-xl transition-all z-10 font-bold text-[15px] flex items-center justify-center gap-1 shadow-md bg-white text-blue-600 border border-black/5 dark:bg-slate-700 dark:border-slate-600 dark:text-blue-400";
-            const inactiveClass = "w-1/2 py-3 rounded-xl transition-all z-10 font-bold text-[15px] flex items-center justify-center gap-1 opacity-70 hover:opacity-100";
+            const activeClass = "w-1/2 py-3.5 rounded-xl transition-all z-10 font-bold text-[15px] flex items-center justify-center gap-1 shadow-md bg-white text-blue-600 border border-black/5 dark:bg-slate-700 dark:border-slate-600 dark:text-blue-400";
+            const inactiveClass = "w-1/2 py-3.5 rounded-xl transition-all z-10 font-bold text-[15px] flex items-center justify-center gap-1 opacity-70 hover:opacity-100";
 
             if (isStudyMode) {
                 toggleStudy.className = activeClass;
@@ -718,7 +730,7 @@
                 
                 btnMain.innerHTML = `
                     <div class="text-lg flex items-center gap-2">📖 進入看題庫模式 (共 324 題)</div>
-                    <div class="text-xs font-normal text-blue-200 mt-1">循序漸進，自動記憶閱讀進度</div>
+                    <div class="text-xs font-normal text-blue-200 mt-1.5">循序漸進閱讀，系統自動記憶進度</div>
                 `;
                 
                 intensiveBtn.classList.add('hidden');
@@ -733,7 +745,7 @@
                 
                 btnMain.innerHTML = `
                     <div class="text-lg flex items-center gap-2">⏱️ 開始智慧測驗 (共 50 題)</div>
-                    <div class="text-xs font-normal text-blue-200 mt-1">隨機 50 題，優先複習「待加強」補齊「未作答」</div>
+                    <div class="text-xs font-normal text-blue-200 mt-1.5">隨機 50 題，優先複習「待加強」並補齊「未作答」</div>
                 `;
                 
                 reviewBtn.classList.add('hidden');
@@ -847,7 +859,7 @@
             document.getElementById('next-btn').classList.add('hidden');
             document.getElementById('explanation-container').classList.add('hidden');
             
-            // 動態控制上一題按鈕的顯示/隱藏 (看題庫模式不顯示上一題)
+            // 只有「測驗模式 (不包含 study)」且「不是第一題」時，才顯示上一題按鈕
             if (currentQuizIndex > 0 && !currentSessionType.includes('study')) {
                 document.getElementById('prev-btn').classList.remove('hidden');
             } else {
@@ -923,21 +935,29 @@
             
             if (currentQuizIndex <= 0) return; 
             
-            // 拔除上一題的分數與紀錄 (讓玩家重新作答覆蓋)
+            // 測驗模式退回：抹除上一題的計分與紀錄，避免重複計算
             if (!currentSessionType.includes('study') && examRecords.length > 0) {
                 const lastRecord = examRecords.pop();
+                if (lastRecord.isCorrect) scoreCorrect--;
+                else scoreWrong--;
+                
+                const qId = lastRecord.qData.id;
                 if (lastRecord.isCorrect) {
-                    scoreCorrect--;
+                    const idx = quizMasteredIds.indexOf(qId);
+                    if(idx !== -1) quizMasteredIds.splice(idx, 1);
                 } else {
-                    scoreWrong--;
+                    const idx = quizWrongIds.indexOf(qId);
+                    if(idx !== -1) quizWrongIds.splice(idx, 1);
                 }
+                localStorage.setItem('drone_quiz_mastered', JSON.stringify(quizMasteredIds));
+                localStorage.setItem('drone_quiz_wrong', JSON.stringify(quizWrongIds));
             }
             
             document.getElementById('options-container').removeAttribute('disabled');
             currentQuizIndex--;
             renderQuestion();
         }
-        
+
         function exitMode() {
             if (currentSessionType.includes('study')) {
                 showModal("已為您儲存目前的閱讀進度，隨時可以回來接續觀看！", false, () => {
@@ -947,9 +967,18 @@
                     updateDashboard();
                 });
             } else {
-                showModal("確定要提早交卷嗎？系統將以您目前已作答的題數來計算最終成績。", true, () => {
-                    finishSession();
-                });
+                if (examRecords.length === 0) {
+                    showModal("您還沒有作答任何題目，確定要離開嗎？", true, () => {
+                        isQuizRunning = false;
+                        document.getElementById('quiz-screen').classList.add('hidden');
+                        document.getElementById('start-screen').classList.remove('hidden');
+                        updateDashboard();
+                    });
+                } else {
+                    showModal(`確定要提早交卷嗎？系統將以您目前已作答的 ${examRecords.length} 題來計算最終成績。`, true, () => {
+                        finishSession();
+                    });
+                }
             }
         }
 
@@ -979,7 +1008,7 @@
             document.getElementById('result-screen').classList.remove('hidden');
             
             // 動態比例計分法 (依照實際作答題數)
-            let attemptedCount = currentQuizIndex; 
+            let attemptedCount = examRecords.length; 
             let finalScore = 0;
             
             if (attemptedCount > 0) {
@@ -998,7 +1027,7 @@
             
             if(finalScore === 100 && attemptedCount > 0) {
                 badge.innerText = '✅ 滿分過關，實力堅強！';
-                badge.className = 'inline-block px-4 py-1 rounded-full text-sm font-bold mb-6 border border-green-500 bg-green-500/10 text-green-500';
+                badge.className = 'inline-block px-4 py-1.5 rounded-full text-sm font-bold mb-6 border border-green-500 bg-green-500/10 text-green-500 shadow-sm';
                 wrongSection.classList.add('hidden');
                 
                 if(window.confetti) {
@@ -1007,27 +1036,27 @@
                 }
             } else if (finalScore >= 80) {
                 badge.innerText = '✅ 及格，錯題已為您鎖定至「待加強」區塊。';
-                badge.className = 'inline-block px-4 py-1 rounded-full text-sm font-bold mb-6 border border-blue-500 bg-blue-500/10 text-blue-500';
+                badge.className = 'inline-block px-4 py-1.5 rounded-full text-sm font-bold mb-6 border border-blue-500 bg-blue-500/10 text-blue-500 shadow-sm';
                 wrongSection.classList.remove('hidden');
             } else {
                 badge.innerText = '❌ 不及格，錯題已為您鎖定至「待加強」區塊。';
-                badge.className = 'inline-block px-4 py-1 rounded-full text-sm font-bold mb-6 border border-red-500 bg-red-500/10 text-red-500';
+                badge.className = 'inline-block px-4 py-1.5 rounded-full text-sm font-bold mb-6 border border-red-500 bg-red-500/10 text-red-500 shadow-sm';
                 wrongSection.classList.remove('hidden');
             }
 
-            if(finalScore < 100) {
+            if(finalScore < 100 && attemptedCount > 0) {
                 examRecords.forEach((record, index) => {
                     if(!record.isCorrect) {
                         const card = document.createElement('div');
-                        card.className = 'p-4 rounded-xl border wrong-card shadow-sm text-left';
+                        card.className = 'p-5 rounded-xl border wrong-card shadow-sm text-left';
                         card.innerHTML = `
-                            <div class="font-bold text-lg mb-3 flex items-start gap-2">
+                            <div class="font-bold text-[17px] mb-4 flex items-start gap-2 leading-relaxed">
                                 <span class="text-red-500 shrink-0 mt-0.5">✖</span>
                                 <span>第 ${index + 1} 題：${record.qData.question}</span>
                             </div>
-                            <div class="text-sm mb-2 text-red-500 font-bold pl-6">您的答案：${record.qData.options[record.userAnsIndex]}</div>
-                            <div class="text-sm mb-4 text-green-600 font-bold pl-6">正確答案：${record.qData.options[record.qData.answer]}</div>
-                            <div class="p-3 rounded-lg explanation-box text-sm leading-relaxed mt-2">
+                            <div class="text-[15px] mb-2 text-red-500 font-bold pl-6">您的答案：${record.qData.options[record.userAnsIndex]}</div>
+                            <div class="text-[15px] mb-5 text-green-600 font-bold pl-6">正確答案：${record.qData.options[record.qData.answer]}</div>
+                            <div class="p-4 rounded-lg explanation-box text-[15px] leading-relaxed mt-2 shadow-inner">
                                 💡 ${record.qData.explanation}
                             </div>
                         `;
