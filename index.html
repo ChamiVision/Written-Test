@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#0F172A">
     <title>遙控無人機學科測驗系統 (終極完整版)</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -101,7 +102,7 @@
 
             <!-- 測驗模式切換 -->
             <div class="mb-8">
-                <label class="block text-sm font-medium text-slate-400 mb-3">測驗模式設定</label>
+                <label class="block text-sm font-medium text-slate-400 mb-3">測驗模式設定 <span id="mode-warning" class="hidden text-xs text-red-400 ml-1">(測驗進行中無法切換)</span></label>
                 <div class="grid grid-cols-2 gap-3">
                     <button onclick="setMode('exam')" id="btn-mode-exam" class="py-3 rounded-xl border border-slate-600 bg-slate-700 text-white text-sm font-bold flex flex-col items-center transition-all">
                         <span class="text-xl mb-1">⏱️</span>
@@ -1003,6 +1004,29 @@
             document.getElementById('btn-size-'+currentSize).classList.add('ring-4', 'ring-blue-500/50', 'border-blue-400');
             document.getElementById('btn-theme-'+currentTheme).classList.add('ring-4', 'ring-blue-500/50', 'border-blue-400');
             document.getElementById('btn-mode-'+ (isPracticeMode ? 'practice' : 'exam')).classList.add('ring-4', 'ring-blue-500/50', 'border-blue-400');
+
+            // 💡 新增防呆機制：測驗進行中禁止切換模式，避免計時器與邏輯衝突
+            const isQuizActive = !document.getElementById('quiz-screen').classList.contains('hidden');
+            const btnModeExam = document.getElementById('btn-mode-exam');
+            const btnModePractice = document.getElementById('btn-mode-practice');
+            const modeWarning = document.getElementById('mode-warning');
+            
+            if (isQuizActive) {
+                btnModeExam.disabled = true;
+                btnModePractice.disabled = true;
+                btnModeExam.classList.add('opacity-40', 'cursor-not-allowed');
+                btnModePractice.classList.add('opacity-40', 'cursor-not-allowed');
+                if(modeWarning) modeWarning.classList.remove('hidden');
+            } else {
+                btnModeExam.disabled = false;
+                btnModePractice.disabled = false;
+                btnModeExam.classList.remove('opacity-40', 'cursor-not-allowed');
+                btnModePractice.classList.remove('opacity-40', 'cursor-not-allowed');
+                if(modeWarning) modeWarning.classList.add('hidden');
+            }
+            
+            // 確保設定變更後，首頁的按鈕文案能即時更新
+            updateDashboard();
         }
 
         function saveSettings() {
@@ -1128,7 +1152,14 @@
             } else {
                 hasCelebrated = false; // 被重置時恢復可播放狀態
                 btnSmart.className = "w-full bg-blue-600 hover:bg-blue-700 transition-colors text-white py-4 sm:py-5 rounded-2xl font-bold text-lg sm:text-xl shadow-lg shadow-blue-500/20 flex flex-col items-center justify-center transform hover:scale-[1.02]";
-                btnSmart.innerHTML = `<span>🧠 開始智慧配題 (共 50 題)</span><span class="text-xs sm:text-sm font-normal text-blue-200 mt-1">優先複習「待加強」並補齊「未作答」新題</span>`;
+                
+                // 動態判斷當前模式圖示與文案
+                const modeIcon = isPracticeMode ? '🧠' : '⏱️';
+                const modeTitle = isPracticeMode ? '開始智慧練習' : '開始智慧測驗';
+                const modeSub = isPracticeMode ? '即時解析，' : '限時挑戰，';
+                
+                btnSmart.innerHTML = `<span>${modeIcon} ${modeTitle} (共 50 題)</span><span class="text-xs sm:text-sm font-normal text-blue-200 mt-1">${modeSub}優先複習「待加強」並補齊「未作答」</span>`;
+                
                 btnSmart.onclick = () => startQuiz('smart');
             }
         }
@@ -1194,7 +1225,11 @@
                 
                 isTransitioning = false;
                 
-                if (!isPracticeMode) startTimer(timeLeft);
+                if (!isPracticeMode) {
+                    startTimer(timeLeft);
+                } else {
+                    document.getElementById('timer-text').classList.add('hidden');
+                }
                 render();
             } catch (e) {
                 alert("讀取存檔失敗，請重新開始測驗。");
@@ -1297,7 +1332,8 @@
             if(!currentQuiz || currentQuiz.length === 0) return;
             if(cur >= currentQuiz.length) { finish(); return; }
 
-            document.getElementById('progress-text').innerText = `第 ${cur + 1} 題 / 共 ${currentQuiz.length} 題`;
+            const modeLabel = isPracticeMode ? '🧠 練習' : '⏱️ 測驗';
+            document.getElementById('progress-text').innerText = `${modeLabel}：第 ${cur + 1} 題 / 共 ${currentQuiz.length} 題`;
             document.getElementById('progress-bar').style.width = `${((cur + 1) / currentQuiz.length) * 100}%`;
             document.getElementById('question-text').innerText = `${cur + 1}. ${currentQuiz[cur].q}`;
 
@@ -1498,6 +1534,9 @@
                         <p class="text-2xl mb-2 text-green-300">🏆 滿分全對！</p>
                         <p class="font-normal text-green-400/80">這 ${currentQuiz.length} 題已完全答對並更新為「✅ 已精通」狀態！</p>
                     </div>`;
+                
+                // 單次回合滿分專屬小彩帶
+                try { confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, zIndex: 100 }); } catch(e) {}
             } else {
                 reviewTitle.classList.remove('hidden');
                 reviewContainer.innerHTML = reviewHtml;
