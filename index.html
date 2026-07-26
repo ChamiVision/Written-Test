@@ -213,15 +213,15 @@
             <div id="options-container" class="flex flex-col gap-3"></div>
 
             <div id="explanation-container" class="hidden mt-6 p-4 rounded-xl explanation-box text-sm leading-relaxed shadow-inner">
-                <div class="font-bold mb-1 flex items-center gap-1 text-[15px]">💡 解題說明：</div>
+                <div class="font-bold mb-1 flex items-center gap-1 text-[15px]">💡 正確解答：</div>
                 <div id="explanation-text" class="text-[15px]">這裡顯示解析...</div>
             </div>
 
             <!-- 底部按鈕區 -->
             <div class="flex gap-2 mt-6">
-                <button id="exit-btn" class="flex-1 bg-slate-500/20 text-current py-4 rounded-xl font-bold hover:bg-slate-500/30 transition-colors text-sm sm:text-base shadow-sm">離開</button>
-                <button id="prev-btn" class="hidden flex-1 bg-slate-500/20 text-current py-4 rounded-xl font-bold hover:bg-slate-500/30 transition-colors text-sm sm:text-base shadow-sm">← 上一題</button>
-                <button id="next-btn" class="hidden flex-[2] bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-500 transition-colors shadow-md text-sm sm:text-base">下一題 →</button>
+                <button id="exit-btn" class="flex-[2] bg-slate-500/20 text-current py-4 rounded-xl font-bold hover:bg-slate-500/30 transition-colors text-sm sm:text-base shadow-sm">離開</button>
+                <button id="prev-btn" class="hidden flex-[2] bg-slate-500/20 text-current py-4 rounded-xl font-bold hover:bg-slate-500/30 transition-colors text-sm sm:text-base shadow-sm">← 上一題</button>
+                <button id="next-btn" class="hidden flex-[3] bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-500 transition-colors shadow-md text-sm sm:text-base">下一題 →</button>
             </div>
         </div>
 
@@ -586,7 +586,7 @@
             "320 小華想要進口一些遙控無人機到網路上販售,請問下列敘述何者為有誤?|(A)小華應主動向民航局申請辦理產品資訊登錄。|(B)小華是進口者。|(C)小華不得擅自進口製造商未向民航局完成登錄之遙控無人機。|(D)小華應於販售頁面明顯處標示遙控無人機註冊、操作注意事項及活動空域圖資等資訊。|2",
             "321 小華欲報考專業高級Ib操作證術科考試,請問下列敘述何者為正確?|(A)小華應領有遙控無人機普通操作證1個月以上之經歷。|(B)小華應領有專業高級la(無註記重量限制)操作證1個月以上之經歷。|(C)小華不須通過專業操作證學科測驗。|(D)小華應領有專業高級Ia(無註記重量限制)操作證3個月以上之經歷。|1",
             "322 小華持有學習操作證,並向持有普通操作證的小黃學習,請問下列敘述何者為錯誤?|(A)小華應已年滿14歲。|(B)小黃具有對小華進行最大起飛重量未達十五公斤之遙控無人機教學資格。|(C)小黃未通過專業操作證術科測驗,不具任何教學資格。|(D)教學過程須遵守操作限制規定。|2",
-            "323 小華是一名持有專業操作證(G3)的警員,因為公務需要,長官請他使用遙控無人機值勤,請問下列敘述何者錯誤?|(A)小華值勤的機關須通過民航局能力審查後始得從事遙控無人機活動。|(B)小華執ர்ப்பு的機關,其活動申請同意文件以半年為限。|(C)經民航局活動申請許可,小華得以於集會遊行上空進行拍攝偵查。|(D)小華未持有專業操作證(G1)證照,日落後即不得操作遙控無人機。|1",
+            "323 小華是一名持有專業操作證(G3)的警員,因為公務需要,長官請他使用遙控無人機值勤,請問下列敘述何者錯誤?|(A)小華值勤的機關須通過民航局能力審查後始得從事遙控無人機活動。|(B)小華執勤的機關,其活動申請同意文件以半年為限。|(C)經民航局活動申請許可,小華得以於集會遊行上空進行拍攝偵查。|(D)小華未持有專業操作證(G1)證照,日落後即不得操作遙控無人機。|1",
             "324 小黃已申請並經許可於桃園機場禁止無人機活動範圍內從事飛航活動,該申請人於執行飛航作業時之應注意事項,請問下列敘述何者正確?|(A)小黃僅須通過民航局能力審查後即可從事遙控無人機活動。|(B)小黃若未取得飛航公告(NOTAM)或未與桃園機場航務組進行協調聯繫,仍視同程序已完備,可依活動許可時間及範圍直接升空作業。|(C)經民航局活動申請許可,小黃即可於桃園機場附近進行空拍作業。|(D)小黃應依「活動同意文件」規定辦理空域協調事宜,作業前後若未與桃園機場航務組進行空域協調聯繫者,視同程序未完成,將依遙控無人機管理規則查處。|3"
         ];
 
@@ -598,7 +598,8 @@
                 question: parts[0].substring(parts[0].indexOf(' ') + 1),
                 options: [parts[1], parts[2], parts[3], parts[4]],
                 answer: ansIndex,
-                explanation: `正確解答為 ${parts[ansIndex + 1]}`
+                // 直接將正確選項字串作為解析內容
+                explanation: parts[ansIndex + 1]
             };
         });
 
@@ -623,7 +624,7 @@
             loadProgress();
             loadSettings();
             
-            // 綁定畫面上所有的齒輪按鈕 (包含首頁與測驗中)
+            // 綁定畫面上所有的齒輪按鈕
             document.querySelectorAll('.gear-btn').forEach(btn => btn.onclick = toggleSettings);
             document.getElementById('close-settings-btn').onclick = toggleSettings;
             document.getElementById('close-settings-btn-bottom').onclick = toggleSettings;
@@ -632,8 +633,11 @@
             document.getElementById('toggle-study').onclick = () => selectMode(true);
             
             document.getElementById('btn-start-main').onclick = () => {
-                if (!isStudyMode && quizMasteredIds.length >= totalQuestions) resetProgress();
-                else startSession(isStudyMode ? 'normal_study' : 'normal_quiz');
+                if (!isStudyMode && quizMasteredIds.length >= totalQuestions) {
+                    resetProgress();
+                } else {
+                    startSession(isStudyMode ? 'normal_study' : 'normal_quiz');
+                }
             };
             document.getElementById('btn-intensive-quiz').onclick = () => startSession('intensive_quiz');
             document.getElementById('btn-quick-review-study').onclick = () => startSession('review_study');
@@ -773,6 +777,7 @@
                 toggleExam.className = activeClass;
                 toggleStudy.className = inactiveClass;
                 
+                // 滿分金黃色重置機制
                 if (quizMasteredIds.length >= totalQuestions) {
                     btnMain.className = btnBaseClass + "bg-yellow-500 hover:bg-yellow-400 shadow-yellow-500/40 shadow-xl scale-[1.02]";
                     btnMain.innerHTML = `
@@ -784,8 +789,8 @@
                     if (unseenCount > 0) {
                         btnMain.className = btnBaseClass + "bg-blue-600 hover:bg-blue-500";
                         btnMain.innerHTML = `
-                            <div class="text-lg flex items-center gap-2">⏱️ 開始智慧測驗 (探索新題)</div>
-                            <div class="text-xs font-normal text-blue-200 mt-1.5">隨機抽出 50 題未作答題目，確保每題都測驗到</div>
+                            <div class="text-lg flex items-center gap-2">⏱️ 開始智慧測驗 (共 50 題)</div>
+                            <div class="text-xs font-normal text-blue-200 mt-1.5">隨機 50 題，優先複習「待加強」並補齊「未作答」</div>
                         `;
                     } else {
                         btnMain.className = btnBaseClass + "bg-purple-600 hover:bg-purple-500";
@@ -795,7 +800,7 @@
                         `;
                     }
                     
-                    if (quizWrongIds.length > 0 && unseenCount > 0) {
+                    if (quizWrongIds.length > 0) {
                         intensiveBtn.classList.remove('hidden');
                         document.getElementById('intensive-count').innerText = quizWrongIds.length;
                     } else {
@@ -826,6 +831,7 @@
                 quizQueue = [...currentWrong];
                 shuffle(quizQueue);
             } else if (type === 'normal_quiz') {
+                // 測驗模式：只從未作答的新題中抽題 (絕對不重複)
                 let unseenPool = [];
                 for(let i=0; i<totalQuestions; i++) {
                     if(!currentWrong.includes(i) && !currentMastered.includes(i)) {
@@ -837,6 +843,7 @@
                     shuffle(unseenPool);
                     quizQueue = unseenPool.slice(0, 50);
                 } else {
+                    // 如果沒有未作答的新題了，才從錯題裡面抽出來考
                     let wrongPool = [...currentWrong];
                     shuffle(wrongPool);
                     quizQueue = wrongPool.slice(0, 50);
@@ -1097,7 +1104,7 @@
                             <div class="text-[15px] mb-2 text-red-500 font-bold pl-6">您的答案：${record.qData.options[record.userAnsIndex]}</div>
                             <div class="text-[15px] mb-5 text-green-600 font-bold pl-6">正確答案：${record.qData.options[record.qData.answer]}</div>
                             <div class="p-4 rounded-lg explanation-box text-[15px] leading-relaxed mt-2 shadow-inner">
-                                💡 ${record.qData.explanation}
+                                <span class="font-bold">💡 正確解答：</span><br>${record.qData.explanation}
                             </div>
                         `;
                         wrongList.appendChild(card);
