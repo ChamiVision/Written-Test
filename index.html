@@ -586,7 +586,7 @@
             "320 小華想要進口一些遙控無人機到網路上販售,請問下列敘述何者為有誤?|(A)小華應主動向民航局申請辦理產品資訊登錄。|(B)小華是進口者。|(C)小華不得擅自進口製造商未向民航局完成登錄之遙控無人機。|(D)小華應於販售頁面明顯處標示遙控無人機註冊、操作注意事項及活動空域圖資等資訊。|2",
             "321 小華欲報考專業高級Ib操作證術科考試,請問下列敘述何者為正確?|(A)小華應領有遙控無人機普通操作證1個月以上之經歷。|(B)小華應領有專業高級la(無註記重量限制)操作證1個月以上之經歷。|(C)小華不須通過專業操作證學科測驗。|(D)小華應領有專業高級Ia(無註記重量限制)操作證3個月以上之經歷。|1",
             "322 小華持有學習操作證,並向持有普通操作證的小黃學習,請問下列敘述何者為錯誤?|(A)小華應已年滿14歲。|(B)小黃具有對小華進行最大起飛重量未達十五公斤之遙控無人機教學資格。|(C)小黃未通過專業操作證術科測驗,不具任何教學資格。|(D)教學過程須遵守操作限制規定。|2",
-            "323 小華是一名持有專業操作證(G3)的警員,因為公務需要,長官請他使用遙控無人機值勤,請問下列敘述何者錯誤?|(A)小華值勤的機關須通過民航局能力審查後始得從事遙控無人機活動。|(B)小華執勤的機關,其活動申請同意文件以半年為限。|(C)經民航局活動申請許可,小華得以於集會遊行上空進行拍攝偵查。|(D)小華未持有專業操作證(G1)證照,日落後即不得操作遙控無人機。|1",
+            "323 小華是一名持有專業操作證(G3)的警員,因為公務需要,長官請他使用遙控無人機值勤,請問下列敘述何者錯誤?|(A)小華值勤的機關須通過民航局能力審查後始得從事遙控無人機活動。|(B)小華執ர்ப்பு的機關,其活動申請同意文件以半年為限。|(C)經民航局活動申請許可,小華得以於集會遊行上空進行拍攝偵查。|(D)小華未持有專業操作證(G1)證照,日落後即不得操作遙控無人機。|1",
             "324 小黃已申請並經許可於桃園機場禁止無人機活動範圍內從事飛航活動,該申請人於執行飛航作業時之應注意事項,請問下列敘述何者正確?|(A)小黃僅須通過民航局能力審查後即可從事遙控無人機活動。|(B)小黃若未取得飛航公告(NOTAM)或未與桃園機場航務組進行協調聯繫,仍視同程序已完備,可依活動許可時間及範圍直接升空作業。|(C)經民航局活動申請許可,小黃即可於桃園機場附近進行空拍作業。|(D)小黃應依「活動同意文件」規定辦理空域協調事宜,作業前後若未與桃園機場航務組進行空域協調聯繫者,視同程序未完成,將依遙控無人機管理規則查處。|3"
         ];
 
@@ -631,7 +631,10 @@
             document.getElementById('toggle-exam').onclick = () => selectMode(false);
             document.getElementById('toggle-study').onclick = () => selectMode(true);
             
-            document.getElementById('btn-start-main').onclick = () => startSession(isStudyMode ? 'normal_study' : 'normal_quiz');
+            document.getElementById('btn-start-main').onclick = () => {
+                if (!isStudyMode && quizMasteredIds.length >= totalQuestions) resetProgress();
+                else startSession(isStudyMode ? 'normal_study' : 'normal_quiz');
+            };
             document.getElementById('btn-intensive-quiz').onclick = () => startSession('intensive_quiz');
             document.getElementById('btn-quick-review-study').onclick = () => startSession('review_study');
             
@@ -645,7 +648,7 @@
             document.getElementById('ig-link-btn').onclick = function(e) {
                 if (window.self !== window.top) {
                     e.preventDefault();
-                    showModal('📢 這是您的 IG 廣告連結！\n\n(附註：因為目前在開發預覽模式中，直接點擊會被 Instagram 的安全機制阻擋。等您將檔案存到電腦或手機上開啟時，就能正常跳轉囉！)', false);
+                    showModal('📢 這是您的 IG 廣告連結！\n\n(附註：因為目前在開發預覽模式中，直接點擊會被阻擋。等您將檔案存到電腦或手機上開啟時，就能正常跳轉囉！)', false);
                 }
             };
             
@@ -657,7 +660,6 @@
             });
         });
 
-        // 彈出視窗模組
         function showModal(message, isConfirm = false, onConfirm = null) {
             const modal = document.getElementById('custom-modal');
             document.getElementById('modal-message').innerText = message;
@@ -737,7 +739,8 @@
 
             document.getElementById('stat-mastered').innerText = currentMastered.length;
             document.getElementById('stat-wrong').innerText = currentWrong.length;
-            document.getElementById('stat-unseen').innerText = Math.max(0, totalQuestions - currentMastered.length - currentWrong.length);
+            let unseenCount = Math.max(0, totalQuestions - currentMastered.length - currentWrong.length);
+            document.getElementById('stat-unseen').innerText = unseenCount;
             document.getElementById('label-unseen').innerText = isStudyMode ? '📦 未觀看' : '📦 未作答';
 
             const toggleExam = document.getElementById('toggle-exam');
@@ -776,19 +779,30 @@
                         <div class="text-[22px] flex items-center gap-2 drop-shadow-md tracking-wide">🏆 您已精通全部 324 題！</div>
                         <div class="text-[14px] font-bold text-yellow-50 mt-1.5 drop-shadow-sm">點此重置進度並重新開始</div>
                     `;
+                    intensiveBtn.classList.add('hidden');
                 } else {
-                    btnMain.className = btnBaseClass + "bg-blue-600 hover:bg-blue-500";
-                    btnMain.innerHTML = `
-                        <div class="text-lg flex items-center gap-2">⏱️ 開始智慧測驗 (共 50 題)</div>
-                        <div class="text-xs font-normal text-blue-200 mt-1.5">隨機 50 題，優先複習「待加強」並補齊「未作答」</div>
-                    `;
+                    if (unseenCount > 0) {
+                        btnMain.className = btnBaseClass + "bg-blue-600 hover:bg-blue-500";
+                        btnMain.innerHTML = `
+                            <div class="text-lg flex items-center gap-2">⏱️ 開始智慧測驗 (探索新題)</div>
+                            <div class="text-xs font-normal text-blue-200 mt-1.5">隨機抽出 50 題未作答題目，確保每題都測驗到</div>
+                        `;
+                    } else {
+                        btnMain.className = btnBaseClass + "bg-purple-600 hover:bg-purple-500";
+                        btnMain.innerHTML = `
+                            <div class="text-lg flex items-center gap-2">🔥 終極衝刺 (清空待加強)</div>
+                            <div class="text-xs font-normal text-purple-200 mt-1.5">所有新題皆已測驗完畢，全力消滅剩下的錯題吧！</div>
+                        `;
+                    }
+                    
+                    if (quizWrongIds.length > 0 && unseenCount > 0) {
+                        intensiveBtn.classList.remove('hidden');
+                        document.getElementById('intensive-count').innerText = quizWrongIds.length;
+                    } else {
+                        intensiveBtn.classList.add('hidden');
+                    }
                 }
-                
                 reviewBtn.classList.add('hidden');
-                if (quizWrongIds.length > 0) {
-                    intensiveBtn.classList.remove('hidden');
-                    document.getElementById('intensive-count').innerText = quizWrongIds.length;
-                } else intensiveBtn.classList.add('hidden');
             }
         }
 
@@ -811,26 +825,22 @@
             } else if (type === 'intensive_quiz') {
                 quizQueue = [...currentWrong];
                 shuffle(quizQueue);
-            } else { 
-                let wrongPool = [...currentWrong].filter(id => id < totalQuestions);
-                shuffle(wrongPool);
-                quizQueue = quizQueue.concat(wrongPool);
-                
+            } else if (type === 'normal_quiz') {
                 let unseenPool = [];
                 for(let i=0; i<totalQuestions; i++) {
-                    if(!currentWrong.includes(i) && !currentMastered.includes(i)) unseenPool.push(i);
+                    if(!currentWrong.includes(i) && !currentMastered.includes(i)) {
+                        unseenPool.push(i);
+                    }
                 }
-                shuffle(unseenPool);
-                quizQueue = quizQueue.concat(unseenPool);
-                
-                if (quizQueue.length < 50) {
-                    let masteredPool = [...currentMastered].filter(id => id < totalQuestions);
-                    shuffle(masteredPool);
-                    quizQueue = quizQueue.concat(masteredPool);
+
+                if (unseenPool.length > 0) {
+                    shuffle(unseenPool);
+                    quizQueue = unseenPool.slice(0, 50);
+                } else {
+                    let wrongPool = [...currentWrong];
+                    shuffle(wrongPool);
+                    quizQueue = wrongPool.slice(0, 50);
                 }
-                
-                quizQueue = quizQueue.slice(0, 50);
-                shuffle(quizQueue);
             }
         }
 
@@ -884,8 +894,8 @@
                 badge.innerHTML = `📝 易錯大補帖：第 ${currentQuizIndex + 1} 題 / 共 ${quizQueue.length} 題`;
                 document.getElementById('progress-bar').style.width = `${((currentQuizIndex) / quizQueue.length) * 100}%`;
             } else {
-                badge.innerHTML = `⏱️ 測驗：第 ${currentQuizIndex + 1} 題 / 共 50 題`;
-                document.getElementById('progress-bar').style.width = `${((currentQuizIndex) / 50) * 100}%`;
+                badge.innerHTML = `⏱️ 測驗：第 ${currentQuizIndex + 1} 題 / 共 ${quizQueue.length} 題`;
+                document.getElementById('progress-bar').style.width = `${((currentQuizIndex) / quizQueue.length) * 100}%`;
             }
             
             const container = document.getElementById('options-container');
@@ -893,7 +903,7 @@
             document.getElementById('next-btn').classList.add('hidden');
             document.getElementById('explanation-container').classList.add('hidden');
             
-            // 只有「非看題庫模式」且「不是第一題」時，才顯示上一題按鈕
+            // 只有「測驗模式」且「不是第一題」時，才顯示上一題按鈕防呆
             if (currentQuizIndex > 0 && !currentSessionType.includes('study')) {
                 document.getElementById('prev-btn').classList.remove('hidden');
             } else {
@@ -966,7 +976,6 @@
             
             if (currentQuizIndex <= 0) return; 
             
-            // 測驗模式退回：抹除上一題的計分與紀錄，避免重複計算
             if (!currentSessionType.includes('study') && examRecords.length > 0) {
                 const lastRecord = examRecords.pop();
                 if (lastRecord.isCorrect) scoreCorrect--;
@@ -1120,7 +1129,7 @@
                     localStorage.setItem('drone_quiz_wrong', '[]');
                 }
                 updateDashboard();
-                showModal("進度已為您重新重置。", false);
+                showModal("進度已為您重置完成，可展開全新挑戰！", false);
             });
         }
 
