@@ -44,8 +44,8 @@
         body.theme-dark .setting-btn-active { border-color: #60a5fa !important; background-color: rgba(59, 130, 246, 0.2) !important; color: #60a5fa !important; }
         body.theme-light .setting-btn-inactive, body.theme-warm .setting-btn-inactive { border-color: #cbd5e1; background-color: #f8fafc; color: #64748b; }
 
-        /* 選項按鈕樣式 */
-        .option-btn { width: 100%; text-align: left; border: 2px solid #334155; border-radius: 12px; margin-bottom: 12px; transition: all 0.2s; background: transparent; color: inherit; }
+        /* 選項按鈕樣式 - 移除雙重間距，調整 padding 達到緊湊滿版效果 */
+        .option-btn { width: 100%; text-align: left; border: 2px solid #334155; border-radius: 12px; transition: all 0.2s; background: transparent; color: inherit; }
         body.theme-warm .option-btn, body.theme-light .option-btn { border-color: #cbd5e1; }
         
         /* 解決手機上的 Sticky Hover 殘留亮框問題：只在支援 hover 的設備啟用 */
@@ -63,13 +63,13 @@
         .option-btn-selected { border-color: #3b82f6 !important; background-color: rgba(59, 130, 246, 0.15) !important; color: #2563eb !important; }
         body.theme-dark .option-btn-selected { color: #60a5fa !important; background-color: rgba(59, 130, 246, 0.2) !important; }
 
-        /* 字體大小控制 */
+        /* 字體大小控制 (優化 Padding 使版面更緊湊) */
         body.font-normal .question-text { font-size: 1.25rem; }
         body.font-large .question-text { font-size: 1.5rem; }
         body.font-xlarge .question-text { font-size: 1.75rem; }
-        body.font-normal .option-text { font-size: 1rem; padding: 1rem; }
-        body.font-large .option-text { font-size: 1.125rem; padding: 1.25rem; }
-        body.font-xlarge .option-text { font-size: 1.25rem; padding: 1.5rem; }
+        body.font-normal .option-text { font-size: 1rem; padding: 0.75rem 1rem; }
+        body.font-large .option-text { font-size: 1.125rem; padding: 0.85rem 1.25rem; }
+        body.font-xlarge .option-text { font-size: 1.25rem; padding: 1rem 1.5rem; }
 
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -120,12 +120,12 @@
         </div>
     </div>
 
-    <div id="app" class="max-w-2xl mx-auto p-4 relative z-10 min-h-screen flex flex-col">
+    <div id="app" class="max-w-2xl mx-auto relative z-10 min-h-screen flex flex-col">
         
         <!-- 首頁畫面 -->
-        <div id="start-screen" class="panel p-6 rounded-3xl border shadow-xl flex-grow flex flex-col justify-center">
+        <div id="start-screen" class="panel rounded-none sm:rounded-3xl border-0 sm:border shadow-xl flex-grow flex flex-col p-6 sm:p-8">
             
-            <div class="flex justify-between items-center mb-6">
+            <div class="flex justify-between items-center mb-6 mt-2">
                 <div class="flex items-center gap-3">
                     <div class="p-3 rounded-full bg-blue-500/20 text-blue-500 text-2xl sm:text-3xl">📖</div>
                     <h1 class="text-[19px] sm:text-2xl font-black tracking-wide">專業操作證刷題系統</h1>
@@ -160,20 +160,22 @@
                 <!-- 文案由 JS 動態注入 -->
             </button>
             
+            <!-- 歷史易錯題大補帖 -->
             <button id="btn-intensive-quiz" class="hidden w-full bg-purple-600 hover:bg-purple-500 text-white py-4 rounded-2xl font-bold shadow-lg transition-all flex flex-col items-center justify-center cursor-pointer mt-4">
                 <div class="text-[17px] flex items-center gap-2">📝 歷史易錯題大補帖 (共 <span id="intensive-count">0</span> 題)</div>
                 <div class="text-[13px] font-normal text-purple-200 mt-1.5">針對您曾經錯過的題目進行重點考前衝刺</div>
             </button>
 
+            <!-- 待加強快速複習 -->
             <button id="btn-quick-review-study" class="hidden w-full bg-orange-500 hover:bg-orange-400 text-white py-4 rounded-2xl font-bold shadow-lg transition-all flex flex-col items-center justify-center cursor-pointer mt-4">
                 <div class="text-[17px] flex items-center gap-2">🔥 待加強快速複習 (共 <span id="review-count">0</span> 題)</div>
                 <div class="text-[13px] font-normal text-orange-100 mt-1.5">專注閱讀曾答錯的題目，突破盲點</div>
             </button>
 
-            <button id="btn-reset" class="w-full opacity-50 text-[13px] underline mt-6 mb-4 text-center block hover:opacity-100 transition-opacity">🔄 重置進度 (將一切記錄歸零)</button>
+            <button id="btn-reset" class="w-full opacity-50 text-[13px] underline mt-6 mb-8 text-center block hover:opacity-100 transition-opacity">🔄 重置進度 (將一切記錄歸零)</button>
             
             <!-- IG 廣告橫幅 -->
-            <a href="#" onclick="showModal('即將為您開啟新的分頁前往 Instagram：@chamivision', true, () => window.open('https://www.instagram.com/chamivision/', '_blank')); return false;" class="block mt-auto p-[2px] rounded-2xl bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 hover:scale-[1.02] transition-transform shadow-lg">
+            <a href="#" onclick="showModal('即將為您開啟新的分頁前往 Instagram：@chamivision', true, () => window.open('https://www.instagram.com/chamivision/', '_blank')); return false;" class="block mt-auto mb-2 p-[2px] rounded-2xl bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 hover:scale-[1.02] transition-transform shadow-lg">
                 <div class="flex items-center gap-4 bg-[#1E293B] rounded-[14px] p-4 h-full">
                     <div class="w-[50px] h-[50px] rounded-2xl bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 flex items-center justify-center shrink-0 shadow-inner">
                         <svg class="w-8 h-8 text-white drop-shadow-md" fill="currentColor" viewBox="0 0 24 24">
@@ -189,7 +191,8 @@
         </div>
 
         <!-- 測驗/題庫畫面 -->
-        <div id="quiz-screen" class="hidden panel p-6 rounded-3xl border shadow-xl flex-grow flex flex-col">
+        <div id="quiz-screen" class="hidden panel rounded-none sm:rounded-3xl border-0 sm:border shadow-xl flex-grow flex flex-col p-6 sm:p-8">
+            
             <div class="flex justify-between items-center mb-4">
                 <div id="quiz-mode-badge" class="badge-bg px-4 py-1.5 rounded-full text-[13px] sm:text-sm font-bold flex items-center gap-1.5 shadow-sm">
                     標籤載入中...
@@ -205,15 +208,16 @@
             </div>
 
             <h2 id="question-text" class="question-text font-bold mb-6 leading-relaxed">題目載入中...</h2>
-            <div id="options-container" class="flex flex-col gap-3 flex-grow"></div>
+            <!-- 緊湊排版的選項容器 -->
+            <div id="options-container" class="flex flex-col gap-2.5 flex-grow"></div>
 
             <div id="explanation-container" class="hidden mt-6 p-4 rounded-xl explanation-box text-sm leading-relaxed shadow-inner">
-                <div id="explanation-title" class="font-bold mb-1 flex items-center gap-1 text-[15px]">💡 錯題解析：</div>
-                <div id="explanation-text" class="text-[15px] mt-1 font-bold leading-relaxed">這裡顯示解析...</div>
+                <div id="explanation-title" class="font-bold mb-1 flex items-center gap-1 text-[15px]">💡 解析：</div>
+                <div id="explanation-text" class="text-[15px] mt-1 leading-relaxed">這裡顯示解析...</div>
             </div>
 
             <!-- 底部按鈕區 -->
-            <div class="flex gap-2 mt-6 pt-4 border-t border-slate-500/20">
+            <div class="flex gap-2 mt-6 pt-4 border-t border-slate-500/20 mt-auto pb-2">
                 <button id="exit-btn" class="flex-1 bg-slate-500/20 text-current py-4 rounded-xl font-bold hover:bg-slate-500/30 transition-colors text-sm sm:text-[15px] shadow-sm tracking-wide">離開</button>
                 <button id="prev-btn" class="hidden flex-1 bg-slate-500/20 text-current py-4 rounded-xl font-bold hover:bg-slate-500/30 transition-colors text-sm sm:text-[15px] shadow-sm tracking-wide">← 上一題</button>
                 <button id="next-btn" class="hidden flex-1 bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-500 transition-colors shadow-md text-sm sm:text-[15px] tracking-wide">下一題 →</button>
@@ -221,8 +225,8 @@
         </div>
 
         <!-- 結算畫面 -->
-        <div id="result-screen" class="hidden panel p-6 rounded-3xl border shadow-xl text-center flex-grow flex flex-col">
-            <h2 class="text-2xl font-bold mb-2" id="result-title">本回合測驗結果</h2>
+        <div id="result-screen" class="hidden panel rounded-none sm:rounded-3xl border-0 sm:border shadow-xl text-center flex-grow flex flex-col p-6 sm:p-8">
+            <h2 class="text-2xl font-bold mb-2 mt-2" id="result-title">本回合測驗結果</h2>
             <div id="result-badge" class="inline-block px-4 py-1.5 rounded-full text-sm font-bold mb-6 border shadow-sm">
                 判定中...
             </div>
@@ -237,20 +241,19 @@
 
             <div id="wrong-review-section" class="hidden text-left mt-8">
                 <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
-                    <span class="text-red-500">⚠️</span> 錯題解析與補強 <span class="text-xs opacity-60 font-normal">(已自動加入待加強區塊)</span>
+                    <span class="text-red-500">⚠️</span> 錯題解析與補強 <span class="text-xs opacity-60 font-normal">(已保留於待加強區塊)</span>
                 </h3>
                 <div id="wrong-answers-list" class="flex flex-col gap-4">
                     <!-- 錯題卡片動態產生 -->
                 </div>
             </div>
 
-            <button id="btn-return-home" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold shadow-lg mt-8 hover:bg-blue-500 transition-all mt-auto tracking-wide text-[16px]">回首頁繼續刷題</button>
+            <button id="btn-return-home" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold shadow-lg mt-8 mb-2 hover:bg-blue-500 transition-all mt-auto tracking-wide text-[16px]">回首頁</button>
         </div>
     </div>
 
-    <!-- 內建 324 題完整題庫 (含解析) -->
+    <!-- 內建 324 題完整題庫 (含原廠解析) -->
     <script>
-        // 格式: 題目 | 選項A | 選項B | 選項C | 選項D | 答案索引(0-3) | 專業錯題解析
         const rawDB = [
             "1 下列何者為於遙控無人機飛航活動期間,實際操控遙控無人機並應負飛航安全責任之人員?|(A)遙控無人機操作人。|(B)目視觀察員。|(C)觀察員。|(D)協調員。|0|依據民航法規，於飛航活動期間實際操控並應負飛航安全責任者為「遙控無人機操作人」。",
             "2 下列何者為於延伸視距飛航作業時,持有遙控無人機操作證,並於遙控無人機活動期間,提供實際操控遙控無人機之操作人必要飛航資訊之人員?|(A)遙控無人機操作人。|(B)目視觀察員。|(C)觀察員。|(D)協調員。|1|在延伸視距(EVLOS)飛航時，負責提供飛航資訊給操作人的輔助人員為「目視觀察員」。",
@@ -401,9 +404,9 @@
             "147 四軸無人機如何垂直升降?(依序將螺旋槳編號為#1、#2、#3、#4、#1、#3順時針旋轉,#2、#4逆時針旋轉)|(A)將螺旋槳#2、#3加速,同時將#1、#4減速,無人機垂直上升;反之則垂直下降。|(B)將螺旋槳#3、#4加速,同時將#1、#2減速,無人機垂直上升;反之則垂直下降。|(C)將螺旋槳#1、#3加速,同時將#2、#4減速,無人機垂直上升;反之則垂直下降。|(D)將所有螺旋槳同時加速,無人機垂直上升;反之則垂直下降。|3|要維持水平垂直升降，必須「將所有螺旋槳同時加速」增加總推力上升；減速則下降。",
             "148 四軸無人機在空中有幾個自由度?|(A)3個自由度。|(B)6個自由度。|(C)4個自由度。|(D)5個自由度。|1|任何飛行器在3D空間中皆有「6個自由度」(上下、前後、左右位移，以及俯仰、滾轉、偏航旋轉)。",
             "149 四軸無人機在空中有下列哪幾種自由度?|(A)上下、前後。|(B)左右,滾轉。|(C)俯仰、偏航。|(D)以上皆是。|3|飛行器的6個自由度包含：空間三軸位移(上下左右前後)與三軸旋轉(俯仰、滾轉、偏航)。",
-            "150 無人機以下列何種方式飛行最省電?|(A)極速飛行。|(B)變速飛行。|(C)勻速飛行。|(D)以上皆是。|2|頻繁加減速最耗電，保持穩定平飛的「勻速飛行」能獲得最佳的續航效率。",
+            "150 無人機以下列何種方式飛行最省電?|(A)極速飛行。|(B)變速飛行。|(C)匀速飛行。|(D)以上皆是。|2|頻繁加減速最耗電，保持穩定平飛的「勻速飛行」能獲得最佳的續航效率。",
             "151 直昇機揮舞運動的定義為何?|(A)槳葉扭轉運動(torsion)。|(B)槳葉上下撲動(flapping)。|(C)槳葉前後擺動動(lead&flag)。|(D)槳葉伸縮運動(tension & compression)。|1|直昇機旋翼在旋轉時，槳葉因升力不均而產生的「上下撲動(flapping)」稱為揮舞運動。",
-            "152 直昇機擺振運動的定義為何?|(A)槳葉扭轉運動(torsion)。|(B)槳葉上下撲動(flapping)。|(C)槳葉前後擺動(lead&flag)。|(D)槳葉伸縮運動(tension & compression)。|2|直昇機槳葉在旋轉平面內產生的「前後擺動(lead-lag / drag)」稱為擺振運動。",
+            "152 直昇機擺振運動的定義為何?|(A)槳葉扭轉運動(torsion)。|(B)槳葉上下撲動(flapping)。|(C)槳葉前後擺動(lead-lag)。|(D)槳葉伸縮運動(tension & compression)。|2|直昇機槳葉在旋轉平面內產生的「前後擺動(lead-lag / drag)」稱為擺振運動。",
             "153 下列哪些為遙控無人機系統於飛行前應做之必要檢查?|(A)地面導控站、遙控器、無人機飛行前檢查及周邊環境及天氣等。|(B)空域管制、組員資源管理及風險管理等。|(C)任務規畫、機場協調及日出日落時間等。|(D)以上皆是。|0|起飛前必須完成系統硬體(導控站/機體)與現場環境(天氣/障礙物)的全面檢視。",
             "154 下列何者不是無人機飛行前地面導控站檢查項目?|(A)GPS衛星數、地面導控站電量。|(B)數傳信號。|(C)告警訊息(羅盤、加速規等)。|(D)遙控動作與無人機匹配性。|3|「遙控動作匹配性」屬於手持遙控器的動態檢查項目，非純地面軟體導控站(GCS)的靜態數據。",
             "155 下列何者不是無人機飛行前遙控器檢查項目?|(A)遙控器電量。|(B)GPS衛星數。|(C)搖桿微調位置合適性(如適用)。|(D)遙控動作與無人機匹配性。|1|「GPS衛星數」主要顯示在無人機本體或地面導控站上，非遙控器本身的硬體檢查重點。",
@@ -571,7 +574,7 @@
             "317 政府機關為執行業務者,其活動申請同意期限為多久?|(A)3個月。|(B)6個月。|(C)1個月。|(D)1年。|3|為確保公權力運行順暢，公務機關(政府/警消)申請飛航活動的同意期限最長，可達「 1 年」。",
             "318 小陳是一位持有專業操作證(G2)的自然人,請問下列敘述何者為有誤?|(A)其操作證得以申請執行遙控無人機投擲或噴灑任何物件。|(B)小陳如欲執行夜間噴灑作業,須再參加第1組(G1)高級術科測驗並取得專業操作證。|(C)小陳如欲執行業務之活動申請,則須透過經農政機關登記合格之法人。|(D)小陳已經擁有專業操作證(G2),即可在屬於綠區的自家農地執行遙控無人機噴灑作業。|3|陷阱題！即使考到最高級證照，只要是「自然人」身分，依法就絕對「禁止投擲或噴灑」，綠區也不行。必須靠行法人。",
             "319 小陳是一間農噴無人機公司的操作人,該公司並已向民航局完成活動申請得以執行農藥噴灑作業,請問下列敘述何者為有誤?|(A)其活動申請同意文件最長得以6個月為限。|(B)該公司是農政機關登記合格之法人。|(C)該公司之能力審查申請,核准效期為1年。|(D)小陳應於每次活動前、後於指定時間內至民航局指定資訊系統登錄飛航資訊。|2|法規更新細節：法人向民航局申請的「能力審查核准 (作業手冊審查)」，其有效期限為「2 年」而非 1 年。",
-            "320 小華想要進口一些遙控無人機到網路上販售,請問下列敘述何者為有誤?|(A)小華應主動向民航局申請辦理產品資訊登錄。|(B)小華是進口者。|(C)小華不得擅自進口製造商未向民航局完成登錄之遙控無人機。|(D)小華應於販售頁面明顯處標示遙控無人機註冊、操作注意事項及活動空域圖資等資訊。|2|法規未禁止「進口」未登錄機，而是禁止「販售」前未登錄。小華身為進口者，自己就有義務主動幫水貨申請登錄，故C錯。",
+            "320 小華想要進口一些遙控無人機到網路上販售,請問下列敘述何者為有誤?|(A)小華應主োট動向民航局申請辦理產品資訊登錄。|(B)小華是進口者。|(C)小華不得擅自進口製造商未向民航局完成登錄之遙控無人機。|(D)小華應於販售頁面明顯處標示遙控無人機註冊、操作注意事項及活動空域圖資等資訊。|2|法規未禁止「進口」未登錄機，而是禁止「販售」前未登錄。小華身為進口者，自己就有義務主動幫水貨申請登錄，故C錯。",
             "321 小華欲報考專業高級Ib操作證術科考試,請問下列敘述何者為正確?|(A)小華應領有遙控無人機普通操作證1個月以上之經歷。|(B)小華應領有專業高級la(無註記重量限制)操作證1個月以上之經歷。|(C)小華不須通過專業操作證學科測驗。|(D)小華應領有專業高級Ia(無註記重量限制)操作證3個月以上之經歷。|1|高級內部晉升門檻規定：要考高級 Ib，必須先取得前段的「高級 Ia 滿 1 個月經歷」。",
             "322 小華持有學習操作證,並向持有普通操作證的小黃學習,請問下列敘述何者為錯誤?|(A)小華應已年滿14歲。|(B)小黃具有對小華進行最大起飛重量未達十五公斤之遙控無人機教學資格。|(C)小黃未通過專業操作證術科測驗,不具任何教學資格。|(D)教學過程須遵守操作限制規定。|2|普通操作證雖然沒有考術科，但在法規上，小黃已經「具備指導學習證者飛行 15 公斤以下無人機」的合法資格。",
             "323 小華是一名持有專業操作證(G3)的警員,因為公務需要,長官請他使用遙控無人機值勤,請問下列敘述何者錯誤?|(A)小華值勤的機關須通過民航局能力審查後始得從事遙控無人機活動。|(B)小華執勤的機關,其活動申請同意文件以半年為限。|(C)經民航局活動申請許可,小華得以於集會遊行上空進行拍攝偵查。|(D)小華未持有專業操作證(G1)證照,日落後即不得操作遙控無人機。|1|小華身為警員代表政府機關執行公務，其飛航活動的同意文件效期最長可給予「1 年」，而非半年。",
@@ -599,14 +602,11 @@
         let currentQuizIndex = 0;
         let currentQuestionId = -1;
         
-        // 用於計算當前測驗的暫存分數
         let scoreCorrect = 0;
         let scoreWrong = 0;
         
-        // 測驗模式用的紀錄陣列 (延遲結算)
         let examRecords = []; 
         
-        // 雙軌進度儲存
         let quizMasteredIds = [], quizWrongIds = [];
         let studyMasteredIds = [], studyWrongIds = [];
         let studyProgressIndex = 0;
@@ -699,16 +699,17 @@
             let wIds = sessionType.includes('study') ? studyWrongIds : quizWrongIds;
 
             if (isCorrect) {
-                // 如果這題從未答錯，才准許加入精通
+                // 如果答對，且原本不在錯題本(wIds)內，才加進精通區(mIds)
+                // 這樣可以保證「錯過一次的題目」就算後來答對，也永遠待在錯題本，直到手動重置。
                 if (!wIds.includes(qId) && !mIds.includes(qId)) {
                     mIds.push(qId);
                 }
             } else {
-                // 如果答錯，永遠鎖在待加強 (直到重置)
+                // 如果答錯，確保加入錯題本
                 if (!wIds.includes(qId)) {
                     wIds.push(qId);
                 }
-                // 同時拔除這題可能有的精通狀態
+                // 同時從精通區移除
                 if (mIds.includes(qId)) {
                     mIds.splice(mIds.indexOf(qId), 1);
                 }
@@ -769,7 +770,6 @@
                 toggleStudy.className = inactiveClass;
                 
                 if (quizMasteredIds.length >= totalQuestions) {
-                    // 金黃色大滿貫按鈕
                     btnMain.className = btnBaseClass + "bg-yellow-500 hover:bg-yellow-400 shadow-yellow-500/40 shadow-xl scale-[1.02] mt-2 mb-2";
                     btnMain.innerHTML = `
                         <div class="text-[22px] flex items-center gap-2 drop-shadow-md tracking-wide">🏆 您已精通全部 324 題！</div>
@@ -779,7 +779,7 @@
                     btnMain.className = btnBaseClass + "bg-blue-600 hover:bg-blue-500";
                     btnMain.innerHTML = `
                         <div class="text-[17px] sm:text-lg flex items-center gap-2 tracking-wide">⏱️ 開始智慧測驗 (共 50 題)</div>
-                        <div class="text-[13px] font-normal text-blue-200 mt-1.5">只抽出「未作答」新題，絕不重複</div>
+                        <div class="text-[13px] font-normal text-blue-200 mt-1.5">只抽出「未作答」新題，保證不重複</div>
                     `;
                 } else {
                     btnMain.className = btnBaseClass + "bg-purple-600 hover:bg-purple-500 shadow-purple-500/40 shadow-xl scale-[1.02] mt-2 mb-2";
@@ -873,6 +873,11 @@
                 return;
             }
 
+            // 【修復】每次渲染題目時，強制解鎖選項容器，防止中斷切換模式時被鎖死
+            const container = document.getElementById('options-container');
+            container.removeAttribute('disabled'); 
+            container.innerHTML = '';
+            
             currentQuestionId = quizQueue[currentQuizIndex];
             const qData = questionBank[currentQuestionId];
             const badge = document.getElementById('quiz-mode-badge');
@@ -891,12 +896,9 @@
                 document.getElementById('progress-bar').style.width = `${((currentQuizIndex) / quizQueue.length) * 100}%`;
             }
             
-            const container = document.getElementById('options-container');
-            container.innerHTML = '';
             document.getElementById('next-btn').classList.add('hidden');
             document.getElementById('explanation-container').classList.add('hidden');
             
-            // 看題庫模式不需要上一題；測驗模式從第二題開始顯示
             if (currentQuizIndex > 0 && !currentSessionType.includes('study')) {
                 document.getElementById('prev-btn').classList.remove('hidden');
             } else {
@@ -924,7 +926,7 @@
             const expTitle = document.getElementById('explanation-title');
 
             if(currentSessionType.includes('study')) {
-                // 題庫模式：立刻寫入資料庫並顯示正確解析
+                // 題庫模式：即時更新記錄，並直接顯示解析
                 updateQuestionStatus(currentQuestionId, isCorrect, currentSessionType);
 
                 if(isCorrect) {
@@ -946,7 +948,7 @@
                 }
                 
             } else {
-                // 測驗模式：暫存答案，延遲結算
+                // 測驗模式：暫存記錄，延遲結算
                 btnElement.classList.add('option-btn-selected');
                 if(isCorrect) scoreCorrect++; else scoreWrong++;
                 
@@ -972,7 +974,6 @@
         function prevQuestion() {
             if (currentQuizIndex <= 0) return; 
             
-            // 測驗模式下：退回上一題，完美抽掉上一題暫存紀錄
             if (!currentSessionType.includes('study') && examRecords.length > 0) {
                 const lastRecord = examRecords.pop();
                 if (lastRecord.isCorrect) scoreCorrect--;
@@ -985,8 +986,15 @@
         }
 
         function exitMode() {
-            if (currentSessionType.includes('study')) {
+            if (currentSessionType === 'normal_study') {
                 showModal("已為您儲存目前的閱讀進度，隨時可以回來接續觀看！", false, () => {
+                    isQuizRunning = false;
+                    document.getElementById('quiz-screen').classList.add('hidden');
+                    document.getElementById('start-screen').classList.remove('hidden');
+                    updateDashboard();
+                });
+            } else if (currentSessionType === 'review_study') {
+                showModal("複習隨時可以中斷，錯題依然為您保留在待加強區塊！", false, () => {
                     isQuizRunning = false;
                     document.getElementById('quiz-screen').classList.add('hidden');
                     document.getElementById('start-screen').classList.remove('hidden');
@@ -1029,7 +1037,7 @@
                 return;
             }
             
-            // 測驗模式延遲結算：在此刻才將所有成績正式寫入資料庫
+            // 測驗模式正式結算，將暫存成績寫入系統
             examRecords.forEach(record => {
                 updateQuestionStatus(record.qData.id, record.isCorrect, currentSessionType);
             });
@@ -1038,7 +1046,6 @@
             document.getElementById('quiz-screen').classList.add('hidden');
             document.getElementById('result-screen').classList.remove('hidden');
             
-            // 動態比例計分 (以實際作答題數算分)
             let attemptedCount = examRecords.length; 
             let finalScore = 0;
             if (attemptedCount > 0) {
@@ -1064,7 +1071,7 @@
                     setTimeout(() => confetti({ particleCount: 100, spread: 100, origin: { y: 0.5 }, colors: ['#fbbf24', '#f59e0b'] }), 1000);
                 }
             } else {
-                badge.innerText = finalScore >= 80 ? '✅ 及格，錯題已為您鎖定至「待加強」區塊。' : '❌ 不及格，錯題已為您鎖定至「待加強」區塊。';
+                badge.innerText = finalScore >= 80 ? '✅ 及格，錯題已為您保留至「待加強」區塊。' : '❌ 不及格，錯題已為您保留至「待加強」區塊。';
                 badge.className = finalScore >= 80 ? 'inline-block px-4 py-1.5 rounded-full text-sm font-bold mb-6 border border-blue-500 bg-blue-500/10 text-blue-500 shadow-sm' : 'inline-block px-4 py-1.5 rounded-full text-sm font-bold mb-6 border border-red-500 bg-red-500/10 text-red-500 shadow-sm';
                 wrongSection.classList.remove('hidden');
             }
