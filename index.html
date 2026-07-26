@@ -13,48 +13,45 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
         
-        body { font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; padding-bottom: 60px;}
+        body { font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s;}
         
-        /* --- 模式主題配色 --- */
+        /* 深色模式 */
         body.theme-dark { background-color: #0F172A; color: #cbd5e1; }
         body.theme-dark .panel { background-color: #1E293B; border-color: #334155; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
-        body.theme-dark .footer-fixed { background: rgba(15, 23, 42, 0.85); border-top: 1px solid #1E293B; color: #64748b; }
         body.theme-dark .explanation-box { background: #1e1b4b; color: #a5b4fc; border: 1px solid #3730a3; }
         body.theme-dark .badge-bg { background-color: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); color: #a5b4fc; }
         body.theme-dark .wrong-card { background-color: rgba(239, 68, 68, 0.05); border-color: rgba(239, 68, 68, 0.2); }
 
+        /* 護眼模式 (暖黃色) */
         body.theme-warm { background-color: #FCF8E8; color: #3F3E3A; }
         body.theme-warm .panel { background-color: #FFFFFF; border-color: #E6E4DD; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
-        body.theme-warm .footer-fixed { background: rgba(252, 248, 232, 0.9); border-top: 1px solid #E6E4DD; color: #8C8A84; }
         body.theme-warm .explanation-box { background: #f0f9ff; color: #075985; border: 1px solid #bae6fd; }
         body.theme-warm .badge-bg { background-color: #e0f2fe; border: 1px solid #bae6fd; color: #0369a1; }
         body.theme-warm .wrong-card { background-color: #fef2f2; border-color: #fecaca; }
 
+        /* 明亮模式 (純白色) */
         body.theme-light { background-color: #F1F5F9; color: #334155; }
         body.theme-light .panel { background-color: #FFFFFF; border-color: #E2E8F0; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
-        body.theme-light .footer-fixed { background: rgba(241, 245, 249, 0.9); border-top: 1px solid #E2E8F0; color: #94A3B8; }
         body.theme-light .explanation-box { background: #f0f9ff; color: #075985; border: 1px solid #bae6fd; }
         body.theme-light .badge-bg { background-color: #e0e7ff; border: 1px solid #c7d2fe; color: #4338ca; }
         body.theme-light .wrong-card { background-color: #fef2f2; border-color: #fecaca; }
 
-        /* 動態設定按鈕的樣式 (高亮當前選項) */
+        /* 設定按鈕樣式 */
         .setting-btn-inactive { border: 2px solid transparent; border-radius: 0.75rem; padding: 0.5rem 0; font-weight: 600; text-align: center; transition: all 0.2s; }
         .setting-btn-active { border-radius: 0.75rem; padding: 0.5rem 0; text-align: center; transition: all 0.2s; border: 2px solid #3b82f6 !important; background-color: rgba(59, 130, 246, 0.15) !important; color: #2563eb !important; font-weight: 800 !important; }
         
         body.theme-dark .setting-btn-inactive { border-color: #334155; background-color: transparent; color: #94a3b8; }
         body.theme-dark .setting-btn-active { border-color: #60a5fa !important; background-color: rgba(59, 130, 246, 0.2) !important; color: #60a5fa !important; }
-        
-        body.theme-light .setting-btn-inactive, body.theme-warm .setting-btn-inactive { border-color: #cbd5e1; background-color: transparent; color: #64748b; }
+        body.theme-light .setting-btn-inactive, body.theme-warm .setting-btn-inactive { border-color: #cbd5e1; background-color: #f8fafc; color: #64748b; }
 
-        .footer-fixed { position: fixed; bottom: 0; left: 0; width: 100%; padding: 12px 0; text-align: center; z-index: 40; backdrop-filter: blur(8px); }
-        
-        /* 答題按鈕 */
+        /* 選項按鈕樣式 */
         .option-btn { width: 100%; text-align: left; border: 2px solid #334155; border-radius: 12px; margin-bottom: 12px; transition: all 0.2s; background: transparent; color: inherit; }
         body.theme-warm .option-btn, body.theme-light .option-btn { border-color: #cbd5e1; }
         
-        /* 解決手機上的 Sticky Hover 殘留亮框問題：只在支援 hover 的滑鼠設備上啟用 hover 效果 */
+        /* 解決手機上的 Sticky Hover 殘留亮框問題：只在支援 hover 的設備啟用 */
         @media (hover: hover) and (pointer: fine) {
             .option-btn:hover { border-color: #64748b; }
+            body.theme-warm .option-btn:hover, body.theme-light .option-btn:hover { border-color: #94a3b8; }
         }
         
         .option-btn:active { transform: scale(0.98); }
@@ -66,7 +63,7 @@
         .option-btn-selected { border-color: #3b82f6 !important; background-color: rgba(59, 130, 246, 0.15) !important; color: #2563eb !important; }
         body.theme-dark .option-btn-selected { color: #60a5fa !important; background-color: rgba(59, 130, 246, 0.2) !important; }
 
-        /* 字體大小 */
+        /* 字體大小控制 */
         body.font-normal .question-text { font-size: 1.25rem; }
         body.font-large .question-text { font-size: 1.5rem; }
         body.font-xlarge .question-text { font-size: 1.75rem; }
@@ -81,19 +78,19 @@
 </head>
 <body class="antialiased theme-dark font-normal">
 
-    <!-- 自訂提示框 (取代 alert/confirm) -->
+    <!-- 自訂提示視窗 -->
     <div id="custom-modal" class="hidden fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
         <div class="panel w-full max-w-sm rounded-3xl p-6 border shadow-2xl transform scale-95 transition-transform duration-300 text-center">
             <h3 id="modal-title" class="font-bold text-xl mb-3">系統提示</h3>
-            <p id="modal-message" class="mb-6 opacity-80 text-sm leading-relaxed whitespace-pre-wrap">訊息內容</p>
+            <p id="modal-message" class="mb-6 opacity-80 text-[15px] leading-relaxed whitespace-pre-wrap">訊息內容</p>
             <div class="flex gap-3 justify-center">
-                <button id="modal-cancel" class="hidden w-1/2 px-4 py-3 rounded-xl bg-slate-500/20 hover:bg-slate-500/30 transition-colors font-bold">取消</button>
-                <button id="modal-confirm" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-500 transition-colors shadow-lg">確定</button>
+                <button id="modal-cancel" class="hidden w-1/2 px-4 py-3 rounded-xl bg-slate-500/20 hover:bg-slate-500/30 transition-colors font-bold text-[15px]">取消</button>
+                <button id="modal-confirm" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-500 transition-colors shadow-lg text-[15px]">確定</button>
             </div>
         </div>
     </div>
 
-    <!-- 設定面板 (字體與主題) -->
+    <!-- 設定視窗 -->
     <div id="settings-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
         <div class="panel w-full max-w-sm rounded-3xl p-6 border shadow-2xl transform scale-95 transition-transform duration-300" id="settings-content">
             <h3 class="font-bold mb-4 text-xl flex items-center justify-between">
@@ -123,85 +120,83 @@
         </div>
     </div>
 
-    <div id="app" class="max-w-2xl mx-auto pt-4 px-4 relative z-10">
+    <div id="app" class="max-w-2xl mx-auto p-4 relative z-10 min-h-screen flex flex-col">
         
-        <!-- ================= 首頁畫面 ================= -->
-        <div id="start-screen" class="panel p-6 rounded-3xl border shadow-xl">
-            <!-- 標題列與齒輪融合 -->
+        <!-- 首頁畫面 -->
+        <div id="start-screen" class="panel p-6 rounded-3xl border shadow-xl flex-grow flex flex-col justify-center">
+            
             <div class="flex justify-between items-center mb-6">
                 <div class="flex items-center gap-3">
                     <div class="p-3 rounded-full bg-blue-500/20 text-blue-500 text-2xl sm:text-3xl">📖</div>
-                    <h1 class="text-xl sm:text-2xl font-black tracking-wide">專業操作證刷題系統</h1>
+                    <h1 class="text-[19px] sm:text-2xl font-black tracking-wide">專業操作證刷題系統</h1>
                 </div>
-                <!-- 首頁專屬齒輪 -->
+                <!-- 齒輪融入標題列 -->
                 <button class="gear-btn bg-slate-500/10 p-2.5 rounded-full border shadow-sm hover:bg-slate-500/20 transition-colors flex items-center justify-center h-10 w-10 shrink-0">
-                    <span class="text-xl leading-none">⚙️</span>
+                    <span class="text-xl leading-none mt-[-2px]">⚙️</span>
                 </button>
             </div>
             
-            <!-- 首頁：模式切換開關 -->
             <div class="flex bg-slate-500/10 p-1.5 rounded-2xl mb-6 relative border dark:border-slate-700 shadow-inner">
                 <button id="toggle-exam" class="w-1/2 py-3.5 rounded-xl transition-all z-10 font-bold text-[15px]">⏱️ 測驗模式</button>
                 <button id="toggle-study" class="w-1/2 py-3.5 rounded-xl transition-all z-10 font-bold text-[15px]">📖 看題庫</button>
             </div>
 
-            <!-- 統計數據 -->
             <div class="grid grid-cols-3 gap-3 mb-6">
-                <div class="p-3 text-center border border-green-500/30 rounded-xl bg-green-500/5 transition-all">
+                <div class="p-3 text-center border border-green-500/30 rounded-xl bg-green-500/5 transition-all flex flex-col justify-center items-center">
                     <div class="text-xs text-green-600 dark:text-green-400 font-bold mb-1">✅ 已精通</div>
                     <div id="stat-mastered" class="text-2xl font-black">0</div>
                 </div>
-                <div class="p-3 text-center border border-red-500/30 rounded-xl bg-red-500/5 transition-all">
+                <div class="p-3 text-center border border-red-500/30 rounded-xl bg-red-500/5 transition-all flex flex-col justify-center items-center">
                     <div class="text-xs text-red-600 dark:text-red-400 font-bold mb-1">🔥 待加強</div>
                     <div id="stat-wrong" class="text-2xl font-black">0</div>
                 </div>
-                <div class="p-3 text-center border border-slate-500/30 rounded-xl bg-slate-500/5 transition-all">
+                <div class="p-3 text-center border border-slate-500/30 rounded-xl bg-slate-500/5 transition-all flex flex-col justify-center items-center">
                     <div id="label-unseen" class="text-xs opacity-70 font-bold mb-1">📦 未作答</div>
                     <div id="stat-unseen" class="text-2xl font-black">324</div>
                 </div>
             </div>
 
-            <!-- 動態開始按鈕 (主要) -->
-            <button id="btn-start-main" class="w-full bg-blue-600 hover:bg-blue-500 text-white py-4 rounded-2xl font-bold shadow-lg transition-all flex flex-col items-center justify-center cursor-pointer relative overflow-hidden">
-                <!-- 文案由 JS 注入 -->
+            <button id="btn-start-main" class="w-full py-4 rounded-2xl font-bold shadow-lg transition-all flex flex-col items-center justify-center cursor-pointer relative overflow-hidden">
+                <!-- 文案由 JS 動態注入 -->
             </button>
             
-            <!-- 測驗模式：歷史易錯題大補帖 (紫色按鈕) -->
             <button id="btn-intensive-quiz" class="hidden w-full bg-purple-600 hover:bg-purple-500 text-white py-4 rounded-2xl font-bold shadow-lg transition-all flex flex-col items-center justify-center cursor-pointer mt-4">
-                <div class="text-lg flex items-center gap-2">📝 歷史易錯題大補帖 (共 <span id="intensive-count">0</span> 題)</div>
-                <div class="text-xs font-normal text-purple-200 mt-1">針對您曾經錯過的題目進行重點考前衝刺</div>
+                <div class="text-[17px] flex items-center gap-2">📝 歷史易錯題大補帖 (共 <span id="intensive-count">0</span> 題)</div>
+                <div class="text-[13px] font-normal text-purple-200 mt-1.5">針對您曾經錯過的題目進行重點考前衝刺</div>
             </button>
 
-            <!-- 看題庫模式：待加強快速複習 (橘色按鈕) -->
             <button id="btn-quick-review-study" class="hidden w-full bg-orange-500 hover:bg-orange-400 text-white py-4 rounded-2xl font-bold shadow-lg transition-all flex flex-col items-center justify-center cursor-pointer mt-4">
-                <div class="text-lg flex items-center gap-2">🔥 待加強快速複習 (共 <span id="review-count">0</span> 題)</div>
-                <div class="text-xs font-normal text-orange-100 mt-1">專注閱讀曾答錯的題目，突破盲點</div>
+                <div class="text-[17px] flex items-center gap-2">🔥 待加強快速複習 (共 <span id="review-count">0</span> 題)</div>
+                <div class="text-[13px] font-normal text-orange-100 mt-1.5">專注閱讀曾答錯的題目，突破盲點</div>
             </button>
 
-            <button id="btn-reset" class="w-full opacity-50 text-xs underline mt-6 text-center block hover:opacity-100 transition-opacity">🔄 重置進度 (將一切記錄歸零)</button>
-
-            <!-- 專屬廣告版位 (加入 iframe 安全跳轉防護) -->
-            <a href="https://www.instagram.com/chamivision/" target="_blank" rel="noopener noreferrer" id="ig-link-btn" class="mt-6 flex items-center justify-center gap-3 w-full p-4 rounded-2xl bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-indigo-500/10 border border-purple-500/20 hover:scale-[1.02] transition-transform shadow-sm group">
-                <div class="bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white p-2 rounded-xl group-hover:scale-110 transition-transform shadow-md">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-                </div>
-                <div class="text-left">
-                    <div class="text-xs font-bold text-purple-600 dark:text-purple-400">System Design & Technical Support</div>
-                    <div class="text-sm font-black text-slate-800 dark:text-slate-200 tracking-wide">Follow @ChamiVision</div>
+            <button id="btn-reset" class="w-full opacity-50 text-[13px] underline mt-6 mb-4 text-center block hover:opacity-100 transition-opacity">🔄 重置進度 (將一切記錄歸零)</button>
+            
+            <!-- IG 廣告橫幅 -->
+            <a href="#" onclick="showModal('即將為您開啟新的分頁前往 Instagram：@chamivision', true, () => window.open('https://www.instagram.com/chamivision/', '_blank')); return false;" class="block mt-auto p-[2px] rounded-2xl bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 hover:scale-[1.02] transition-transform shadow-lg">
+                <div class="flex items-center gap-4 bg-[#1E293B] rounded-[14px] p-4 h-full">
+                    <div class="w-[50px] h-[50px] rounded-2xl bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 flex items-center justify-center shrink-0 shadow-inner">
+                        <svg class="w-8 h-8 text-white drop-shadow-md" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                        </svg>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-[13px] font-bold text-[#e879f9] leading-tight mb-0.5 tracking-wide">System Design & Technical Support</div>
+                        <div class="text-[18px] font-black text-white tracking-wide">Follow @ChamiVision</div>
+                    </div>
                 </div>
             </a>
         </div>
 
-        <!-- ================= 測驗/題庫畫面 ================= -->
-        <div id="quiz-screen" class="hidden panel p-6 rounded-3xl border shadow-xl mb-12">
-            <!-- 標籤列與齒輪融合 (Flex 排版) -->
+        <!-- 測驗/題庫畫面 -->
+        <div id="quiz-screen" class="hidden panel p-6 rounded-3xl border shadow-xl flex-grow flex flex-col">
             <div class="flex justify-between items-center mb-4">
-                <div id="quiz-mode-badge" class="badge-bg px-4 py-1.5 rounded-full text-sm font-bold flex items-center gap-1.5 shadow-sm">
+                <div id="quiz-mode-badge" class="badge-bg px-4 py-1.5 rounded-full text-[13px] sm:text-sm font-bold flex items-center gap-1.5 shadow-sm">
                     標籤載入中...
                 </div>
-                <!-- 測驗專屬齒輪 -->
+                <!-- 齒輪融入標題列右側 -->
                 <button class="gear-btn bg-slate-500/10 p-2 rounded-full border shadow-sm hover:bg-slate-500/20 transition-colors flex items-center justify-center h-9 w-9 shrink-0">
-                    <span class="text-lg leading-none">⚙️</span>
+                    <span class="text-lg leading-none mt-[-2px]">⚙️</span>
                 </button>
             </div>
             
@@ -210,387 +205,380 @@
             </div>
 
             <h2 id="question-text" class="question-text font-bold mb-6 leading-relaxed">題目載入中...</h2>
-            <div id="options-container" class="flex flex-col gap-3"></div>
+            <div id="options-container" class="flex flex-col gap-3 flex-grow"></div>
 
             <div id="explanation-container" class="hidden mt-6 p-4 rounded-xl explanation-box text-sm leading-relaxed shadow-inner">
-                <div class="font-bold mb-1 flex items-center gap-1 text-[15px]">💡 正確解答：</div>
-                <div id="explanation-text" class="text-[15px]">這裡顯示解析...</div>
+                <div id="explanation-title" class="font-bold mb-1 flex items-center gap-1 text-[15px]">💡 錯題解析：</div>
+                <div id="explanation-text" class="text-[15px] mt-1 font-bold leading-relaxed">這裡顯示解析...</div>
             </div>
 
             <!-- 底部按鈕區 -->
-            <div class="flex gap-2 mt-6">
-                <button id="exit-btn" class="flex-[2] bg-slate-500/20 text-current py-4 rounded-xl font-bold hover:bg-slate-500/30 transition-colors text-sm sm:text-base shadow-sm">離開</button>
-                <button id="prev-btn" class="hidden flex-[2] bg-slate-500/20 text-current py-4 rounded-xl font-bold hover:bg-slate-500/30 transition-colors text-sm sm:text-base shadow-sm">← 上一題</button>
-                <button id="next-btn" class="hidden flex-[3] bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-500 transition-colors shadow-md text-sm sm:text-base">下一題 →</button>
+            <div class="flex gap-2 mt-6 pt-4 border-t border-slate-500/20">
+                <button id="exit-btn" class="flex-1 bg-slate-500/20 text-current py-4 rounded-xl font-bold hover:bg-slate-500/30 transition-colors text-sm sm:text-[15px] shadow-sm tracking-wide">離開</button>
+                <button id="prev-btn" class="hidden flex-1 bg-slate-500/20 text-current py-4 rounded-xl font-bold hover:bg-slate-500/30 transition-colors text-sm sm:text-[15px] shadow-sm tracking-wide">← 上一題</button>
+                <button id="next-btn" class="hidden flex-1 bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-500 transition-colors shadow-md text-sm sm:text-[15px] tracking-wide">下一題 →</button>
             </div>
         </div>
 
-        <!-- ================= 結算畫面 ================= -->
-        <div id="result-screen" class="hidden panel p-6 rounded-3xl border shadow-xl text-center mb-12">
+        <!-- 結算畫面 -->
+        <div id="result-screen" class="hidden panel p-6 rounded-3xl border shadow-xl text-center flex-grow flex flex-col">
             <h2 class="text-2xl font-bold mb-2" id="result-title">本回合測驗結果</h2>
-            <div id="result-badge" class="inline-block px-4 py-1 rounded-full text-sm font-bold mb-6 border">
+            <div id="result-badge" class="inline-block px-4 py-1.5 rounded-full text-sm font-bold mb-6 border shadow-sm">
                 判定中...
             </div>
             
-            <p class="opacity-70 mb-2">本次得分</p>
-            <div class="text-7xl font-black text-blue-500 mb-8" id="final-score">0</div>
+            <p class="opacity-70 mb-2 text-[15px]">本次得分 (依實際作答題數計算)</p>
+            <div class="text-[80px] font-black text-blue-500 mb-8 leading-none" id="final-score">0</div>
             
-            <div class="bg-slate-500/10 rounded-xl p-4 mb-6 text-sm flex justify-around shadow-inner">
-                <div><span class="block opacity-60 mb-1">答對</span><span id="result-correct" class="text-green-500 font-black text-2xl">0</span></div>
-                <div><span class="block opacity-60 mb-1">答錯</span><span id="result-wrong" class="text-red-500 font-black text-2xl">0</span></div>
+            <div class="bg-slate-500/10 rounded-2xl p-4 mb-6 text-sm flex justify-around shadow-inner">
+                <div><span class="block opacity-60 mb-1 font-bold">答對</span><span id="result-correct" class="text-green-500 font-black text-3xl">0</span></div>
+                <div><span class="block opacity-60 mb-1 font-bold">答錯</span><span id="result-wrong" class="text-red-500 font-black text-3xl">0</span></div>
             </div>
 
             <div id="wrong-review-section" class="hidden text-left mt-8">
                 <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
-                    <span class="text-red-500">⚠️</span> 錯題解析與補強 <span class="text-xs opacity-60 font-normal">(已自動加入待加強)</span>
+                    <span class="text-red-500">⚠️</span> 錯題解析與補強 <span class="text-xs opacity-60 font-normal">(已自動加入待加強區塊)</span>
                 </h3>
                 <div id="wrong-answers-list" class="flex flex-col gap-4">
                     <!-- 錯題卡片動態產生 -->
                 </div>
             </div>
 
-            <button id="btn-return-home" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold shadow-lg mt-8 hover:bg-blue-500 transition-all">回首頁繼續刷題</button>
+            <button id="btn-return-home" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold shadow-lg mt-8 hover:bg-blue-500 transition-all mt-auto tracking-wide text-[16px]">回首頁繼續刷題</button>
         </div>
     </div>
 
-    <!-- 底部商標列 -->
-    <footer class="footer-fixed">
-        <div class="text-[10px] tracking-widest opacity-60 font-bold mb-1 uppercase">System Design & Technical Support</div>
-        <div class="inline-flex items-center px-4 py-1.5 rounded-full border border-current opacity-80 text-xs font-bold gap-1 shadow-sm">
-            <span>&lt;/&gt;</span> ChamiVision
-        </div>
-    </footer>
-
+    <!-- 內建 324 題完整題庫 (含解析) -->
     <script>
-        // --- 完整題庫資料庫 (324題) 完美寫入 ---
-        const compressedDB = [
-            "1 下列何者為於遙控無人機飛航活動期間,實際操控遙控無人機並應負飛航安全責任之人員?|(A)遙控無人機操作人。|(B)目視觀察員。|(C)觀察員。|(D)協調員。|0",
-            "2 下列何者為於延伸視距飛航作業時,持有遙控無人機操作證,並於遙控無人機活動期間,提供實際操控遙控無人機之操作人必要飛航資訊之人員?|(A)遙控無人機操作人。|(B)目視觀察員。|(C)觀察員。|(D)協調員。|1",
-            "3 下列何者為在以「第一人稱視角」(FPV,first-person view)飛行時,於視距範圍內從旁協助操作人觀察四周環境以保障操作安全之人員?|(A)遙控無人機操作人。|(B)目視觀察員。|(C)觀察員。|(D)協調員。|2",
-            "4 下列何者為依政府機關(構)、學校或法人作業手冊之程序,於飛航管制單位提供操作人空域協調資訊之人員?|(A)遙控無人機操作人。|(B)目視觀察員。|(C)觀察員。|(D)協調員。|3",
-            "5 遙控無人機系統包括下列哪些項目?|(A)遙控無人機(機體)、遙控設備。|(B)通訊及控制信號鏈路。|(C)附屬裝置。|(D)以上皆是。|3",
-            "6 遙控無人機系統中,火箭、彈射軌道、降落傘等發射回收裝置,屬於遙控無人機系統的下列哪一部分?|(A)附屬裝置。|(B)遙控無人機。|(C)遙控設備。|(D)通訊及控制信號鏈路。|0",
-            "7 遙控無人機系統中,機體結構與外型、動力系統、自動駕駛與飛行控制系統、導航系統等,並攜帶任務所需之酬載,屬於遙控無人機系統的下列哪一部分?|(A)附屬裝置。|(B)遙控無人機。|(C)遙控設備。|(D)通訊及控制信號鏈路。|1",
-            "8 遙控無人機系統中,用於操作遙控無人機之設備,屬於遙控無人機系統的下列哪一部分?|(A)附屬裝置。|(B)遙控無人機。|(C)遙控設備。|(D)通訊及控制信號鏈路。|2",
-            "9 遙控無人機系統中,遙控無人機及遙控設備間為操作飛行管理目的之資料鏈接,屬於遙控無人機系統的下列哪一部分?|(A)附屬裝置。|(B)遙控無人機。|(C)遙控設備。|(D)通訊及控制信號鏈路。|3",
-            "10 下列何者為含機體、燃料、電池、負載設備及酬載等遙控無人機之設計重量?|(A)最大巡航重量。|(B)最大降落重量。|(C)最大起飛重量。|(D)最大轉彎重量。|2",
-            "11 延伸視距飛航,指操作人於視距外,藉由目視觀察員於下列哪個範圍內與遙控無人機保持直接目視接觸,並提供遙控無人機操作人必要飛航資訊之操作方式?|(A)其半徑300公尺範圍內。|(B)操作人半徑300公尺範圍內。|(C)其半徑400公尺範圍內。|(D)操作人半徑900公尺範圍內。|0",
-            "12 延伸視距飛航,其最大範圍為以遙控無人機操作人為中心之半徑X公尺、相對地面或水面高度低於Y呎內之區域。|(A)X為900;Y為400。|(B)X為900;Y為300。|(C)X為600;Y為400。|(D)X為600;Y為300。|0",
-            "13 延伸視距最大範圍,為下列哪個區域?|(A)以遙控無人機操作人為中心之半徑300公尺、相對地面或水面高度低於400呎內之區域。|(B)以遙控無人機操作人為中心之半徑900公尺、相對地面或水面高度低於400呎內之區域。|(C)以遙控無人機操作人為中心之半徑600公尺、相對地面或水面高度低於400呎內之區域。|(D)以遙控無人機操作人為中心之半徑900公尺、相對地面或水面高度低於500呎內之區域。|1",
-            "14 目前遙控無人機之下列哪個功能尚在進行研究開發中,尚無國際一致之標準?|(A)起降功能。|(B)資料鏈接功能。|(C)射頻識別功能。|(D)遙控功能。|2",
-            "15 遙控無人機之下列哪個功能,除其裝置本身之技術外,尚需配合地面接收裝置?|(A)射頻識別功能。|(B)起降功能。|(C)遙控功能。|(D)以上皆是。|0",
-            "16 下列何者係指目視檢查遙控無人機外觀完整、機構及動力系統穩固、註冊號碼依民航法規定標示可辨、操作人應持有合格操作證、遙控設備與無人機間之通訊及控制信號鏈路運作正常、燃油或電力之供應符合飛航之需求等?|(A)安全測試條件。|(B)安全勞動條件。|(C)安全勤務條件。|(D)安全飛航條件。|3",
-            "17 下列何者係指包含酒類、鴉片類、大麻、鎮靜劑及安眠藥、古柯鹼、其他精神刺激藥物、迷幻藥及興奮劑等?|(A)心靈作用物質。|(B)精神作用物質。|(C)視力作用物質。|(D)肌肉作用物質。|1",
-            "18 飛航活動:指自然人或法人以遙控無人機從事下列何種行為?|(A)從事飛航之行為。|(B)從事規則訂定之行為。|(C)從事組員管理之行為。|(D)從事風險評估之行為。|0",
-            "19 自然人從事飛航活動時應遵守下列何種限制?|(A)遵守市場買賣之限制。|(B)遵守公平交易之限制。|(C)遵守區域與操作規範之限制。|(D)遵守自由競爭之限制。|2",
-            "20 下列何者經申請能力審查核准與飛航活動申請,可排除區域與操作規範之限制限制?|(A)自然人。|(B)法人。|(C)自然人及法人。|(D)以上皆非。|1",
-            "21 作業手冊:法人申請下列何者時,自行編撰以敘明操作限制排除事項之相關設備與程序之手冊?|(A)申請財力審查核准。|(B)申請學歷審查核准。|(C)申請道德審查核准。|(D)申請能力審查核准。|3",
-            "22 遙控無人機操作證之分類為下列哪幾種?|(A)自然人、法人與通用等3種。|(B)學習、普通與專業等3種。|(C)輕量、中量與重量等3種。|(D)低速、中速與高速等3種。|1",
-            "23 遙控無人機之專業操作證又可細分為下列哪幾種?|(A)基本級與高級等2級。|(B)初級與高級等2級。|(C)娛樂級與營業級等2級。|(D)工業級與學術級等2級。|0",
-            "24 註冊有效期限為下列何者,期限屆滿前30日內向民航局申請延展?|(A)有效期限為4年。|(B)有效期限為1年。|(C)有效期限為3年。|(D)有效期限為2年。|3",
-            "25 實體檢驗合格證有效期限為下列何者,期限屆滿前30日內向民航局申請重新檢驗?|(A)有效期限為4年。|(B)有效期限為1年。|(C)有效期限為3年。|(D)有效期限為2年。|2",
-            "26 特種實體檢驗證有效期限為下列何者?|(A)最長不得逾4年。|(B)最長不得逾1年。|(C)最長不得逾3年。|(D)最長不得逾2年。|2",
-            "27 型式檢驗合格證與認可證明文件有效期限為下列何者?|(A)最長不得逾3年。|(B)最長不得逾5年。|(C)最長不得逾10年。|(D)無效期限制。|3",
-            "28 普通操作證有效期限屆期前30日內向民航局申請下列何種項目?|(A)申請換證。|(B)申請直接升級為專業操作證。|(C)申請十年免換證。|(D)申請永久免換證。|0",
-            "29 專業操作證有效期限屆期前30日內應經下列哪種動作辦理換證?|(A)經財力檢查及面試合格後辦理換證。|(B)經重新體格檢查及換證測驗合格後辦理換證。|(C)經學歷檢查及法律測驗合格後辦理換證。|(D)經身分檢查及道德測驗合格後辦理換證。|1",
-            "30 體格檢查文件須為下列何種效期之合格證明文件?|(A)最近1年內。|(B)最近2年內。|(C)最近3年內。|(D)最近5年內。|0",
-            "31 申請專業操作證學科測驗者,其術科測驗未於學科測驗通過起1年內完成者應如何處理?|(A)未完成者可直接申請術科測驗。|(B)未完成者可申請延長學科測驗效期。|(C)未完成者應重新申請學科測驗。|(D)未完成者可申請免學科測驗。|2",
-            "32 飛航活動時間限制為下列何者,以中央氣象局之時刻表為準?|(A)滿潮後至乾潮前。|(B)日出後至日落前。|(C)月沒後至月出前。|(D)民用曙光始至民用暮光終。|1",
-            "33 飛航活動申請時限:於飛航活動前幾日向民航局提出申請?如涉及軍事航空管理區域應於幾日前進行申請?|(A)活動前10日/涉及軍事20日前。|(B)活動前20日/涉及軍事15日前。|(C)活動前30日/涉及軍事15日前。|(D)活動前15日/涉及軍事30日前。|3",
-            "34 飛航活動同意時限:以幾個月為限?農務作業循農政機關管理者以幾個月為限?|(A)5個月/農務10個月。|(B)10個月/農務5個月。|(C)6個月/農務3個月。|(D)3個月/農務6個月。|3",
-            "35 飛航活動記錄保存:政府機關(構)、學校或法人應保存遙控無人機相關資料及記錄幾年?|(A)保存1年。|(B)保存2年。|(C)保存3年。|(D)保存5年。|1",
-            "36 飛安相關事件:應於發生或得知消息後幾小時內通報民航局?|(A)12小時內。|(B)24小時內。|(C)36小時內。|(D)48小時內。|1",
-            "37 遙控無人機活動區域綠區範圍:在下列何種高度時,自然人與法人均可於遵守操作規範條件下飛行之區域?|(A)400呎以下。|(B)200呎以下。|(C)400呎以上。|(D)200呎以上。|0",
-            "38 遙控無人機活動區域黃區(中央)範圍:航空站(機場)四周,飛行高度為下列何種高度之區域?|(A)不得高於400呎。|(B)不得高於300呎。|(C)不得高於200呎。|(D)不得高於100呎。|2",
-            "39 遙控無人機活動區域紅區(中央)範圍:限航區、航空站(機場)與飛行場禁止飛行之區域,及下列何種高度之區域?|(A)任何高度超過400呎以上。|(B)任何高度超過300呎以上。|(C)任何高度超過200呎以上。|(D)任何高度超過100呎以上。|0",
-            "40 遙控無人機活動區域紅區(地方)範圍:地方政府公告下列何種高度禁止或有條件限制飛行之區域?|(A)高度100呎以下。|(B)高度200呎以下。|(C)高度400呎以下。|(D)高度600呎以下。|2",
-            "41 下列哪個遙控無人機活動區域,法人應經申請後始得飛行?|(A)黃區高於兩百呎(中央)。|(B)紅區(中央)。|(C)紅區(地方)。|(D)以上皆是。|3",
-            "42 遙控無人機註冊、檢驗、能力審查、活動申請及學、術科測驗皆可透過下列哪個系統進行申辦?|(A)「遙控無人機業務諮詢系統」。|(B)「遙控無人機管理資訊系統」。|(C)「遙控無人機自動申辦系統」。|(D)「遙控無人機AI登錄系統」。|1",
-            "43 法人辦理飛航活動申請時,申請範圍內如有限制區域(如紅區或黃區)應取得下列何者之同意文件?|(A)管理機關。|(B)戶政機關。|(C)司法機關。|(D)財稅機關。|0",
-            "44 申請400呎以下全縣市範圍空域,限下列何者?|(A)限軍事機關及測繪作業。|(B)限公務機關及測繪作業。|(C)限軍事機關及農噴作業。|(D)限公務機關及農噴作業。|3",
-            "45 飛航活動如進入限航區及航空站/飛行場四周限制遙控無人機活動範圍或距地表高度400呎以上,應採取下列哪些動作?|(A)應發布瀏覽公告並進行行政協調。|(B)應發布飛航公告並進行行政協調。|(C)應發布飛航公告並進行航管協調。|(D)應發布瀏覽公告並進行航管協調。|2",
-            "46 航管單位協調地點有下列哪幾個?|(A)北部近場臺與南部近場臺2個。|(B)臺北近場臺與高雄近場臺2個。|(C)西部近場臺與東部近場臺2個。|(D)本島近場臺與離島近場臺2個。|1",
-            "47 航管單位協調地點大致以下列何處為界線,以北一個近場臺、以南另一個近場臺?|(A)北緯24度。|(B)北緯24.5度。|(C)北緯23.5度。|(D)北緯23度。|0",
-            "48 遙控無人機於建築物外開放空間從事飛航活動,須遵循下列何者管理?|(A)民法。|(B)建築法。|(C)民用航空法。|(D)國土計畫法。|2",
-            "49 下列何者應負遙控無人機使用安全、風險管理及法規遵循等責任?|(A)協調員或觀察員。|(B)協調員或操作人。|(C)所有人或觀察員。|(D)所有人或操作人。|3",
-            "50 遙控無人機發生下列何種事件後,其所有人或操作人應在發生或得知消息後24小時內填具飛航安全相關事件報告表通報民航局?|(A)人員死亡或傷害。|(B)最大起飛重量逾25公斤之遙控無人機遭受實質損害(損壞無法修復)。|(C)毀損超過新臺幣50萬元者。|(D)以上皆是。|3",
-            "51 下列何種遙控無人機遭受實質損害或失蹤,其所有人或操作人應在發生或得知消息後24小時內填具飛航安全相關事件報告表通報民航局?|(A)最大起飛重量2公斤以上且裝置導航裝置。|(B)最大起飛重量1公斤以上且裝置導航裝置。|(C)最大起飛重量2公斤以上但未裝置導航裝置。|(D)最大起飛重量1公斤以上但未裝置導航裝置。|0",
-            "52 於下列何處從事活動之遙控無人機遭受實質損害或失蹤,其所有人或操作人應在發生或得知消息後24小時內填具飛航安全相關事件報告表通報民航局?|(A)限航區範圍外。|(B)限航區範圍內。|(C)河川區域範圍內。|(D)農業區範圍內。|1",
-            "53 於下列何時從事活動之遙控無人機遭受實質損害或失蹤,其所有人或操作人應在發生或得知消息後24小時內填具飛航安全相關事件報告表通報民航局?|(A)月沒後至月出前。|(B)月出後至月沒前。|(C)日落後至日出前。|(D)日出後至日落前。|2",
-            "54 遙控無人機發生下列何種事故,其所有人或操作人應在發生或得知消息後24小時內填具飛航安全相關事件報告表通報民航局?|(A)與其他航空器或障礙物接近或碰撞之事故。|(B)視距外空速管失效之事故。|(C)視距外 GPS訊號異常之事故。|(D)視距外上傳鏈路干擾/遮蔽之事故。|0",
-            "55 自然人所有之最大起飛重量250公克以上及政府機關(構)、學校或法人所有之遙控無人機,應依規則辦理下列何者?|(A)不必辦理註冊。|(B)辦理註冊,但不必將註冊號碼標明於遙控無人機上顯著之處。|(C)辦理註冊,並將註冊號碼標明於遙控無人機上顯著之處。|(D)以上皆非。|2",
-            "56 最大起飛重量幾公斤以上,且裝置導航設備之遙控無人機,應具備防止進入限航區及航空站或飛行場四周之圖資軟體系統?|(A)5公斤以上。|(B)3公斤以上。|(C)2公斤以上。|(D)1公斤以上。|3",
-            "57 自然人所有之下列何種遙控無人機,操作人應持有民航局發給普通操作證後,始得操作?|(A)最大起飛重量1公斤以上未達15公斤且裝置導航設備。|(B)最大起飛重量2公斤以上未達15公斤且裝置導航設備。|(C)最大起飛重量3公斤以上未達15公斤且裝置導航設備。|(D)最大起飛重量5公斤以上未達15公斤且裝置導航設備。|1",
-            "58 遙控無人機製造者與進口者,應依民航通告「遙控無人機產品登錄及標示作業」辦理下列何種事宜?|(A)登錄事宜。|(B)註冊事宜。|(C)認證事宜。|(D)申請事宜。|0",
-            "59 公告定義遙控無人機之構造為下列哪幾種?|(A)無人飛機、無人直昇機、無人多旋翼機等共3種。|(B)無人飛機、無人多旋翼機、複合式無人機等共3種。|(C)無人飛機、無人直昇機、複合式無人機等共3種。|(D)無人飛機、無人直昇機、無人多旋翼機、複合式無人機等共4種。|3",
-            "60 垂直起降無人機VTOL屬於下列哪種公告定義之遙控無人機?|(A)無人飛機。|(B)無人直昇機。|(C)無人多旋翼機。|(D)複合式無人機。|3",
-            "61 市售最大起飛重量未達幾公斤具導航設備經登錄者列入「免經檢驗或認可之遙控無人機清冊」並定期更新?|(A)未達2公斤。|(B)未達15公斤。|(C)未達25公斤。|(D)未達150公斤。|2",
-            "62 遙控無人機之設計、製造、改裝,或自國外進口遙控無人機,應經民航局檢驗合格或認可者,發給下列遙控無人機哪種文件?|(A)普通操作證或專業操作證。|(B)檢驗合格證或認可證明文件。|(C)註冊號碼或形式檢驗標籤。|(D)以上皆非。|1",
-            "63 遙控無人機之檢驗基準,由下列何者訂定?|(A)民航局。|(B)國家實驗研究院。|(C)工研院。|(D)標準檢驗局。|0",
-            "64 外國人領有外國政府之遙控無人機註冊、檢驗及操作證之證明文件者,得申請下列何者後依規定從事飛航活動?|(A)測驗。|(B)認可。|(C)面談。|(D)豁免。|1",
-            "65 政府機關(構)、學校或法人之飛航活動應於活動日15日前檢附下列何者提出申請?|(A)飛航申請書。|(B)作業規畫書。|(C)活動計畫書。|(D)業務執行書。|2",
-            "66 遙控無人機飛航活動之實際高度不得逾距地面或水面幾呎?|(A)100呎。|(B)200呎。|(C)400呎。|(D)600呎。|2",
-            "67 不得以遙控無人機投擲或噴灑下列何者?|(A)爆炸物品。|(B)毒性物質。|(C)危險物品。|(D)包含以上之任何物件。|3",
-            "68 不得以遙控無人機裝載由下列何者公告之危險物品?|(A)民航局。|(B)航港局。|(C)觀光局。|(D)中央氣象局。|0",
-            "69 遙控無人機應遠離高速公路、快速公(道)路、鐵路、高架鐵路、地面或高架之大眾捷運系統、建築物及障礙物幾公尺以上?|(A)20公尺。|(B)30公尺。|(C)50公尺。|(D)80公尺。|1",
-            "70 遙控無人機不得於下列何處操作遙控無人機?|(A)地面上。|(B)固定之航空器、車輛或船艦上。|(C)移動中之航空器、車輛或船艦上。|(D)高山上。|2",
-            "71 最大起飛重量未達25公斤且裝置導航設備之遙控無人機最大飛行速度每小時不得超過下列何者?|(A)87海浬或160公里。|(B)81海浬或150公里。|(C)76海浬或140公里。|(D)70海浬或130公里。|0",
-            "72 遙控無人機延伸視距飛航最大範圍為以操作人為中心之半徑幾公尺?相對地面或水面高度低於幾呎內之區域?|(A)半徑500公尺/高度低於400呎。|(B)半徑900公尺/高度低於200呎。|(C)半徑500公尺/高度低於200呎。|(D)半徑900公尺/高度低於400呎。|3",
-            "73 目視觀察員應與下列何者保持目視接觸,並提供操作人必要之飛行資訊?|(A)操作人。|(B)遙控無人機。|(C)航空站或飛行場。|(D)協調員。|1",
-            "74 延伸視距飛航作業屬操作限制,應以下列何種身分提出申請?|(A)自然人身分。|(B)法人身分。|(C)操作人身分。|(D)協調員身分。|1",
-            "75 遙控無人機不得於下列何處活動?|(A)人群聚集或室外集會遊行上空。|(B)海面上空。|(C)河川上空。|(D)山區上空。|0",
-            "76 遙控無人機不得於下列何者之時間飛航?|(A)月沒後至月出前。|(B)月出後至月沒前。|(C)日出後至日落前。|(D)日落後至日出前。|3",
-            "77 遙控無人機在目視範圍內操作,得以下列何工具延伸飛航作業距離?|(A)望遠鏡。|(B)遠距鏡頭。|(C)矯正鏡片。|(D)智慧型手機。|2",
-            "78 操作人不得在同一時間控制幾架以上遙控無人機?|(A)2架。|(B)3架。|(C)4架。|(D)5架。|0",
-            "79 操作人應隨時監視該遙控無人機之下列何種狀況?|(A)噴漆及其標籤狀況。|(B)註冊及其檢驗狀況。|(C)價格及其銷售狀況。|(D)飛航及其周遭狀況。|3",
-            "80 操作人應防止遙控無人機發生下列何種狀況?|(A)顏色與其他航空器、建築物或障礙物背景無法明顯反襯。|(B)與其他航空器、建築物或障礙物接近或碰撞。|(C)噪音影響到其他航空器、建築物或障礙物。|(D)停放於其他航空器、建築物或障礙物之間。|1",
-            "81 政府機關(構)、學校或法人遙控無人機於目視範圍外從事活動時,應採下列何種動作?|(A)應於活動日15日前檢附活動計畫書向航港局申請許可。|(B)應於活動日30日前檢附活動計畫書向民航局申請許可。|(C)應於活動日15日前檢附活動計畫書向民航局申請許可。|(D)應於活動日15日前檢附活動成果報告書向民航局申請許可。|2",
-            "82 政府機關(構)、學校或法人遙控無人機於人群聚集或室外集會遊行上空從事活動時,應先取得下列何者之同意?|(A)活動場地之直轄市、縣(市)政府及相關中央主管機關。|(B)活動場地之警察局及相關地方機關。|(C)活動場地之村里長及相關地方人士。|(D)活動場地之所有權人及相關利益團體。|0",
-            "83 政府機關(構)、學校或法人遙控無人機於從事操作規範排除之作業前應投保責任險,賠償額為死亡者新臺幣若干?重傷者新臺幣若干?|(A)死亡者新臺幣1,000萬元/重傷者新臺幣500萬元。|(B)死亡者新臺幣500萬元/重傷者新臺幣250萬元。|(C)死亡者新臺幣300萬元/重傷者新臺幣150萬元。|(D)死亡者新臺幣200萬元/重傷者新臺幣100萬元。|2",
-            "84 政府機關為執行下列哪些法定職務,需於民航法第99條之13第1項公告之航空站或飛行場四周之一定距離範圍內、第2項公告之禁止、限制區域內從事遙控無人機飛航活動,經民航局同意者,不受第99條之13第3項及第4項規定之限制?|(A)觀光、教育業務等。|(B)災害防救、偵查、調查、矯正業務等。|(C)商業、民調業務等。|(D)醫療、通信業務等。|1",
-            "85 政府機關為執行下列哪些法定職務,從事民航法第99條之14第1項第2款至第8款之活動,經民航局同意者,不受第99條之14第3項規定之限制?|(A)觀光、教育業務等。|(B)醫療、通信業務等。|(C)商業、民調業務等。|(D)災害防救、偵查、調查、矯正業務等。|3",
-            "86 遙控無人機違反民航法第99條之13第1項規定,於禁航區、限航區及航空站或飛行場四周之一定距離範圍內從事飛航活動,罰鍰金額為下列何者?|(A)新臺幣30萬元以上150萬元以下。|(B)新臺幣6萬元以上30萬元以下。|(C)新臺幣3萬元以上15萬元以下。|(D)新臺幣1萬元以上150萬元以下。|0",
-            "87 遙控無人機違反民航法第99條之14第1項第1款規定,逾距地表高度400呎從事飛航活動,罰鍰金額為下列何者?|(A)新臺幣30萬元以上150萬元以下。|(B)新臺幣6萬元以上30萬元以下。|(C)新臺幣3萬元以上15萬元以下。|(D)新臺幣1萬元以上150萬元以下。|0",
-            "88 違反民航法第99條之10第2項規定,未領有操作證而操作遙控無人機,罰鍰金額為下列何者?|(A)新臺幣30萬元以上150萬元以下。|(B)新臺幣6萬元以上30萬元以下。|(C)新臺幣3萬元以上15萬元以下。|(D)新臺幣1萬元以上150萬元以下。|1",
-            "89 違反民航法第99條之15第3項規定,未投保或未足額投保責任保險而從事遙控無人機活動,罰鍰金額為下列何者?|(A)新臺幣30萬元以上150萬元以下。|(B)新臺幣6萬元以上30萬元以下。|(C)新臺幣3萬元以上15萬元以下。|(D)新臺幣1萬元以上150萬元以下。|1",
-            "90 違反民航法第99條之10第1項有關遙控無人機註冊或標明註冊號碼之規定,罰鍰金額為下列何者?|(A)新臺幣30萬元以上150萬元以下。|(B)新臺幣6萬元以上30萬元以下。|(C)新臺幣3萬元以上15萬元以下。|(D)新臺幣1萬元以上150萬元以下。|2",
-            "91 遙控無人機違反民航法第99條之13第2項有關直轄市、縣(市)政府公告之區域、時間及其他管理事項之規定,罰鍰金額為下列何者?|(A)新臺幣30萬元以上150萬元以下。|(B)新臺幣6萬元以上30萬元以下。|(C)新臺幣3萬元以上15萬元以下。|(D)新臺幣1萬元以上150萬元以下。|2",
-            "92 違反民航法第99條之14第1項第2~10款有關遙控無人機飛航活動應遵守之規定,罰鍰金額為下列何者?|(A)新臺幣30萬元以上150萬元以下。|(B)新臺幣6萬元以上30萬元以下。|(C)新臺幣3萬元以上15萬元以下。|(D)新臺幣1萬元以上150萬元以下。|2",
-            "93 違反依民航法第99條之17所定規則有關射頻識別、檢驗、認可、維修與檢查、飛航活動之活動許可及內容、製造者與進口者之登錄及責任、飛航安全相關事件之通報等事項規定,罰鍰金額為下列何者?|(A)新臺幣30萬元以上150萬元以下。|(B)新臺幣6萬元以上30萬元以下。|(C)新臺幣3萬元以上15萬元以下。|(D)新臺幣1萬元以上150萬元以下。|3",
-            "94 遙控無人機活動申請分為下列哪幾種?|(A)甲級申請與乙級申請2種。|(B)初級申請與高級申請2種。|(C)平日申請與假日申請2種。|(D)一般申請與緊急申請2種。|3",
-            "95 遙控無人機活動之一般申請可參照下列何種參考文件申辦?|(A)「政府機關(構)、學校或法人於禁航區、限航區、航空站或飛行場四周之一定距離範圍內從事遙控無人機飛航活動申請說明」。|(B)「使用遙控無人機從事災害應變、災害預防、復原重建或災害以外之緊急情況申請書暨民用航空局同意書」。|(C)「使用遙控無人機從事災害預防、復原重建或災害以外之緊急情況申請書暨直轄市、縣(市)同意書」。|(D)「遙控無人機從事災害應變、災害之預防、復原重建或災害以外之緊急情況時,需取得/通知限航管理單位名冊」。|0",
-            "96 遙控無人機活動之緊急申請可參照下列何種參考文件申辦?|(A)「使用遙控無人機從事災害應變、災害預防、復原重建或災害以外之緊急情況申請書暨民用航空局同意書」。|(B)「使用遙控無人機從事災害預防、復原重建或災害以外之緊急情況申請書暨直轄市、縣(市)同意書」。|(C)「遙控無人機從事災害應變、災害之預防、復原重建或災害以外之緊急情況時,需取得/通知限航管理單位名冊」。|(D)以上皆是。|3",
-            "97 遙控無人機活動申請及飛航紀錄之經緯度位置資訊一律以下列何者表示?|(A)度分(DDM)。|(B)度分秒(DMS)。|(C)度(DD)。|(D)以上皆是。|1",
-            "98 經緯度的座標值可分為下列哪幾種表示方法?|(A)可分為3種表示方法,分別為度、度分、度分秒。|(B)可分為3種表示方法,分別為球座標、直角座標、圓柱座標。|(C)可分為2種表示方法,分別為英制、公制。|(D)可分為2種表示方法,分別為實數、複數。|0",
-            "99 經緯度的座標值北緯25.1度,東經121.4度;以度分來表示其座標為下列何者?|(A)北緯25度10分,東經121度40分。|(B)北緯25度1分,東經121度4分。|(C)北緯25度6分,東經121度24分。|(D)北緯25度12分,東經121度48分。|2",
-            "100 經緯度的座標值北緯25.11度,東經121.42度;以度分秒來表示其座標為下列何者?|(A)北緯25度1分1秒,東經121度40分2秒。|(B)北緯25度6分36秒,東經121度25分12秒。|(C)北緯25度6分6秒,東經121度24分12秒。|(D)北緯25度36分36秒,東經121度24分12秒。|1",
-            "101 經緯度的座標值平均每度緯線的距離約為下列何者?|(A)87浬(160 km)。|(B)49浬(91km)。|(C)55浬(102km)。|(D)60浬(111 km)。|3",
-            "102 經緯度的座標值1秒的距離約為下列何者?|(A)100呎(30m)。|(B)112呎(34m)。|(C)115呎(35m)。|(D)118呎(36m)。|0",
-            "103 臺北飛航情報區轉換高度為下列何者?|(A)5,000呎。|(B)7,000呎。|(C)11,000呎。|(D)13,000呎。|2",
-            "104 實際高度(AGL,above ground level) 即遙控無人機(非操作人所在位置)相對於下列何者之高度?|(A)平均海平面。|(B)地面或水面。|(C)操作人所在位置。|(D)操作人附近最高點。|1",
-            "105 在400呎以下之遙控無人機活動或限制區域的劃設均以下列何者為準?|(A)密度高度。|(B)橢球高。|(C)平均海平面高度。|(D)實際高度。|3",
-            "106 平均海平面高度(AMSL, above mean sea level)即為海拔高度,係以各地區人為設定的下列何者作為基準面測定的高度表示方式?|(A)平均海平面。|(B)操作人所在位置高度。|(C)操作人附近最高點高度。|(D)地面或水面高度。|0",
-            "107 無人機飛航超過400呎時,應了解無人機下列何種資訊,以利空域協調?|(A)實際高度資訊。|(B)橢球高資訊。|(C)海拔高度資訊。|(D)密度高度資訊。|2",
-            "108 橢球高(HAE, height above ellipsoid)又稱為大地高,係將地球假定為一理想橢球體,真實地表上任一點相對於橢球面的下列何者即為橢球高?|(A)平行距離。|(B)垂直距離。|(C)切線距離。|(D)圓弧距離。|1",
-            "109 GPS高度測量係利用GPS測量技術直接測定地面點的下列何者?|(A)平均海平面高度。|(B)實際高度。|(C)密度高度。|(D)大地高。|3",
-            "110 無人機的動力系統大致分為哪2大類?|(A)氣冷式及水冷式等2大類。|(B)立式及臥式等2大類。|(C)馬達(電動式)及引擎(內燃機式)等2大類。|(D)迴轉式及往復式等2大類。|2",
-            "111 電動無人機的動力系統包括下列哪些部分?|(A)馬達、電池。|(B)調速系統(電子調速器)。|(C)螺旋槳。|(D)以上皆是。|3",
-            "112 無人機動力系統中的馬達大部分屬於下列哪一類?|(A)無刷直流馬達。|(B)有刷直流馬達。|(C)以上皆是。|(D)以上皆非。|0",
-            "113 功率的定義為下列何者?|(A)每單位時間所施加的力。|(B)每單位時間所作的功或所消耗的能量。|(C)每單位時間所增加或減少的溫度。|(D)每單位時間所施加的扭矩。|1",
-            "114 功率的常用單位有下列哪些?|(A)公制單位為瓦(W);英制單位為馬力(HP)。|(B)公制單位為焦耳(J);英制單位為BTU。|(C)公制單位為牛頓(N);英制單位為磅(lb)。|(D)以上皆是。|0",
-            "115 在1,013.25 hPa、15℃時,空氣密度大約為下列何者?|(A)1.005 kg/m3。|(B)1.115 kg/m3。|(C)1.225 kg/m3。|(D)1.335 kg/m3。|2",
-            "116 升力公式中的升力係數的單位為下列何者?|(A)hPa。|(B)無因次(dimensionless)。|(C)m/s。|(D)kg/m2。|1",
-            "117 空氣密度與密度高度的關係為下列何者?|(A)空氣密度減少表示較低的密度高度,空氣密度增加表示較高的密度高度。|(B)空氣密度不論減少或增加均與密度高度無關。|(C)視狀況而定,空氣密度減少有時表示較高的密度高度,有時表示較低的密度高度。|(D)空氣密度減少表示較高的密度高度,空氣密度增加表示較低的密度高度。|3",
-            "118 空氣密度與動力輸出的關係為下列何者?|(A)空氣密度減少,動力輸出隨之增加。|(B)空氣密度減少,動力輸出隨之降低。|(C)空氣密度與動力輸出無關。|(D)以上皆非。|1",
-            "119 空氣密度受下列哪些因素影響?|(A)高度、溫度、及濕度等。|(B)推力、升力、阻力、及重力等。|(C)空速、航向、及姿態等。|(D)以上皆是。|0",
-            "120 高度如何影響空氣密度及無人機飛行?|(A)高度越高,空氣密度越高;在一定攻角、較高高度下為保持升力,須以較低的真空速飛行。|(B)高度越高,空氣密度越低;在一定攻角、較高高度下為保持升力,須以較低的真空速飛行。|(C)高度越高,空氣密度越低;在一定攻角、較高高度下為保持升力,須以較高的真空速飛行。|(D)高度越高,空氣密度越高;在一定攻角、較高高度下為保持升力,須以較高的真空速飛行。|2",
-            "121 溫度如何影響空氣密度及無人機飛行?|(A)暖空氣的密度高於冷空氣;在一定攻角、較高溫度下為保持升力,須以較低的真空速飛行。|(B)暖空氣的密度高於冷空氣;在一定攻角、較高溫度下為保持升力,須以較高的真空速飛行。|(C)暖空氣的密度低於冷空氣;在一定攻角、較高溫度下為保持升力,須以較低的真空速飛行。|(D)暖空氣的密度低於冷空氣;在一定攻角、較高溫度下為保持升力,須以較高的真空速飛行。|3",
-            "122 濕度如何影響空氣密度及無人機飛行?|(A)濕空氣的密度低於乾空氣;在一定攻角、較高濕度下為保持升力,須以較高的真空速飛行。|(B)濕空氣的密度高於乾空氣;在一定攻角、較高濕度下為保持升力,須以較高的真空速飛行。|(C)濕空氣的密度高於乾空氣;在一定攻角、較高濕度下為保持升力,須以較低的真空速飛行。|(D)濕空氣的密度低於乾空氣;在一定攻角、較高濕度下為保持升力,須以較低的真空速飛行。|0",
-            "123 無人機所用的螺旋槳的型號代表的意義為下列何者?|(A)前兩碼為槳的直徑,後兩碼代表槳的螺距,單位皆為公分。|(B)前兩碼為槳的寬度,後兩碼代表槳的螺距,單位皆為公分。|(C)前兩碼為槳的直徑,後兩碼代表槳的螺距,單位皆為英吋。|(D)前兩碼為槳的寬度,後兩碼代表槳的厚度,單位皆為英吋。|2",
-            "124 無人機所用的螺旋槳槳葉數量與空氣動力效率的關係為何?|(A)槳葉數量越多,空氣動力效率越高。|(B)槳葉數量越少,空氣動力效率越高。|(C)槳葉數量與效率無關。|(D)以上皆有可能。|1",
-            "125 螺旋槳螺距的意思為下列何者?|(A)想像螺旋槳在某個不能流動的介質中沿螺旋槳軸向旋轉往前,同一片槳葉旋轉一圈所產生螺旋的徑向距離即為螺距。|(B)想像螺旋槳在某個不能流動的介質中沿螺旋槳徑向旋轉往前,同一片槳葉旋轉一圈所產生螺旋的軸向距離即為螺距。|(C)想像螺旋槳在某個不能流動的介質中沿螺旋槳徑向旋轉往前,同一片槳葉旋轉一圈所產生螺旋的徑向距離即為螺距。|(D)想像螺旋槳在某個不能流動的介質中沿螺旋槳軸向旋轉往前,同一片槳葉旋轉一圈所產生螺旋的軸向距離即為螺距。|3",
-            "126 螺旋槳的材質為下列何者?|(A)一般為硬質塑膠、碳纖維、及硬質木頭等。|(B)一般為高速鋼、及合金鋼等。|(C)一般為鋁合金、及銅合金等。|(D)以上皆是。|0",
-            "127 CW、CCW哪個是順時針哪個是逆時針?|(A)CW為逆時針,CCW為順時針。|(B)CW、CCW都是順時針。|(C)CW為順時針,CCW為逆時針。|(D)CW、CCW都是逆時針。|2",
-            "128 電池的測電工具一般有下列何者?|(A)一般有頻譜分析儀、光學尺等。|(B)低電量警報器、分壓測電器及三用電表等。|(C)一般有示波器、電晶體等。|(D)一般有脈衝產生器、功率計等。|1",
-            "129 6s 電池的分壓接頭係由幾條電線構成?|(A)4條線。|(B)5條線。|(C)6條線。|(D)7條線。|3",
-            "130 電池並聯時,電壓和電容量為何種變化?|(A)電壓不變,電容量升高。|(B)電壓降低,電容量升高。|(C)電壓升高,電容量降低。|(D)電壓升高,電容量不變。|0",
-            "131 無人機的外轉無刷馬達之型號,其代表的意義為下列何者?|(A)前兩碼為馬達轉子繞線線圈的直徑,後兩碼為馬達轉子繞線線圈的高度。|(B)前兩碼為馬達轉子繞線線圈的直徑,後兩碼為馬達定子繞線線圈的高度。|(C)前兩碼為馬達定子繞線線圈的直徑,後兩碼為馬達轉子繞線線圈的高度。|(D)前兩碼為馬達定子繞線線圈的直徑,後兩碼為馬達定子繞線線圈的高度。|3",
-            "132 無人機馬達的KV值代表之意義為下列何者?|(A)其單位為kg/V,代表馬達在1V電壓下的離心力。|(B)其單位為rpm/V,代表馬達在1V電壓下的每分鐘轉速。|(C)其單位為C/V,代表馬達在1V電壓下的操作溫度。|(D)其單位為KW/V,代表馬達在1V電壓下的動力輸出。|1",
-            "133 螺旋槳可依下列何者作選配?|(A)不同的KV值。|(B)不同的操作溫度。|(C)不同的離心力。|(D)以上皆是。|0",
-            "134 如何選用高速槳或低速槳?|(A)KV值較大者選用低速槳,KV值較小者選用高速槳。|(B)不論KV值大小,選用高速槳就對了。|(C)KV值較大者選用高速槳,KV值較小者選用低速槳。|(D)不論KV值大小,選用低速槳就對了。|2",
-            "135 某無人機使用馬達KV值為400,標稱電壓為22.2V,其理論空轉轉速如何計算?|(A)400*√22.2=1,885轉。|(B)400*22.2=8,880轉。|(C)√400*22.22=9,857轉。|(D)400*22.2*75%=6,660轉。|1",
-            "136 有刷馬達的優點為下列何者?|(A)結構簡單、起動扭矩大。|(B)起動及煞車平穩、控制精度高。|(C)購置成本低、維修方便。|(D)以上皆是。|3",
-            "137 無刷馬達的優點為下列何者?|(A)無電刷、低干擾。|(B)噪音低、運轉摩擦力小。|(C)壽命長、維護成本低。|(D)以上皆是。|3",
-            "138 無人機的電子調速器型號是30A,其代表的意義為下列何者?|(A)代表飛控最大允許通過電流大小為30A。|(B)代表電池最大允許通過電流大小為30A。|(C)代表接收機最大允許通過電流大小為30A。|(D)代表電子調速器最大允許通過電流大小為30A。|3",
-            "139 PWM (pulse-width modulation,脈波寬度調變)是下列何者?|(A)PWM是將數位訊號轉換為脈波的一種技術。|(B)PWM是將脈波訊號轉換為類比的一種技術。|(C)PWM是將類比訊號轉換為脈波的一種技術。|(D)PWM 是將脈波訊號轉換為數位的一種技術。|2",
-            "140 電子調速器損壞後可用下列何者代替?|(A)用更大的或更小的電子調速器代替都可以。|(B)只能用更小的電子調速器代替。|(C)只能用更大的電子調速器代替。|(D)以上皆是。|2",
-            "141 無人多旋翼機如何達到平穩飛行的目的?|(A)將所有螺旋槳旋轉方向設定相同,依據牛頓第3定律,螺旋槳所產生的反作用力互相抵銷,達到平穩飛行的目的。|(B)將相鄰的螺旋槳旋轉方向設定相反,依據牛頓第3定律,螺旋槳所產生的逆時針反作用力與順時針反作用力互相抵銷,達到平穩飛行的目的。|(C)將所螺旋槳旋轉方向設定相同,依據牛頓第1定律,螺旋槳所產生的反作用力互相抵銷,達到平穩飛行的目的。|(D)將所螺旋槳旋轉方向設定相同,依據牛頓第2定律,螺旋槳所產生的反作用力互相抵銷,達到平穩飛行的目的。|1",
-            "142 無人多旋翼機如何實現各種動作?|(A)依據牛頓第3定律,以電子調速器調配各個螺旋槳的轉速來實現各種動作。|(B)依據牛頓第2定律,以電子調速器調配各個螺旋槳的轉速來實現各種動作。|(C)依據牛頓第1定律,以電子調速器調配各個螺旋槳的轉速來實現各種動作。|(D)以上皆是。|0",
-            "143 若某六軸無人機使用30A電子調速器,選擇下列何種規格電池合適?|(A)最大放電電流需小於6*30= 180A。|(B)最大放電電流需大於6*30= 180A。|(C)最大放電電流需小於6*√30=33A。|(D)最大放電電流需大於6*√30=33A。|0",
-            "144 四軸無人機如何前後飛行?(依序將螺旋槳編號為#1、#2、#3、#4、#1、#3順時針旋轉,#2、#4逆時針旋轉)|(A)將螺旋槳#2、#3加速,同時將#1、#4減速,無人機向前飛行;反之則向後飛行。|(B)將螺旋槳#3、#4加速,同時將#1、#2減速,無人機向前飛行;反之則向後飛行。|(C)將螺旋槳#1、#3加速,同時將#2、#4減速,無人機向前飛行;反之則向後飛行。|(D)將所有螺旋槳同時加速,無人機向前飛行;反之則向後飛行。|1",
-            "145 四軸無人機如何側向飛行?(依序將螺旋槳編號為#1、#2、#3、#4、#1、#3順時針旋轉,#2、#4逆時針旋轉)|(A)將螺旋槳#2、#3加速,同時將#1、#4減速,無人機向左飛行;反之則向右飛行。|(B)將螺旋槳#3、#4加速,同時將#1、#2減速,無人機向左飛行;反之則向右飛行。|(C)將螺旋槳#1、#3加速,同時將#2、#4減速,無人機向左飛行;反之則向右飛行。|(D)將所有螺旋槳同時加速,無人機向左飛行;反之則向右飛行。|0",
-            "146 四軸無人機如何原地轉向?(依序將螺旋槳編號為#1、#2、#3、#4、#1、#3順時針旋轉,#2、#4逆時針旋轉)|(A)將螺旋槳#2、#3加速,同時將#1、#4減速,無人機原地逆時針轉向;反之則原地順時針轉向。|(B)將螺旋槳#3、#4加速,同時將#1、#2減速,無人機原地逆時針轉向;反之則原地順時針轉向。|(C)將螺旋槳#1、#3加速,同時將#2、#4減速,無人機原地逆時針轉向;反之則原地順時針轉向。|(D)將所有螺旋槳同時加速,無人機原地逆時針轉向;反之則原地順時針轉向。|2",
-            "147 四軸無人機如何垂直升降?(依序將螺旋槳編號為#1、#2、#3、#4、#1、#3順時針旋轉,#2、#4逆時針旋轉)|(A)將螺旋槳#2、#3加速,同時將#1、#4減速,無人機垂直上升;反之則垂直下降。|(B)將螺旋槳#3、#4加速,同時將#1、#2減速,無人機垂直上升;反之則垂直下降。|(C)將螺旋槳#1、#3加速,同時將#2、#4減速,無人機垂直上升;反之則垂直下降。|(D)將所有螺旋槳同時加速,無人機垂直上升;反之則垂直下降。|3",
-            "148 四軸無人機在空中有幾個自由度?|(A)3個自由度。|(B)6個自由度。|(C)4個自由度。|(D)5個自由度。|1",
-            "149 四軸無人機在空中有下列哪幾種自由度?|(A)上下、前後。|(B)左右,滾轉。|(C)俯仰、偏航。|(D)以上皆是。|3",
-            "150 無人機以下列何種方式飛行最省電?|(A)極速飛行。|(B)變速飛行。|(C)勻速飛行。|(D)以上皆是。|2",
-            "151 直昇機揮舞運動的定義為何?|(A)槳葉扭轉運動(torsion)。|(B)槳葉上下撲動(flapping)。|(C)槳葉前後擺動動(lead&flag)。|(D)槳葉伸縮運動(tension & compression)。|1",
-            "152 直昇機擺振運動的定義為何?|(A)槳葉扭轉運動(torsion)。|(B)槳葉上下撲動(flapping)。|(C)槳葉前後擺動(lead&flag)。|(D)槳葉伸縮運動(tension & compression)。|2",
-            "153 下列哪些為遙控無人機系統於飛行前應做之必要檢查?|(A)地面導控站、遙控器、無人機飛行前檢查及周邊環境及天氣等。|(B)空域管制、組員資源管理及風險管理等。|(C)任務規畫、機場協調及日出日落時間等。|(D)以上皆是。|0",
-            "154 下列何者不是無人機飛行前地面導控站檢查項目?|(A)GPS衛星數、地面導控站電量。|(B)數傳信號。|(C)告警訊息(羅盤、加速規等)。|(D)遙控動作與無人機匹配性。|3",
-            "155 下列何者不是無人機飛行前遙控器檢查項目?|(A)遙控器電量。|(B)GPS衛星數。|(C)搖桿微調位置合適性(如適用)。|(D)遙控動作與無人機匹配性。|1",
-            "156 下列何者不是無人機飛行前無人機機身(含電池)檢查項目?|(A)微調位置合適性。|(B)螺旋槳和機架完整。|(C)螺絲鎖接緊密、起落架功能正常。|(D)電池電量充足。|0",
-            "157 下列何者不是電池使用檢查項目?|(A)合適的電池容量、合適的S數。|(B)安全的電池安裝。|(C)數傳信號。|(D)穩固的連結至系統。|2",
-            "158 下列何者不是無人機飛行前周邊環境檢查項目?|(A)風速與風向、障礙物。|(B)距離、地磁與其他干擾。|(C)避開人口聚集區域。|(D)螺旋槳和機架完整。|3",
-            "159 無人多旋翼機一般由下列哪些部件組成?|(A)機架、中心板、馬達。|(B)電子調速器、槳葉、飛控。|(C)腳架、電池、遙控器。|(D)以上皆是。|3",
-            "160 下列何種感測器不是用來測量無人機方位、高度和速度?|(A)GPS、羅盤。|(B)氣壓計。|(C)溫度計。|(D)3軸陀螺儀/3軸加速規。|2",
-            "161 下列何者不是用來描述無人機的特性?|(A)軸距、重量、抗風能力。|(B)塗裝與價格。|(C)巡航速度與最大速度、升限。|(D)單人操作還是多人協同操作。|1",
-            "162 最大起飛重量10公斤的無人多旋翼機約可載重幾公斤?|(A)2.5公斤。|(B)2公斤。|(C)1.5公斤。|(D)1公斤。|0",
-            "163 GPS天線為何需要天線支架?|(A)增加美觀。|(B)避開人口聚集區域。|(C)防止電磁干擾。|(D)減低風速與風向的影響。|2",
-            "164 IMU (inertial measurement unit,慣性量測單元)是用3個軸向的陀螺儀及加速規,來量測無人機的下列何者?|(A)3個軸向的高度及位置。|(B)3個軸向的姿態角及加速度。|(C)3個軸向的姿態角及速度。|(D)3個軸向的高度及加速度。|1",
-            "165 陀螺儀(gyroscope)主要由一個位於軸心的轉子構成,依據角動量守恆原理,轉子旋轉時產生的角動量有抗拒方位改變的特性,用此特性來感測和維持下列何者?|(A)方位及角速度。|(B)高度及角速度。|(C)方位及高度。|(D)以上皆是。|0",
-            "166 加速規(accelerometer)又稱加速度計,利用壓電效應、壓阻效應、或電容式感應等作用原理,來測量下列何者?|(A)高度。|(B)位置。|(C)速度。|(D)加速度。|3",
-            "167 無人飛機在視距外發生「發電機失效(動力系統正常)」,緊急處置程序之一為下列何者?|(A)切入返航模式。|(B)立即關閉航機所有電力驅動之酬載裝置。|(C)立即關閉航機除第一人稱影像外之非必要酬載設備。|(D)開啟自動避障系統。|2",
-            "168 無人飛機在視距外發生「發電機失效(動力系統正常)」時,關閉非必要酬載設備之目的下列何者為非?|(A)減緩蓄電池之電力消耗。|(B)將電力留存供伺服舵機使用。|(C)緩解發電機之振動影響航機穩定操作。|(D)將電力留存供飛控電腦等必要裝備使用。|2",
-            "169 無人飛機在視距外發生「引擎或動力失效」,緊急處置程序之一為下列何者?|(A)切入自動駕駛模式。|(B)分析無人機現有高度與飄降距離。|(C)檢查確認地面導控站硬體接線。|(D)開啟慣性導航系統。|1",
-            "170 無人飛機在視距外發生「引擎或動力失效」,若高度不足以飄降回本場,則參考下列何者將無人機飛至安全區域迫降?|(A)姿態儀及酬載影像。|(B)壓力高度。|(C)風速風向。|(D)雲幕高及能見度。|0",
-            "171 無人飛機在視距外發生「引擎或動力失效」,若操作人分析當下高度不足以飄降回本場,下列處置程序何者為非?|(A)參考姿態儀。|(B)參考酬載影像。|(C)帶桿增加航機攻角。|(D)儘速以飄降方式將航機飛至安全區域實施異地迫降。|2",
-            "172 最佳飄降速度定義為下列何者?|(A)無風環境下,無動力之定翼機下降單位高度可定向飛行最大距離之空速。|(B)背風時一定的高度減少下,無動力之定翼機可定向飛行最大距離的速度。|(C)迎風時一定的高度減少下,無動力之定翼機可定向飛行最大距離之速度。|(D)無風環境下,無動力之定翼機下降單位高度可定向飛行最大距離之地速。|0",
-            "173 無人飛機在視距內發生「引擎或動力失效」,緊急處置程序之一為下列何者?|(A)儘速以返航模式落地。|(B)檢查確認地面導控站硬體接線。|(C)開啟自動避障系統。|(D)切換至適當之操作模式,及時依現場風向風速妥適調整航向及各操縱面以保持空速及姿態。|3",
-            "174 無人飛機在視距內發生「引擎或動力失效」,緊急處置程序之一為下列何者為非?|(A)立即切入適當之操作模式。|(B)依現場風向風速妥適調整航向以保持空速及姿態。|(C)依現場風向風速妥適調整各操縱面以保持空速及姿態。|(D)依現場風向風速妥適調整航向及各操縱面以保持航機高度。|3",
-            "175 無人直昇機與多旋翼機在視距外發生「引擎或動力失效」,緊急處置程序之一為下列何者?|(A)立即切入自動駕駛模式。|(B)若航機尚存部份動力,應儘速穩定姿態並減緩下降率,以第一人稱方式尋找安全地點實施異地迫降。|(C)若尚存部份控制能力,應儘速大角度迴轉,拉高高度後以穩定姿態返場降落。|(D)檢查確認地面導控站GPS訊號品質。|1",
-            "176 無人直昇機與多旋翼機在視距外發生「動力系統失效」之緊急處置程序為下列何者?|(A)開啟自動避障功能。|(B)若不足以返場降落,應避開人、車、物,循備降場或安全平坦處作預防性飄降。|(C)應立即記錄最終定位座標,儘速前往可能之墜落地點查看,視需要通報相關單位處理。|(D)切入返航模式。|2",
-            "177 無人飛機在視距外發生「上傳鏈路失效」,緊急處置程序之一為下列何者?|(A)關閉無人飛機上不必要之電力裝置。|(B)開啟自動避障系統。|(C)飄降回本場。|(D)無人飛機自動或人為切入返航模式。|3",
-            "178 無人機操作模式之「返航模式」(return to home)指的是下列何者?|(A)飛向預先設定之歸航點,並於歸航點自動降落或盤旋/停懸至切出返航模式或油量/電量耗盡。|(B)在切入返航模式當時的位置,盤旋至切出返航模式或油量/電量耗盡。|(C)在切入返航模式當時的位置往東5km,盤旋至切出返航模式或油量/電量耗盡。|(D)在切入返航模式當時的位置往北5km,盤旋至切出返航模式或油量/電量耗盡。|0",
-            "179 無人機飛行控制器系統,其上傳鏈路(遙控訊號)之失效保護(Fail Safe)預設值,其觸發動作下列何者為非?|(A)自主飛行。|(B)自動返航。|(C)原地降落。|(D)原地盤旋或懸停。|0",
-            "180 無人飛機在視距外發生「上傳鏈路失效」,若無法恢復控制鏈路或航機接收端異常,其失效保護機制(Fail Safe)將觸發下列何者?|(A)自主飛行。|(B)自動拉高。|(C)自動降落。|(D)自動返航。|3",
-            "181 無人飛機在視距外發生「上傳鏈路失效」,緊急處置程序之一為下列何者?|(A)關閉無人機上不必要之電力裝置。|(B)分析上傳鏈路失效原因為干擾/遮蔽、地面導控站(發射端)異常、或航機(接收端)異常。|(C)開啟自動避障系統。|(D)飄降回本場。|1",
-            "182 無人飛機在視距外發生「上傳鏈路失效」,若失效原因為干擾/遮蔽,則等待無人飛機脫離干擾/遮蔽位置後應採取下列何種動作?|(A)檢查確認導控站硬體接線、更換模組、或重新開機。|(B)應立即以地圖介面或酬載影像檢視週遭遮蔽物及干擾源,待航機恢復控制後應立即轉向或爬升脫離。|(C)若干擾/遮蔽狀況持續,應立即切換自動導航模式,繼續飛行。|(D)關閉無人機上不必要之電力裝置。|1",
-            "183 無人飛機在視距外發生「上傳鏈路失效」,若失效原因為導控站(亦即上傳發射端)異常,則應採取下列何種動作?|(A)檢查確認導控站硬體接線、更換模組、或重新開機,嘗試恢復控制後飛回本場。|(B)關閉無人飛機上不必要之電力裝置。|(C)在歸航點盤旋至油量/電量耗盡。|(D)開啟自動避障系統。|0",
-            "184 無人直昇機與多旋翼機在視距外發生「上傳鏈路失效」,若失效原因為干擾/遮蔽,則等待無人飛機脫離干擾/遮蔽位置後應採取下列何種動作?|(A)檢查確認導控站硬體接線、更換模組、或重新開機。|(B)應立即以地圖介面或酬載影像檢視週遭遮蔽物及干擾源,待航機恢復控制後應立即轉向或升高脫離。|(C)若干擾/遮蔽狀況持續,應立即切換自動導航模式,繼續飛行。|(D)關閉無人機上不必要之電力裝置。|1",
-            "185 無人飛機在視距外發生「上傳鏈路失效」,若失效原因為航機(亦即上傳接收端)異常,則應採取下列何種動作?|(A)關閉無人飛機上不必要之電力裝置。|(B)無人飛機將在歸航點盤旋至油量/電量耗盡。|(C)檢查確認導控站硬體接線、更換模組、或重新開機。|(D)可利用地圖介面、即時飛航資訊及酬載影像,全程監控航機是否正確返回歸航點盤旋或降落。|3",
-            "186 無人飛機在視距內發生「上傳鏈路失效」,若失效原因為干擾/遮蔽,則等待無人飛機脫離干擾/遮蔽位置後應採取下列何種動作?|(A)檢查確認導控站硬體接線、更換模組、或重新開機。|(B)以肉眼檢視週遭潛在遮蔽物及干擾源,待航機恢復控制後應立即轉向或爬升脫離。|(C)關閉無人飛機上不必要之電力裝置。|(D)切換至適當之操作模式,儘速以穩定之滾轉角、俯仰角等飛行姿態落地。|1",
-            "187 無人飛機在視距外發生「下傳鏈路失效」,緊急處置程序之一為下列何者?|(A)關閉無人飛機上不必要之電力裝置。|(B)調整俯仰姿態以飄降飛回本場。|(C)參考航機飛行軌跡及斷訊前回傳之飛航資訊與酬載影像,儘速執行轉向或爬升操作以脫離干擾/遮蔽區域。|(D)開啟自動避障系統。|2",
-            "188 無人飛機在視距外發生「下傳鏈路失效」,緊急處置程序之一為下列何者?|(A)參考航機飛行軌跡及斷訊前回傳之飛航資訊與酬載影像,儘速執行第一人稱操作以脫離干擾/遮蔽區域。|(B)參考航機飛行軌跡及斷訊前回傳之飛航資訊與酬載影像,儘速執行推桿操作以建立安全空速。|(C)參考航機飛行軌跡及斷訊前回傳之飛航資訊與酬載影像,儘速執行轉向或爬升操作以脫離干擾/遮蔽區域。|(D)參考航機飛行軌跡及斷訊前回傳之飛航資訊與酬載影像,儘速執行轉向或爬升操作以接近干擾/遮蔽區域。|2",
-            "189 無人飛機在視距外發生「下傳鏈路失效」,若失效原因為干擾/遮蔽,則等待無人飛機脫離干擾/遮蔽位置後應採取下列何種動作?|(A)應立即切換至適當之操作模式或啟動返航模式。|(B)開啟自動避障系統。|(C)關閉無人機上不必要之電力裝置。|(D)調整俯仰姿態以飄降飛回本場。|0",
-            "190 無人飛機在視距外發生「下傳鏈路失效」,若失效原因為無人飛機發射端異常,則應採取下列何種動作?|(A)檢查確認導控站硬體接線、更換模組、或重新開機。|(B)應立即採取減災飛行決策,嘗試恢復鏈路通訊後以第一人稱方式,儘速控制航機以穩定姿態返場降落。|(C)切換至姿態操作模式,儘速參考酬載影像以第一人稱方式將航機飛回本場。|(D)關閉無人飛機上不必要之電力裝置。|1",
-            "191 無人飛機在視距外發生「下傳鏈路失效」,若失效原因為地面導控站接收端異常,則應採取下列何種動作?|(A)應立即檢診其電源、天線及硬體線路接頭,必要時可更換模組或重新開機以嘗試恢復鏈路通訊。|(B)應立即採取減災飛行決策,嘗試恢復鏈路通訊後以第一人稱方式,儘速控制航機以穩定姿態返場降落。|(C)切換至姿態操作模式,儘速參考酬載影像以第一人稱方式將航機飛回本場。|(D)關閉無人飛機上不必要之電力裝置。|0",
-            "192 無人飛機在視距內發生「下傳鏈路失效」,緊急處置程序之一為下列何者?|(A)檢查確認導控站硬體接線、更換模組、或重新開機。|(B)應立即切換至適當之操作模式或啟動返航模式,並全程使用第一人稱操作,儘速控制航機以穩定姿態返場降落。|(C)關閉無人飛機上不必要之電力裝置。|(D)應立即切換至適當之操作模式或啟動返航模式,並全程與航機保持目視,儘速控制航機以穩定姿態返場降落。|3",
-            "193 無人飛機在視距外發生「下傳鏈路失效」,若超過該機合理滯空時間一直未見航機歸航或飛回本場,代表可能發生下列何種狀況?|(A)可能已在其他適當地點安全降落。|(B)可能仍在發生「下傳鏈路失效」當時的位置盤旋。|(C)可能已在下傳斷訊時失事或返航途中失事。|(D)以上皆非。|2",
-            "194 無人飛機在視距外發生「衛星定位訊號異常」,緊急處置程序為下列何者?|(A)立即切換至適當之操作模式以停止衛星定位功能介入航機之控制,並由操作人以第一人稱方式接手操作。|(B)調整俯仰姿態以飄降飛回本場。|(C)關閉無人飛機上不必要之電力裝置。|(D)檢查確認導控站硬體接線、更換模組、或重新開機。|0",
-            "195 無人飛機在視距內發生「衛星定位訊號異常」,緊急處置程序為下列何者?|(A)儘速操控航機轉向或爬升脫離高樓周圍、橋梁下、峽谷內、密林中及輸電線路周邊等環境,並以目視方式控制航機返場降落。|(B)調整俯仰姿態以飄降飛回本場。|(C)關閉無人飛機上不必要之電力裝置。|(D)檢查確認導控站硬體接線、更換模組、或重新開機。|0",
-            "196 無人直昇機與多旋翼機在視距外發生「衛星定位訊號異常」,緊急處置程序為下列何者?|(A)儘速操控航機轉向或上升脫離高樓周圍、橋梁下、峽谷內、密林中及輸電線路周邊等環境,待衛星訊號恢復後繼續飛行。|(B)調整俯仰姿態以飄降飛回本場。|(C)關閉無人飛機上不必要之電力裝置。|(D)檢查確認導控站硬體接線、更換模組、或重新開機。|0",
-            "197 無人直昇機與多旋翼機在視距外發生「衛星定位訊號異常」,緊急處置程序為下列何者為非?|(A)儘速操控航機轉向或上升脫離高樓周圍、橋梁下、峽谷內、密林中及輸電線路周邊等環境,待衛星訊號恢復後繼續飛行。|(B)操作人參考即時飛航資訊、地圖介面及酬載影像以第一人稱方式接手操作。|(C)立即切換至適當之操作模式以停止衛星定位功能介入航機之控制。|(D)若異常狀況持續無法改正,應儘速以目視方式控制航機返場降落。|3",
-            "198 無人直昇機與多旋翼機在視距內發生「衛星定位訊號異常」,緊急處置程序為下列何者?|(A)立即切換至適當之操作模式以停止衛星定位功能介入航機之控制,並由操作人以目視方式接手操作。|(B)調整俯仰姿態以飄降飛回本場。|(C)關閉無人飛機上不必要之電力裝置。|(D)檢查確認導控站硬體接線、更換模組、或重新開機。|0",
-            "199 無人飛機在視距內發生「姿態儀異常」,緊急處置程序之一為下列何者?|(A)檢查確認導控站硬體接線、更換模組、或重新開機。|(B)切換至適當之操作模式,由操作人目視航機接手操作,穩定飛行姿態後儘速控制航機返場降落。|(C)關閉無人飛機上不必要之電力裝置。|(D)人為切入返航模式。|1",
-            "200 無人飛機在視距外發生「姿態儀異常」,緊急處置程序之一為下列何者?|(A)若操作人之技能不足以第一人稱方式手動控制航機,應立即採取減災飛行決策,參考姿態儀及時資訊操控航機落地。|(B)若操作人之技能不足以第一人稱方式手動控制航機,應立即採取減災飛行決策,參考酬載影像、即時飛航資訊及地圖介面嘗試將航機飛至人群上空。|(C)若操作人之技能不足以第一人稱方式手動控制航機,應立即採取減災飛行決策,參考酬載影像、即時飛航資訊及地圖介面嘗試將航機飛至安全區域,並儘速實施異地迫降處置。|(D)若操作人之技能不足以第一人稱方式手動控制航機,應立即切換至返航模式,參考酬載影像及地圖介面嘗試將航機飛至安全區域迫降。|2",
-            "201 無人直昇機與多旋翼機在視距內發生「姿態儀異常」,緊急處置程序之一為下列何者?|(A)立即切換至適當之操作模式以停止慣性導航儀介入航機之控制。|(B)切換至適當之操作模式,參考酬載影像以第一人稱方式將無人機飛回本場。|(C)立即由操作人目視航機接手操作,建立安全高度後儘速控制航機返場降落。|(D)立即由操作人目視航機接手操作,穩定姿態或原處懸停後儘速控制航機返場降落。|3",
-            "202 無人直昇機與多旋翼機在視距外發生「姿態儀異常」,緊急處置程序之一為下列何者?|(A)參考酬載影像穩定姿態或原處懸停後操控航機與地形地障保持安全隔離。|(B)立即切換至姿態模式,儘速以穩定之滾轉角、俯仰角穩定將航機飛回本場。|(C)立即切換至姿態模式由操作人接手操作,將航機原處盤旋。|(D)立即切換至適當之操作模式以停止慣性導航儀介入航機之控制。|0",
-            "203 無人直昇機與多旋翼機在視距外發生「姿態儀異常」,緊急處置程序之一為下列何者?|(A)檢查確認導控站硬體接線、更換模組、或重新開機。|(B)切換至姿態操作模式,儘速參考酬載影像以第一人稱方式將航機飛回本場。|(C)立即切換至適當之操作模式以停止姿態儀介入航機之控制,並由操作人接手操作。|(D)人為切入返航模式。|2",
-            "204 無人飛機在視距外發生「空速管失效」,緊急處置程序為下列何者?|(A)人為切入返航模式。|(B)關閉無人機上不必要之電力裝置。|(C)檢查確認導控站硬體接線、更換模組、或重新開機。|(D)改以導航系統(如衛星定位及慣性導航等)測得之速度及高度參數作為操作之準據。|3",
-            "205 無人飛機在視距內發生「操縱面致動器/伺服舵機(Servo)失效」,若為單邊控制面(方向舵、副翼、升降舵)失效航機尚存部分可控性,緊急處置程序為下列何者?|(A)立即調整地面導控站位置。|(B)立即切換至姿態模式。|(C)改以導航系統(如衛星定位及慣性導航等)測得之速度及高度參數作為操作之準據。|(D)嘗試利用正常操縱面及差異推力控制(Differential thrust/power)進行配平補償操作以改正航機姿態。|3",
-            "206 無人飛機在視距外發生「翼面致動器失效」,若為單邊控制面(方向舵、副翼、升降舵)失效航機尚存部分可控性,緊急處置程序為下列何者?|(A)立即以第一人稱方式接手操作,嘗試利用正常操縱面及推力控制進行配平補償操作以改正航機姿態。|(B)開啟自動避障系統。|(C)人為切入返航模式。|(D)切換至適當之操作模式,儘速穩定飛行姿態將航機以目視方式飛回本場。|0",
-            "207 無人飛機在視距外發生「翼面致動器失效」,若為雙邊控制面(方向舵、副翼、升降舵)失效航機已完全喪失可控性,緊急處置程序為下列何者?|(A)啟動自動返航模式。|(B)開啟自動避障系統。|(C)應立即記錄最終定位座標,在人員安全前題下儘速前往可能之墜落地點查看,以確認未引起火災等其他災害。|(D)切換至適當之操作模式,儘速穩定飛行姿態將航機以目視方式飛回本場。|2",
-            "208 無人飛機在視距外發生「空中失速(Stall)」,緊急處置程序為下列何者?|(A)以目視方式操作航機飛至安全區域迫降。|(B)調整俯仰姿態以飄降飛回本場。|(C)切換至適當之操作模式,儘速以穩定之滾轉角、俯仰角等飛行姿態降低無人機飛行攻角,建立安全高度。|(D)立即切換至適當之操作模式由操作人以第一人稱方式接手操作,推桿控制航機姿態降低飛行攻角以建立安全空速。|3",
-            "209 無人飛機在視距內發生「空中失速(Stall)」,緊急處置程序為下列何者?|(A)以第一人稱方式操作航機飛至安全區域迫降。|(B)立即切換至適當之操作模式由操作人目視航機接手操作,推桿控制航機姿態降低飛行攻角以建立安全空速。|(C)切換至適當之操作模式,儘速以穩定之滾轉角、俯仰角等飛行姿態降低無人機飛行攻角,建立安全高度。|(D)調整俯仰姿態以飄降飛回本場。|1",
-            "210 無人飛機在視距外發生「低油量/電量」,緊急處置程序為下列何者?|(A)切入任務模式,儘速以穩定之滾轉角、俯仰角等飛行姿態將航機飛回本場。|(B)立即關閉航機除酬載影像外之非必要酬載設備以減緩油量/電量之消耗。|(C)立即加大動力以全速飛回本場。|(D)立即關閉航機酬載影像等非必要酬載設備,以減緩油量/電量之消耗。|1",
-            "211 無人直昇機與多旋翼機在視距外發生「低油量/電量」,緊急處置程序為下列何者?|(A)開啟自動避障系統。|(B)立即以第一人稱方式保持全速飛行,儘速安全返場降落。|(C)調整俯仰姿態以飄降飛回本場。|(D)參考姿態儀及酬載影像將航機飛至安全區域迫降。|3",
-            "212 無人直昇機與多旋翼機在視距外發生「低油量/電量」,緊急處置程序下列何者為非?|(A)立即關閉航機除酬載影像外之非必要酬載設備以減緩油量/電量之消耗。|(B)減緩油量/電量之消耗,以維持飛控電腦及伺服舵機等必要模組之運作。|(C)減緩油量/電量之消耗,以維持廣播設備及投放伺服機等模組之運作。|(D)立即以第一人稱方式保持勻速飛行,儘速安全返場降落。|2",
-            "213 「迫降航線處置」指的是下列何者?|(A)自行判斷當下高度、距離及航線,安全返場降落。|(B)開啟自動避障系統。|(C)機動改變任務航線來繞越或避障。|(D)參考酬載影像避障並迫降於安全處。|0",
-            "214 「異地迫降處置」指的是下列何者?|(A)自行判斷當下高度、距離及航線,安全返場降落。|(B)開啟自動避障系統。|(C)機動改變任務航線來繞越或避障。|(D)參考酬載影像避障並迫降於安全處。|3",
-            "215 「空中緊急避障處置」指的是下列何者?|(A)自行判斷當下高度、距離及航線,安全返場降落。|(B)開啟自動避障系統。|(C)機動改變任務航線來繞越或避障。|(D)參考酬載影像避障並迫降於安全處。|2",
-            "216 臺北近場臺範圍不包括下列何者?|(A)連江縣。|(B)宜蘭縣。|(C)臺中市。|(D)雲林縣。|3",
-            "217 高雄近場臺範圍不包括下列何者?|(A)嘉義縣。|(B)南投縣。|(C)雲林縣。|(D)金門縣。|1",
-            "218 臺北飛航情報區限航區名冊,RCR45、RCR46、RCR47(核三、核一、核二廠),涉及下列何者?|(A)航道及航管安全。|(B)情報及邊境安全。|(C)輻射及廠房安全。|(D)以上皆是。|2",
-            "219 臺北飛航情報區限航區名冊,東沙群島位於下列哪個飛航情報區內?|(A)香港飛航情報區。|(B)臺北飛航情報區。|(C)馬尼拉飛航情報區。|(D)廣州飛航情報區。|0",
-            "220 臺北飛航情報區限航區名冊,南沙群島位於下列哪個飛航情報區內?|(A)香港飛航情報區。|(B)臺北飛航情報區。|(C)馬尼拉飛航情報區。|(D)廣州飛航情報區。|2",
-            "221 遙控無人機實際作業地點在台中,要派員去下列哪個近場管制塔臺?|(A)位在臺北的臺北近場管制塔臺。|(B)位在桃園的臺北近場管制塔臺。|(C)位在台南的高雄近場管制塔臺。|(D)位在高雄的高雄近場管制塔臺。|1",
-            "222 遙控無人機實際作業地點在台東,要派員去下列哪個近場管制塔臺?|(A)位在臺北的臺北近場管制塔臺。|(B)位在桃園的臺北近場管制塔臺。|(C)位在台南的高雄近場管制塔臺。|(D)位在高雄的高雄近場管制塔臺。|3",
-            "223 若無人機作業範圍未在禁/限航區、未在民航局公告之航空站或飛行場四周一定距離範圍、且高度未逾距地面或水面400呎者,是否需派員至航管單位進行協調?|(A)無需派員至航管單位進行協調。|(B)仍需派員至航管單位進行協調。|(C)由無人機操作人自行決定。|(D)由航管單位依當時的航空交通流量來決定。|0",
-            "224 臺北近場臺及高雄近場臺均位於保安管制區,臨時進出之人員須取得下列哪個單位核准?|(A)民航局。|(B)國安局。|(C)航空警察單位。|(D)機場保全公司。|2",
-            "225 1個遙控無人機申請案以派遣幾位協調人員至航管單位為原則?|(A)1位。|(B)2位。|(C)3位。|(D)4位。|0",
-            "226 若在同日派1位協調人員負責多處遙控無人機之聯繫作業,應安排不同遙控無人機活動作業時間,以免發生下列何種狀況,而衍生飛安風險?|(A)延誤放行升空時機。|(B)壓縮作業時間。|(C)未依航管指示落地。|(D)以上皆是。|3",
-            "227 派遣至航管單位的協調人員,應熟知遙控無人機申請案的相關作業內容中不包括下列何者?|(A)申請案之作業地點、範圍、實際作業高度。|(B)機場周邊活動、其他航機飛行。|(C)申請案號碼、飛航公告號碼。|(D)作業時間、返回落地所需時間。|1",
-            "228 協調人員至航管單位時,應主動告知相關作業內容訊息予下列何人?|(A)塔臺長。|(B)航管班務督導。|(C)管制員。|(D)航詢員。|1",
-            "229 協調人員至航管單位執行協調聯繫作業時,手機應作下列何種設定?|(A)手機應設定為響鈴模式。|(B)手機應設定為飛航模式。|(C)手機應設定為靜音或震動模式。|(D)手機應暫時關機。|2",
-            "230 航管單位屬於保安管制區域,作業期間應遵守下列哪些事項?|(A)禁止拍照、錄音、攝影等,但可隨意走動。|(B)可以拍照、錄音、攝影等,但不得進入指定區域以外之場所。|(C)可以拍照、錄音、攝影等,且可隨意走動。|(D)禁止拍照、錄音、攝影等,且不得進入指定區域以外之場所。|3",
-            "231 空域協調使用作業期間以下列何者為優先?|(A)軍、民航機。|(B)遙控無人機。|(C)輕航機。|(D)滑翔機。|0",
-            "232 派遣至航管單位的協調人員,應確實按航管人員指示內容,即時聯絡下列何人配合辦理?|(A)遙控無人機目視觀察員。|(B)遙控無人機所有人。|(C)遙控無人機操作人。|(D)以上皆是。|2",
-            "233 遙控無人機飛航活動申請時,「作業概述」欄位應敘明下列哪些資訊?|(A)作業高度、預期效益等資訊。|(B)作業目的、預計起降地點等資訊。|(C)作業溫度、氣壓及氣象預報等資訊。|(D)作業所需航空知識、緊急處置程序等資訊。|1",
-            "234 遙控無人機飛航活動申請時,「作業概述」預計起降地點可輸入下列何者?|(A)座標(如:經緯度)。|(B)地標(如:台大實驗林)。|(C)以上皆可。|(D)以上皆非。|2",
-            "235 遙控無人機飛航安全相關事件之一,是指下列何者所規定之遙控無人機飛航事故?|(A)民用航空法。|(B)飛航規則。|(C)危險物品空運管理辦法。|(D)運輸事故調查法。|3",
-            "236 運輸事故調查法所規定之遙控無人機飛航事故,應向下列何者通報?|(A)向民航局通報即可。|(B)向運安會通報即可。|(C)先向民航局通報,再看情形決定是否向運安會通報。|(D)除向民航局通報外,亦應向運安會通報。|3",
-            "237 運輸事故調查法規定,運輸事故發生後,應於得知消息後多少時間內通報運安會?|(A)2小時內。|(B)12小時內。|(C)24小時內。|(D)48小時內。|0",
-            "238 運輸事故調查法規定,疑似運輸事故發生後,應於得知消息後多少時間內通報運安會?|(A)12小時內。|(B)24小時內。|(C)2小時內。|(D)48小時內。|1",
-            "239 運輸事故調查法規定,遙控無人機所有人或操作人,無正當理由未於期限內通報運安會事故或疑似事故者,處下列何種罰鍰?|(A)新臺幣3萬元以上15萬元以下。|(B)新臺幣6萬元以上30萬元以下。|(C)新臺幣30萬元以上150萬元以下。|(D)新臺幣1萬元以上150萬元以下。|1",
-            "240 運輸事故調查法所規定之遙控無人機飛航事故明訂於下列何者?|(A)民用航空法。|(B)飛航規則。|(C)遙控無人機重大飛航事故調查作業處理規則。|(D)危險物品空運管理辦法。|2",
-            "241 「遙控無人機重大飛航事故調查作業處理規則」規定,遙控無人機重大飛航事故發生後,下列何者應儘速通報已知事故狀況?|(A)遙控無人機所有人。|(B)遙控無人機操作人。|(C)政府相關機關(構)。|(D)以上皆是。|3",
-            "242 「遙控無人機重大飛航事故調查作業處理規則」規定,遙控無人機重大飛航事故發生後,應儘速將已知事故狀況通報運安會之下列何者?|(A)值日官。|(B)主任調查官。|(C)執行長。|(D)專案調查小組。|0",
-            "243 「遙控無人機重大飛航事故調查作業處理規則」規定,下列何者為應通報之事故?|(A)人員死亡或傷害。|(B)人員生病或情緒不佳。|(C)人員睡眠不足或喝酒過量。|(D)人員注意力不集中。|0",
-            "244 「遙控無人機重大飛航事故調查作業處理規則」規定,「死亡」指該人直接觸及遙控無人機之任何部位,包括自機體分離之部分,而有下列哪種情形者?|(A)當場死亡。|(B)4小時之內死亡。|(C)8小時之內死亡。|(D)12小時之內死亡。|0",
-            "245 「遙控無人機重大飛航事故調查作業處理規則」規定,「傷害」指下列哪種情形者?|(A)受傷後3日之內須住院治療12小時以上。|(B)受傷後5日之內須住院治療24小時以上。|(C)受傷後7日之內須住院治療48小時以上。|(D)受傷後10日之內須住院治療72小時以上。|2",
-            "246 「遙控無人機重大飛航事故調查作業處理規則」規定,下列何者為應通報之事故?|(A)最大起飛重量逾1公斤之遙控無人機遭受實質損害。|(B)最大起飛重量逾25公斤之遙控無人機遭受實質損害。|(C)最大起飛重量逾1公斤之遙控無人機遭受可修復之損壞。|(D)最大起飛重量逾25公斤之遙控無人機遭受可修復之損壞。|1",
-            "247 「遙控無人機重大飛航事故調查作業處理規則」規定,「實質損害」指下列哪種情形者?|(A)遙控無人機損壞,修復需費時1日之內、費用新臺幣1萬元以內。|(B)遙控無人機損壞,修復需費時5日之內、費用新臺幣10萬元以內。|(C)遙控無人機損壞,修復需費時5日以上、費用新臺幣10萬元以上。|(D)遙控無人機損壞無法修復。|3",
-            "248 「遙控無人機重大飛航事故調查作業處理規則」規定,造成人民生命、財產重大影響者、或毀損超過下列何者為應通報之事故?|(A)新臺幣100萬元者。|(B)新臺幣50萬元者。|(C)新臺幣25萬元者。|(D)新臺幣10萬元者。|1",
-            "249 「飛航規則」規定,「高度」指下列何者?|(A)自特定基準至空中某平面或某點或某目標物間之水平距離。|(B)自平均海平面至空中某平面或某點或某目標物間之水平距離。|(C)自特定基準至空中某平面或某點或某目標物間之垂直距離。|(D)自平均海平面至空中某平面或某點或某目標物間之垂直距離。|3",
-            "250 「飛航規則」規定,「實際高度」指下列何者?|(A)自特定基準至空中某平面或某點或某目標物間之水平距離。|(B)自平均海平面至空中某平面或某點或某目標物間之水平距離。|(C)自特定基準至某平面、某點、或某目標物間之垂直距離。|(D)自平均海平面至空中某平面或某點或某目標物間之垂直距離。|2",
-            "251 「飛航規則」規定,有人機目視飛航最低實際高度為下列何者?|(A)不得低於距地面或水面500呎。|(B)不得低於距地面或水面400呎。|(C)不得低於距地面或水面300呎。|(D)不得低於距地面或水面200呎。|0",
-            "252 「指示高度」為由高度表所顯示出來的高度,基準面為下列何者?|(A)標準參考面。|(B)最低雲幕高。|(C)地面或海平面。|(D)高度表壓力調撥值所設定的基準面。|3",
-            "253 「指示高度」壓力調撥值為下列何者?|(A)29.92 in-Hg。|(B)當地之大氣壓力值。|(C)27.92 in-Hg。|(D)「指示高度」沒有壓力調撥值問題。|1",
-            "254 「真高度」俗稱海拔高度,為航空器高於下列何者的垂直距離?|(A)地面。|(B)最低雲幕高。|(C)平均海平面。|(D)標準參考面。|2",
-            "255 一般在航圖看到的高度,包括機場、地形、或障礙物的標高都是下列何者?|(A)MSL。|(B)AGL。|(C)ASL。|(D)MGL。|0",
-            "256 「絕對高度」通常是指經由下列何者所顯示出來的高度?|(A)電波/雷達高度表。|(B)GPS。|(C)氣壓高度表。|(D)以上皆是。|0",
-            "257 「絕對高度」基準為下列何者?|(A)標準參考面。|(B)地面。|(C)最低雲幕高。|(D)海平面。|1",
-            "258 「絕對高度」壓力高度表的壓力調撥值為下列何者?|(A)29.92 in-Hg。|(B)當地之大氣壓力值。|(C)27.92 in-Hg。|(D)「絕對高度」沒有壓力調撥值問題。|3",
-            "259 「絕對高度」常用下列何者來表示?|(A)MSL。|(B)MGL。|(C)AGL。|(D)ASL。|2",
-            "260 飛機在通過或降落高山地區的空域時,使用下列何種高度比較安全?|(A)指示高度。|(B)絕對高度。|(C)壓力高度。|(D)以上皆是。|1",
-            "261 「壓力高度」基準面為下列何者?|(A)海平面。|(B)最低雲幕高。|(C)標準參考面。|(D)地面。|2",
-            "262 「壓力高度」之壓力調撥值設定為下列何者?|(A)當地之大氣壓力值。|(B)「壓力高度」沒有壓力調撥值問題。|(C)27.92 in-Hg。|(D)29.92 in-Hg。|3",
-            "263 「壓力高度」用以計算下列何者?|(A)密度高度。|(B)真高度。|(C)真空速及其他性能資料。|(D)以上皆是。|3",
-            "264 「密度高度」為將壓力高度值對下列何者校驗後的高度?|(A)溫度。|(B)濕度。|(C)風速。|(D)氣壓。|0",
-            "265 如果大氣溫度符合國際標準大氣的狀況,密度高度等於下列何者?|(A)指示高度。|(B)真高度。|(C)壓力高度。|(D)絕對高度。|2",
-            "266 監控密度高度最主要的目的是下列何者?|(A)避開雷雨區或沙塵暴。|(B)正確計算飛機性能值。|(C)提高濃霧時的能見度。|(D)預估逆溫層的形成。|1",
-            "267 下列何者為以遙控無人機投擲物件之一例?|(A)投放海釣拋餌。|(B)噴灑農藥。|(C)工程巡檢。|(D)空拍回傳。|0",
-            "268 下列何者為以遙控無人機噴灑物件之一例?|(A)工程巡檢。|(B)空拍回傳。|(C)投放海釣拋餌。|(D)噴灑農藥。|3",
-            "269 下列何者為危險物品第一類爆炸物品之一例?|(A)具劇烈爆炸危險性。|(B)具火焰噴出危險性。|(C)具顯著危險性。|(D)以上皆是。|3",
-            "270 危險物品第二類氣體包括下列何者?|(A)單原子氣體、單分子氣體、化合物分子氣體。|(B)理想氣體、非完全氣體、凡得瓦爾氣體。|(C)易燃氣體、非易燃無毒氣體、毒性氣體。|(D)惰性氣體、溫室氣體、費米氣體。|2",
-            "271 「危險物品空運管理辦法」危險物品之分類基準,係依下列何者之「危險物品航空安全運送技術規範」之規定?|(A)世界衛生組織。|(B)國際民用航空組織。|(C)世界旅遊組織。|(D)聯合國工業發展組織。|1",
-            "272 日出及日落時間,依下列何者公布之時間為準?|(A)民用航空局。|(B)觀光局。|(C)中央氣象局。|(D)運輸研究所。|2",
-            "273 日出前/日落後,至太陽中心在地平線下6°之時段稱為下列何者?|(A)民用曙光/民用暮光。|(B)天文曙光/天文暮光。|(C)航海曙光/航海暮光。|(D)朝陽/夕陽。|0",
-            "274 日出前/日落後,至太陽中心在地平線下6°至12°之時段稱為下列何者?|(A)朝陽/夕陽。|(B)航海曙光/航海暮光。|(C)民用曙光/民用暮光。|(D)天文曙光/天文暮光。|1",
-            "275 日出前/日落後,至太陽中心在地平線下12°至18°之時段稱為下列何者?|(A)航海曙光/航海暮光。|(B)朝陽/夕陽。|(C)民用曙光/民用暮光。|(D)天文曙光/天文暮光。|3",
-            "276 矯正鏡片一般適用於下列何者?|(A)近視、遠視、老花、斜視、散光等。|(B)遠距離觀察物體。|(C)觀察微小的物體。|(D)遮擋陽光、過濾紫外線。|0",
-            "277 矯正鏡片的佩戴方式一般有下列哪兩種?|(A)單片眼鏡、雙片眼鏡兩種。|(B)框架眼鏡、隱形眼鏡兩種。|(C)輕型眼鏡、重型眼鏡兩種。|(D)長效眼鏡、短效眼鏡兩種。|1",
-            "278 以目前遙控無人機操作負荷,其控制台及系統非經特殊設計尚無法同時控制幾架遙控無人機?|(A)2架(含)以上。|(B)3架(含)以上。|(C)4架(含)以上。|(D)5架(含)以上。|0",
-            "279 「民用航空器及公務航空器重大飛航事故調查作業處理規則」規定,應通報下列重大飛航事故之一,為航空器空中接近至下列哪個範圍,須採緊急避讓動作始能防止相撞或危險之情況者?|(A)200呎以內。|(B)400呎以內。|(C)500呎以內。|(D)900呎以內。|2",
-            "280 近年來多起客機疑與無人機的碰撞實例,大多發生於下列何種時機?|(A)客機在機場停駐時。|(B)客機在空中平飛過程中。|(C)客機在機場爬升或下降過程中。|(D)客機在空中轉彎過程中。|2",
-            "281 帶BEC(battery eliminator circuit,去電池電路)功能的電子調速器可對電源電壓進行降壓,並輸出5V電壓以供電至下列何種機載設備?|(A)飛控電腦。|(B)遙控鏈路元件。|(C)伺服舵機。|(D)以上皆是。|3",
-            "282 帶BEC(battery eliminator circuit,去電池電路)功能的電子調速器可對電源電壓進行降壓,並輸出5V電壓以供電至各種機載設備,何者除外?|(A)動力馬達。|(B)遙控鏈路元件。|(C)伺服舵機。|(D)飛控電腦。|0",
-            "283 經農政機關登記合格之法人且取得民航局能力審查核准之業者,其飛航活動許可時間以多久為限?|(A)6個月。|(B)3個月。|(C)1年。|(D)1個月。|0",
-            "284 經農政機關登記合格之法人且取得民航局能力審查核准之業者,其飛航活動許可以六個月為限,但其可申請操作限制排除項目不包含下列何者?|(A)不得以遙控無人機投擲或噴灑任何物件。|(B)不得裝載依第四十三條第三項公告之危險物品。|(C)不得於日落後至日出前之時間飛航。|(D)不得於人群聚集或室外集會遊行上空活動。|3",
-            "285 某遙控無人機操作人欲執行農藥噴灑作業,以下敘述何者正確?|(A)執行業務之活動申請者須為經農政機關登記合格之法人。|(B)其飛航活動許可時間以3個月為限。|(C)應於活動日三十日前提出申請。|(D)該操作人不須通過術科測驗。|0",
-            "286 某遙控無人機操作人欲執行農藥噴灑作業,以下敘述何者正確?|(A)執行業務之活動申請者須為經農政機關登記合格之法人。|(B)其飛航活動許可時間以6個月為限。|(C)應於活動日十五日前提出申請。|(D)以上皆是。|3",
-            "287 經農政機關登記合格之法人欲於禁、限航區及航空站或飛行場四周一定距離範圍內從事農藥噴灑作業,應於活動日前多久提出申請?|(A)30日前。|(B)15日前。|(C)3日前。|(D)5日前。|1",
-            "288 於直轄市、縣(市)政府公告之禁止、限制區域內從事遙控無人機農藥噴灑作業時,如有跨縣市飛航情形,應向哪個機關提出申請?|(A)飛經之直轄市、縣(市)政府。|(B)向起飛地點所在直轄市、縣(市)政府提出申請,經所在地及跨縣市政府同意。|(C)降落地點所在直轄市、縣(市)政府。|(D)降落地點所鄰近直轄市、縣(市)政府。|1",
-            "289 經農政機關登記合格之法人因執行農噴業務需於直轄市、縣(市)政府所公告之遙控無人機活動區域、時間及其他管理事項外從事飛航活動者,應申請何者會商相關中央主管機關同意後,始得為之?|(A)直轄市、縣(市)政府。|(B)衛福部。|(C)農委會。|(D)交通部。|0",
-            "290 經農政機關登記合格之法人因執行農噴業務需於禁、限航區及航空站或飛行場四周一定距離範圍內從事遙控無人機飛航活動者,應申請何者會商目的事業主管機關同意後,始得為之?|(A)鄉鎮區公所。|(B)農委會。|(C)民航局。|(D)直轄市、縣(市)政府。|2",
-            "291 政府機關(構)、學校或法人於直轄市、縣(市)政府公告之禁止、限制區域內從事遙控無人機飛航活動,應取得相關中央主管機關同意,有關該程序下列敘述何者正確?|(A)應報請直轄市、縣(市)政府會商相關中央主管機關同意。|(B)相關中央主管機關得委託政府機關(構)或團體代為同意。|(C)相關中央主管機關委託相關業務應將委託之對象、事項及法規依據公告之,並刊登於政府公報。|(D)以上皆是。|3",
-            "292 遙控無人機製造者或進口者利用電子商務服務系統販售遙控無人機時,應將下列哪段文字標示於電子商務服務系統明顯處?|(A)最大起飛重量二百五十公克以上遙控無人機應辦理註冊。|(B)遙控無人機活動前應注意活動區域與遵守操作規定。|(C)相關活動區域及操作規定資訊,請見民航局網站及遙控無人機圖資行動應用程式。|(D)以上皆是。|3",
-            "293 利用電子商務服務系統販售遙控無人機時販售遙控無人機前,應由下列何者向民航局申請辦理產品資訊登錄?|(A)代理商。|(B)製造商。|(C)進口者。|(D)以上皆是。|3",
-            "294 遙控無人機於販售或進口前,應由下列何者於產品或包裝上標示最大起飛重量、註冊程序、型式檢驗標籤或認可標籤、實體檢驗說明、操作限制說明、管理及違規裁罰等資訊?|(A)代理商。|(B)製造商。|(C)進口者。|(D)以上皆是。|3",
-            "295 學習操作證持有人得於持有遙控無人機普通操作證或專業操作證之操作人在旁指導下,依其操作證所載之構造分類,學習操作最大起飛重量未達多少公斤之遙控無人機?|(A)15公斤。|(B)25公斤。|(C)2公斤。|(D)150公斤。|1",
-            "296 學習操作證持有人得於持有遙控無人機普通操作證之操作人在旁指導下,學習操作最大起飛重量未逾多少公斤之遙控無人機?|(A)15公斤。|(B)25公斤。|(C)2公斤。|(D)150公斤。|0",
-            "297 學習操作證持有人得於持有遙控無人機專業操作證之操作人在旁指導下,學習操作最大起飛重量未達多少公斤之同一構造遙控無人機?|(A)2公斤。|(B)15公斤。|(C)150公斤。|(D)依指導人持有之專業操作證可操作之重量級別而定,並以最大起飛重量未達25公斤為限。|3",
-            "298 領有最大起飛重量一百五十公斤以上之專業操作證者,對持有學習操作證者具備同一構造最大起飛重量多少公斤的遙控無人機教學資格?|(A)未達2公斤且同一級別以下之遙控無人機資格。|(B)未達15公斤且同一級別以下之遙控無人機資格。|(C)未達25公斤且同一級別以下之遙控無人機資格。|(D)未達150公斤且同一級別以下之遙控無人機資格。|2",
-            "299 操作最大起飛重量一百五十公斤以上之遙控無人機操作人應依下列哪種標準辦理體格檢查?|(A)航空人員乙類體格檢查標準。|(B)普通小型車體檢認定標準。|(C)普通大貨車體檢認定標準。|(D)普通聯結車體檢認定標準。|0",
-            "300 操作最大起飛重量一百五十公斤以下之遙控無人機操作人應依下列哪種標準辦理體格檢查?|(A)航空人員乙類體格檢查標準。|(B)普通小型車體檢認定標準。|(C)普通大貨車體檢認定標準。|(D)無人駕駛航空器體檢認定標準。|1",
-            "301 有關申請遙控無人機專業操作證者,下列何者有誤?|(A)申請專業基本級II操作證者,應領有專業基本級I(無註記重量限制)操作證一個月以上之經歷。|(B)申請專業高級Ib操作證者,應領有專業高級Ia(無註記重量限制)操作證一個月以上之經歷。|(C)申請專業高級 IIc操作證者,應領有專業基本級II操作證或專業高級Ib操作證均有三個月以上之經歷。|(D)申請專業基本級 操作證者,應領有遙控無人機普通操作證一個月以上之經歷。|3",
-            "302 申請專業基本級II操作證者,應領有專業基本級I(無註記重量限制)操作證幾個月以上之經歷?|(A)1個月。|(B)2個月。|(C)3個月。|(D)6個月。|0",
-            "303 申請專業高級Ib操作證者,應領有專業高級Ia(無註記重量限制)操作證幾個月以上之經歷?|(A)1個月。|(B)2個月。|(C)3個月。|(D)6個月。|0",
-            "304 申請專業高級IIc操作證者,應領有專業基本級II操作證或專業高級Ib操作證幾個月以上之經歷?|(A)1個月。|(B)2個月。|(C)3個月。|(D)6個月。|2",
-            "305 申請專業高級IIId操作證者,應領有下列何種操作證一個月以上之經歷?|(A)專業基本級 III操作證。|(B)專業高級 IIc操作證。|(C)專業基本級II操作證。|(D)專業高級 Ib操作證。|0",
-            "306 申請專業高級IIId操作證者,應領有專業基本級III操作證幾個月以上之經歷?|(A)1個月。|(B)2個月。|(C)3個月。|(D)6個月。|0",
-            "307 有關申請遙控無人機專業操作證者之體格檢查規定,下列敘述何者有誤?|(A)操作最大起飛重量一百五十公斤以下之遙控無人機操作人應依據普通小型車體檢認定標準辦理體格檢查。|(B)應向公路監理機關指定之醫療院所或教學醫院辦理體格檢查。|(C)操作最大起飛重量一百五十公斤以上之遙控無人機操作人應依航空人員乙類體格檢查標準辦理體格檢查。|(D)操作最大起飛重量二十五公斤以上之遙控無人機操作人應依航空人員乙類體格檢查標準辦理體格檢查。|3",
-            "308 針對學習操作證之敘述,下列敘述何者為非?|(A)申請者應年滿14歲。|(B)持有者須於具備普通或專業操作證之操作人在旁指導監護下,使得操作。|(C)持有者所操作學習遙控無人機最大起飛重量不得逾15公斤。|(D)持有者所操作學習遙控無人機最大起飛重量不得逾25公斤。|2",
-            "309 經農政機關登記合格之法人且取得民航局能力審查核准之業者,從事下列哪種飛航活動其同意文件以六個月為限?|(A)以遙控無人機投擲或噴灑任何物件。|(B)裝載依第四十三條第三項公告之危險物品。|(C)於日落後至日出前之時間飛航。|(D)以上皆是。|3",
-            "310 有關申請遙控無人飛機專業基本級I操作證者,下列敘述何者為正確?|(A)遙控無人飛機之矩形機翼、翼展僅限介於一百八十公分至二百公分者。|(B)遙控無人飛機之翼弦長僅限介於二十八公分至三十三公分者。|(C)遙控無人飛機之起飛重量僅限大於6.5公斤以上者。|(D)可使用符合Ib規格之工作機任務機。|3",
-            "311 有關申請遙控無人直昇機專業基本級I操作證者,下列敘述何者為正確?|(A)遙控無人直昇機之旋翼半徑僅限介於七十公分至九十公分者。|(B)遙控無人直昇機之起飛重量僅限大於4.5公斤以上者。|(C)遙控無人直昇機之起飛重量僅限大於6.5公斤以上者。|(D)可使用符合Ib規格之工作機(任務機)。|3",
-            "312 有關申請遙控無人多旋翼機專業基本級I操作證者,下列敘述何者為正確?|(A)遙控無人多旋翼機之對角馬達之軸心距離僅限介於九十公分至一百一十公分者。|(B)遙控無人多旋翼機之起飛重量僅限大於4公斤以上者。|(C)遙控無人多旋翼機之起飛重量僅限大於6.5公斤以上者。|(D)可使用符合Ib規格之工作機(任務機)。|3",
-            "313 有關申請遙控無人多旋翼機專業基本級I操作證者,下列敘述何者為非?|(A)可使用遙控無人多旋翼機之對角馬達之軸心距離介於九十公分至一百一十公分者。|(B)可使用遙控無人多旋翼機之起飛重量大於或等於4公斤以上者。|(C)可使用遙控無人多旋翼機之起飛重量大於6.5公斤以上者。|(D)可使用符合Ib規格之工作機(任務機)。|2",
-            "314 持有普通操作證者在旁指導持有學習操作證者學習操作遙控無人機,下列敘述何者正確?|(A)可學習操作最大起飛重量未達15公斤之遙控無人機。|(B)可學習操作最大起飛重量未達25公斤之遙控無人機。|(C)可學習操作最大起飛重量未達150公斤之遙控無人機。|(D)可學習操作最大起飛重量150公斤以上之遙控無人機。|0",
-            "315 依遙控無人機管理規則規定,遙控無人機製造者或進口者於販售前,應於何處標示最大起飛重量、註冊程序、型式檢驗標籤或認可標籤、實體檢驗說明、操作限制說明、管理及違規裁罰等資訊?|(A)廣告內容。|(B)電子商務服務系統。|(C)產品或包裝上。|(D)以上皆是。|2",
-            "316 自行製造、使用之遙控無人機,應由下列何者向民航局申請辦理產品資訊登錄?|(A)所有人。|(B)零件製造商。|(C)零件供應商。|(D)以上皆是。|0",
-            "317 政府機關為執行業務者,其活動申請同意期限為多久?|(A)3個月。|(B)6個月。|(C)1個月。|(D)1年。|3",
-            "318 小陳是一位持有專業操作證(G2)的自然人,請問下列敘述何者為有誤?|(A)其操作證得以申請執行遙控無人機投擲或噴灑任何物件。|(B)小陳如欲執行夜間噴灑作業,須再參加第1組(G1)高級術科測驗並取得專業操作證。|(C)小陳如欲執行業務之活動申請,則須透過經農政機關登記合格之法人。|(D)小陳已經擁有專業操作證(G2),即可在屬於綠區的自家農地執行遙控無人機噴灑作業。|3",
-            "319 小陳是一間農噴無人機公司的操作人,該公司並已向民航局完成活動申請得以執行農藥噴灑作業,請問下列敘述何者為有誤?|(A)其活動申請同意文件最長得以6個月為限。|(B)該公司是農政機關登記合格之法人。|(C)該公司之能力審查申請,核准效期為1年。|(D)小陳應於每次活動前、後於指定時間內至民航局指定資訊系統登錄飛航資訊。|2",
-            "320 小華想要進口一些遙控無人機到網路上販售,請問下列敘述何者為有誤?|(A)小華應主動向民航局申請辦理產品資訊登錄。|(B)小華是進口者。|(C)小華不得擅自進口製造商未向民航局完成登錄之遙控無人機。|(D)小華應於販售頁面明顯處標示遙控無人機註冊、操作注意事項及活動空域圖資等資訊。|2",
-            "321 小華欲報考專業高級Ib操作證術科考試,請問下列敘述何者為正確?|(A)小華應領有遙控無人機普通操作證1個月以上之經歷。|(B)小華應領有專業高級la(無註記重量限制)操作證1個月以上之經歷。|(C)小華不須通過專業操作證學科測驗。|(D)小華應領有專業高級Ia(無註記重量限制)操作證3個月以上之經歷。|1",
-            "322 小華持有學習操作證,並向持有普通操作證的小黃學習,請問下列敘述何者為錯誤?|(A)小華應已年滿14歲。|(B)小黃具有對小華進行最大起飛重量未達十五公斤之遙控無人機教學資格。|(C)小黃未通過專業操作證術科測驗,不具任何教學資格。|(D)教學過程須遵守操作限制規定。|2",
-            "323 小華是一名持有專業操作證(G3)的警員,因為公務需要,長官請他使用遙控無人機值勤,請問下列敘述何者錯誤?|(A)小華值勤的機關須通過民航局能力審查後始得從事遙控無人機活動。|(B)小華執勤的機關,其活動申請同意文件以半年為限。|(C)經民航局活動申請許可,小華得以於集會遊行上空進行拍攝偵查。|(D)小華未持有專業操作證(G1)證照,日落後即不得操作遙控無人機。|1",
-            "324 小黃已申請並經許可於桃園機場禁止無人機活動範圍內從事飛航活動,該申請人於執行飛航作業時之應注意事項,請問下列敘述何者正確?|(A)小黃僅須通過民航局能力審查後即可從事遙控無人機活動。|(B)小黃若未取得飛航公告(NOTAM)或未與桃園機場航務組進行協調聯繫,仍視同程序已完備,可依活動許可時間及範圍直接升空作業。|(C)經民航局活動申請許可,小黃即可於桃園機場附近進行空拍作業。|(D)小黃應依「活動同意文件」規定辦理空域協調事宜,作業前後若未與桃園機場航務組進行空域協調聯繫者,視同程序未完成,將依遙控無人機管理規則查處。|3"
+        // 格式: 題目 | 選項A | 選項B | 選項C | 選項D | 答案索引(0-3) | 專業錯題解析
+        const rawDB = [
+            "1 下列何者為於遙控無人機飛航活動期間,實際操控遙控無人機並應負飛航安全責任之人員?|(A)遙控無人機操作人。|(B)目視觀察員。|(C)觀察員。|(D)協調員。|0|依據民航法規，於飛航活動期間實際操控並應負飛航安全責任者為「遙控無人機操作人」。",
+            "2 下列何者為於延伸視距飛航作業時,持有遙控無人機操作證,並於遙控無人機活動期間,提供實際操控遙控無人機之操作人必要飛航資訊之人員?|(A)遙控無人機操作人。|(B)目視觀察員。|(C)觀察員。|(D)協調員。|1|在延伸視距(EVLOS)飛航時，負責提供飛航資訊給操作人的輔助人員為「目視觀察員」。",
+            "3 下列何者為在以「第一人稱視角」(FPV,first-person view)飛行時,於視距範圍內從旁協助操作人觀察四周環境以保障操作安全之人員?|(A)遙控無人機操作人。|(B)目視觀察員。|(C)觀察員。|(D)協調員。|2|FPV飛行時，因操作人視野受限，需由「觀察員」從旁協助觀察四周環境保障安全。",
+            "4 下列何者為依政府機關(構)、學校或法人作業手冊之程序,於飛航管制單位提供操作人空域協調資訊之人員?|(A)遙控無人機操作人。|(B)目視觀察員。|(C)觀察員。|(D)協調員。|3|負責與飛航管制單位進行空域協調，並提供資訊給操作人的人員稱為「協調員」。",
+            "5 遙控無人機系統包括下列哪些項目?|(A)遙控無人機(機體)、遙控設備。|(B)通訊及控制信號鏈路。|(C)附屬裝置。|(D)以上皆是。|3|無人機系統為一完整體系，包含機體、遙控設備、信號鏈路以及相關的附屬裝置。",
+            "6 遙控無人機系統中,火箭、彈射軌道、降落傘等發射回收裝置,屬於遙控無人機系統的下列哪一部分?|(A)附屬裝置。|(B)遙控無人機。|(C)遙控設備。|(D)通訊及控制信號鏈路。|0|發射與回收裝置（如彈射軌道、降落傘等）皆歸類於系統的「附屬裝置」。",
+            "7 遙控無人機系統中,機體結構與外型、動力系統、自動駕駛與飛行控制系統、導航系統等,並攜帶任務所需之酬載,屬於遙控無人機系統的下列哪一部分?|(A)附屬裝置。|(B)遙控無人機。|(C)遙控設備。|(D)通訊及控制信號鏈路。|1|包含機體結構、動力、飛控、導航及酬載的部分，即為「遙控無人機」本體。",
+            "8 遙控無人機系統中,用於操作遙控無人機之設備,屬於遙控無人機系統的下列哪一部分?|(A)附屬裝置。|(B)遙控無人機。|(C)遙控設備。|(D)通訊及控制信號鏈路。|2|用於直接操作與控制無人機的介面或遙控器，歸類為「遙控設備」。",
+            "9 遙控無人機系統中,遙控無人機及遙控設備間為操作飛行管理目的之資料鏈接,屬於遙控無人機系統的下列哪一部分?|(A)附屬裝置。|(B)遙控無人機。|(C)遙控設備。|(D)通訊及控制信號鏈路。|3|負責機體與遙控設備間資料傳輸與管理的連結，稱為「通訊及控制信號鏈路」。",
+            "10 下列何者為含機體、燃料、電池、負載設備及酬載等遙控無人機之設計重量?|(A)最大巡航重量。|(B)最大降落重量。|(C)最大起飛重量。|(D)最大轉彎重量。|2|包含所有設備、燃料、電池與酬載的設計總重，定義為「最大起飛重量」。",
+            "11 延伸視距飛航,指操作人於視距外,藉由目視觀察員於下列哪個範圍內與遙控無人機保持直接目視接觸,並提供遙控無人機操作人必要飛航資訊之操作方式?|(A)其半徑300公尺範圍內。|(B)操作人半徑300公尺範圍內。|(C)其半徑400公尺範圍內。|(D)操作人半徑900公尺範圍內。|0|目視觀察員必須在自身半徑 300 公尺範圍內與無人機保持目視接觸。",
+            "12 延伸視距飛航,其最大範圍為以遙控無人機操作人為中心之半徑X公尺、相對地面或水面高度低於Y呎內之區域。|(A)X為900;Y為400。|(B)X為900;Y為300。|(C)X為600;Y為400。|(D)X為600;Y為300。|0|延伸視距最大範圍：操作人半徑 900 公尺以內，且高度低於 400 呎。",
+            "13 延伸視距最大範圍,為下列哪個區域?|(A)以遙控無人機操作人為中心之半徑300公尺、相對地面或水面高度低於400呎內之區域。|(B)以遙控無人機操作人為中心之半徑900公尺、相對地面或水面高度低於400呎內之區域。|(C)以遙控無人機操作人為中心之半徑600公尺、相對地面或水面高度低於400呎內之區域。|(D)以遙控無人機操作人為中心之半徑900公尺、相對地面或水面高度低於500呎內之區域。|1|法規明定延伸視距極限為：以操作人為中心半徑 900 公尺，高度低於 400 呎內。",
+            "14 目前遙控無人機之下列哪個功能尚在進行研究開發中,尚無國際一致之標準?|(A)起降功能。|(B)資料鏈接功能。|(C)射頻識別功能。|(D)遙控功能。|2|射頻識別(RFID/Remote ID)功能目前各國標準不一，尚無國際一致的最終標準。",
+            "15 遙控無人機之下列哪個功能,除其裝置本身之技術外,尚需配合地面接收裝置?|(A)射頻識別功能。|(B)起降功能。|(C)遙控功能。|(D)以上皆是。|0|射頻識別功能必須配合地面的接收裝置(Receiver)才能成功解讀廣播資訊。",
+            "16 下列何者係指目視檢查遙控無人機外觀完整、機構及動力系統穩固、註冊號碼依民航法規定標示可辨、操作人應持有合格操作證、遙控設備與無人機間之通訊及控制信號鏈路運作正常、燃油或電力之供應符合飛航之需求等?|(A)安全測試條件。|(B)安全勞動條件。|(C)安全勤務條件。|(D)安全飛航條件。|3|上述各項起飛前的標準檢查程序，統稱為確保「安全飛航條件」。",
+            "17 下列何者係指包含酒類、鴉片類、大麻、鎮靜劑及安眠藥、古柯鹼、其他精神刺激藥物、迷幻藥及興奮劑等?|(A)心靈作用物質。|(B)精神作用物質。|(C)視力作用物質。|(D)肌肉作用物質。|1|法規將酒類及各類管制藥品、毒品等影響中樞神經之物質，統稱為「精神作用物質」。",
+            "18 飛航活動:指自然人或法人以遙控無人機從事下列何種行為?|(A)從事飛航之行為。|(B)從事規則訂定之行為。|(C)從事組員管理之行為。|(D)從事風險評估之行為。|0|飛航活動的定義，即是以遙控無人機「從事飛航之行為」。",
+            "19 自然人從事飛航活動時應遵守下列何種限制?|(A)遵守市場買賣之限制。|(B)遵守公平交易之限制。|(C)遵守區域與操作規範之限制。|(D)遵守自由競爭之限制。|2|自然人操作無人機，必須嚴格遵守民航法規定的「區域與操作規範之限制」。",
+            "20 下列何者經申請能力審查核准與飛航活動申請,可排除區域與操作規範之限制限制?|(A)自然人。|(B)法人。|(C)自然人及法人。|(D)以上皆非。|1|只有「政府機關(構)、學校或法人」經能力審查核准後，方可申請排除操作限制。",
+            "21 作業手冊:法人申請下列何者時,自行編撰以敘明操作限制排除事項之相關設備與程序之手冊?|(A)申請財力審查核准。|(B)申請學歷審查核准。|(C)申請道德審查核准。|(D)申請能力審查核准。|3|法人在申請「能力審查核准」時，必須提交自行編撰的作業手冊。",
+            "22 遙控無人機操作證之分類為下列哪幾種?|(A)自然人、法人與通用等3種。|(B)學習、普通與專業等3種。|(C)輕量、中量與重量等3種。|(D)低速、中速與高速等3種。|1|我國無人機操作證依法分為「學習」、「普通」與「專業」三種等級。",
+            "23 遙控無人機之專業操作證又可細分為下列哪幾種?|(A)基本級與高級等2級。|(B)初級與高級等2級。|(C)娛樂級與營業級等2級。|(D)工業級與學術級等2級。|0|專業操作證依據難度與重量，細分為「基本級」與「高級」兩個級別。",
+            "24 註冊有效期限為下列何者,期限屆滿前30日內向民航局申請延展?|(A)有效期限為4年。|(B)有效期限為1年。|(C)有效期限為3年。|(D)有效期限為2年。|3|遙控無人機的「註冊」有效期限為 2 年，屆期需申請延展。",
+            "25 實體檢驗合格證有效期限為下列何者,期限屆滿前30日內向民航局申請重新檢驗?|(A)有效期限為4年。|(B)有效期限為1年。|(C)有效期限為3年。|(D)有效期限為2年。|2|無人機的「實體檢驗合格證」有效期限為 3 年。",
+            "26 特種實體檢驗證有效期限為下列何者?|(A)最長不得逾4年。|(B)最長不得逾1年。|(C)最長不得逾3年。|(D)最長不得逾2年。|2|特種實體檢驗證之有效期限與一般實體檢驗相同，最長不得逾 3 年。",
+            "27 型式檢驗合格證與認可證明文件有效期限為下列何者?|(A)最長不得逾3年。|(B)最長不得逾5年。|(C)最長不得逾10年。|(D)無效期限制。|3|產品的「型式檢驗合格證」與認可證明文件，依法規是「無效期限制」的。",
+            "28 普通操作證有效期限屆期前30日內向民航局申請下列何種項目?|(A)申請換證。|(B)申請直接升級為專業操作證。|(C)申請十年免換證。|(D)申請永久免換證。|0|普通操作證屆期前，僅需直接向民航局「申請換證」即可。",
+            "29 專業操作證有效期限屆期前30日內應經下列哪種動作辦理換證?|(A)經財力檢查及面試合格後辦理換證。|(B)經重新體格檢查及換證測驗合格後辦理換證。|(C)經學歷檢查及法律測驗合格後辦理換證。|(D)經身分檢查及道德測驗合格後辦理換證。|1|專業操作證換證門檻較高，必須「重新體格檢查」及「換證測驗合格」。",
+            "30 體格檢查文件須為下列何種效期之合格證明文件?|(A)最近1年內。|(B)最近2年內。|(C)最近3年內。|(D)最近5年內。|0|申請專業操作證所附之體格檢查文件，必須為「最近 1 年內」之效期。",
+            "31 申請專業操作證學科測驗者,其術科測驗未於學科測驗通過起1年內完成者應如何處理?|(A)未完成者可直接申請術科測驗。|(B)未完成者可申請延長學科測驗效期。|(C)未完成者應重新申請學科測驗。|(D)未完成者可申請免學科測驗。|2|學科成績保留效期為 1 年，若 1 年內未考取術科，則「應重新申請學科測驗」。",
+            "32 飛航活動時間限制為下列何者,以中央氣象局之時刻表為準?|(A)滿潮後至乾潮前。|(B)日出後至日落前。|(C)月沒後至月出前。|(D)民用曙光始至民用暮光終。|1|一般操作限制中，飛航時間僅限於「日出後至日落前」(即夜間禁止飛行)。",
+            "33 飛航活動申請時限:於飛航活動前幾日向民航局提出申請?如涉及軍事航空管理區域應於幾日前進行申請?|(A)活動前10日/涉及軍事20日前。|(B)活動前20日/涉及軍事15日前。|(C)活動前30日/涉及軍事15日前。|(D)活動前15日/涉及軍事30日前。|3|一般飛航活動應於 15 日前申請；若涉及軍事區域審查較費時，須於 30 日前申請。",
+            "34 飛航活動同意時限:以幾個月為限?農務作業循農政機關管理者以幾個月為限?|(A)5個月/農務10個月。|(B)10個月/農務5個月。|(C)6個月/農務3個月。|(D)3個月/農務6個月。|3|一般活動同意期限最長 3 個月；農噴等農務作業經核准最長可達 6 個月。",
+            "35 飛航活動記錄保存:政府機關(構)、學校或法人應保存遙控無人機相關資料及記錄幾年?|(A)保存1年。|(B)保存2年。|(C)保存3年。|(D)保存5年。|1|法人機關之飛航紀錄及維護資料，依法規定應「保存 2 年」備查。",
+            "36 飛安相關事件:應於發生或得知消息後幾小時內通報民航局?|(A)12小時內。|(B)24小時內。|(C)36小時內。|(D)48小時內。|1|發生飛安相關事件，必須在發生或得知後「24 小時內」通報民航局。",
+            "37 遙控無人機活動區域綠區範圍:在下列何種高度時,自然人與法人均可於遵守操作規範條件下飛行之區域?|(A)400呎以下。|(B)200呎以下。|(C)400呎以上。|(D)200呎以上。|0|綠區代表安全空域，自然人及法人皆可於「400 呎以下」自由飛行(需守規)。",
+            "38 遙控無人機活動區域黃區(中央)範圍:航空站(機場)四周,飛行高度為下列何種高度之區域?|(A)不得高於400呎。|(B)不得高於300呎。|(C)不得高於200呎。|(D)不得高於100呎。|2|黃區為機場四周飛安過渡區，無人機活動「不得高於 200 呎」。",
+            "39 遙控無人機活動區域紅區(中央)範圍:限航區、航空站(機場)與飛行場禁止飛行之區域,及下列何種高度之區域?|(A)任何高度超過400呎以上。|(B)任何高度超過300呎以上。|(C)任何高度超過200呎以上。|(D)任何高度超過100呎以上。|0|距地表「超過 400 呎以上」之空域，全面劃歸為中央管制之紅區(禁飛區)。",
+            "40 遙控無人機活動區域紅區(地方)範圍:地方政府公告下列何種高度禁止或有條件限制飛行之區域?|(A)高度100呎以下。|(B)高度200呎以下。|(C)高度400呎以下。|(D)高度600呎以下。|2|地方政府有權公告的紅區，範圍限於其轄區內「高度 400 呎以下」的空域。",
+            "41 下列哪個遙控無人機活動區域,法人應經申請後始得飛行?|(A)黃區高於兩百呎(中央)。|(B)紅區(中央)。|(C)紅區(地方)。|(D)以上皆是。|3|以上所有管制區域(紅區及黃區逾200呎)，法人皆須提出專案申請獲准後始得飛行。",
+            "42 遙控無人機註冊、檢驗、能力審查、活動申請及學、術科測驗皆可透過下列哪個系統進行申辦?|(A)「遙控無人機業務諮詢系統」。|(B)「遙控無人機管理資訊系統」。|(C)「遙控無人機自動申辦系統」。|(D)「遙控無人機AI登錄系統」。|1|民航局建置的官方統一平台名稱為「遙控無人機管理資訊系統」。",
+            "43 法人辦理飛航活動申請時,申請範圍內如有限制區域(如紅區或黃區)應取得下列何者之同意文件?|(A)管理機關。|(B)戶政機關。|(C)司法機關。|(D)財稅機關。|0|若申請空域涵蓋地方或特定單位限制區，必須先取得該區域「管理機關」之同意文件。",
+            "44 申請400呎以下全縣市範圍空域,限下列何者?|(A)限軍事機關及測繪作業。|(B)限公務機關及測繪作業。|(C)限軍事機關及農噴作業。|(D)限公務機關及農噴作業。|3|基於大面積作業需求與公益性，目前全縣市空域申請僅限「公務機關及農噴作業」。",
+            "45 飛航活動如進入限航區及航空站/飛行場四周限制遙控無人機活動範圍或距地表高度400呎以上,應採取下列哪些動作?|(A)應發布瀏覽公告並進行行政協調。|(B)應發布飛航公告並進行行政協調。|(C)應發布飛航公告並進行航管協調。|(D)應發布瀏覽公告並進行航管協調。|2|進入敏感飛安空域，必須發布 NOTAM (飛航公告) 並進行即時的「航管協調」。",
+            "46 航管單位協調地點有下列哪幾個?|(A)北部近場臺與南部近場臺2個。|(B)臺北近場臺與高雄近場臺2個。|(C)西部近場臺與東部近場臺2個。|(D)本島近場臺與離島近場臺2個。|1|我國空域管制協調單位分為「臺北近場臺」與「高雄近場臺」2 個。",
+            "47 航管單位協調地點大致以下列何處為界線,以北一個近場臺、以南另一個近場臺?|(A)北緯24度。|(B)北緯24.5度。|(C)北緯23.5度。|(D)北緯23度。|0|臺北與高雄近場臺的管轄劃分，大致以「北緯 24 度」為分界線。",
+            "48 遙控無人機於建築物外開放空間從事飛航活動,須遵循下列何者管理?|(A)民法。|(B)建築法。|(C)民用航空法。|(D)國土計畫法。|2|只要在室外開放空域起飛，即屬航空活動，必須遵循「民用航空法」規範。",
+            "49 下列何者應負遙控無人機使用安全、風險管理及法規遵循等責任?|(A)協調員或觀察員。|(B)協調員或操作人。|(C)所有人或觀察員。|(D)所有人或操作人。|3|依據法規，無人機的最終安全與法規遵循責任落在「所有人或操作人」身上。",
+            "50 遙控無人機發生下列何種事件後,其所有人或操作人應在發生或得知消息後24小時內填具飛航安全相關事件報告表通報民航局?|(A)人員死亡或傷害。|(B)最大起飛重量逾25公斤之遙控無人機遭受實質損害(損壞無法修復)。|(C)毀損超過新臺幣50萬元者。|(D)以上皆是。|3|人員傷亡、重型機體全毀、或財損逾 50 萬，皆屬重大事件，需於 24 小時內通報。",
+            "51 下列何種遙控無人機遭受實質損害或失蹤,其所有人或操作人應在發生或得知消息後24小時內填具飛航安全相關事件報告表通報民航局?|(A)最大起飛重量2公斤以上且裝置導航裝置。|(B)最大起飛重量1公斤以上且裝置導航裝置。|(C)最大起飛重量2公斤以上但未裝置導航裝置。|(D)最大起飛重量1公斤以上但未裝置導航裝置。|0|重量達「2 公斤以上且具導航功能」的無人機失蹤或全毀，即達強制通報門檻。",
+            "52 於下列何處從事活動之遙控無人機遭受實質損害或失蹤,其所有人或操作人應在發生或得知消息後24小時內填具飛航安全相關事件報告表通報民航局?|(A)限航區範圍外。|(B)限航區範圍內。|(C)河川區域範圍內。|(D)農業區範圍內。|1|在「限航區範圍內」發生的任何墜機或失蹤事件，因涉及飛安敏感區，必須立即通報。",
+            "53 於下列何時從事活動之遙控無人機遭受實質損害或失蹤,其所有人或操作人應在發生或得知消息後24小時內填具飛航安全相關事件報告表通報民航局?|(A)月沒後至月出前。|(B)月出後至月沒前。|(C)日落後至日出前。|(D)日出後至日落前。|2|於夜間（即「日落後至日出前」）飛行發生實質損害或失蹤，屬於高風險事件，須強制通報。",
+            "54 遙控無人機發生下列何種事故,其所有人或操作人應在發生或得知消息後24小時內填具飛航安全相關事件報告表通報民航局?|(A)與其他航空器或障礙物接近或碰撞之事故。|(B)視距外空速管失效之事故。|(C)視距外 GPS訊號異常之事故。|(D)視距外上傳鏈路干擾/遮蔽之事故。|0|無人機若與「其他航空器」發生接近或碰撞（空中接近事件），屬嚴重飛安事故，需立即通報。",
+            "55 自然人所有之最大起飛重量250公克以上及政府機關(構)、學校或法人所有之遙控無人機,應依規則辦理下列何者?|(A)不必辦理註冊。|(B)辦理註冊,但不必將註冊號碼標明於遙控無人機上顯著之處。|(C)辦理註冊,並將註冊號碼標明於遙控無人機上顯著之處。|(D)以上皆非。|2|250公克以上無人機均須辦理註冊，並將註冊號碼「標明於機上顯著之處」。",
+            "56 最大起飛重量幾公斤以上,且裝置導航設備之遙控無人機,應具備防止進入限航區及航空站或飛行場四周之圖資軟體系統?|(A)5公斤以上。|(B)3公斤以上。|(C)2公斤以上。|(D)1公斤以上。|3|法規要求「1 公斤以上」且具導航設備之無人機，必須內建地理圍欄 (Geo-fencing) 圖資系統。",
+            "57 自然人所有之下列何種遙控無人機,操作人應持有民航局發給普通操作證後,始得操作?|(A)最大起飛重量1公斤以上未達15公斤且裝置導航設備。|(B)最大起飛重量2公斤以上未達15公斤且裝置導航設備。|(C)最大起飛重量3公斤以上未達15公斤且裝置導航設備。|(D)最大起飛重量5公斤以上未達15公斤且裝置導航設備。|1|重量「2 公斤以上未達 15 公斤」具導航設備的無人機，自然人需考取「普通操作證」始可飛行。",
+            "58 遙控無人機製造者與進口者,應依民航通告「遙控無人機產品登錄及標示作業」辦理下列何種事宜?|(A)登錄事宜。|(B)註冊事宜。|(C)認證事宜。|(D)申請事宜。|0|廠商(製造/進口者)在販售前，必須向民航局辦理產品的「登錄事宜」。",
+            "59 公告定義遙控無人機之構造為下列哪幾種?|(A)無人飛機、無人直昇機、無人多旋翼機等共3種。|(B)無人飛機、無人多旋翼機、複合式無人機等共3種。|(C)無人飛機、無人直昇機、複合式無人機等共3種。|(D)無人飛機、無人直昇機、無人多旋翼機、複合式無人機等共4種。|3|構造共分 4 種：無人飛機(定翼)、無人直昇機、無人多旋翼機，以及複合式無人機。",
+            "60 垂直起降無人機VTOL屬於下列哪種公告定義之遙控無人機?|(A)無人飛機。|(B)無人直昇機。|(C)無人多旋翼機。|(D)複合式無人機。|3|具備旋翼起降及定翼巡航特性的 VTOL，在法規上歸類為「複合式無人機」。",
+            "61 市售最大起飛重量未達幾公斤具導航設備經登錄者列入「免經檢驗或認可之遙控無人機清冊」並定期更新?|(A)未達2公斤。|(B)未達15公斤。|(C)未達25公斤。|(D)未達150公斤。|2|重量「未達 25 公斤」的市售量產機，登錄後可列入免檢驗清冊，方便民眾使用。",
+            "62 遙控無人機之設計、製造、改裝,或自國外進口遙控無人機,應經民航局檢驗合格或認可者,發給下列遙控無人機哪種文件?|(A)普通操作證或專業操作證。|(B)檢驗合格證或認可證明文件。|(C)註冊號碼或形式檢驗標籤。|(D)以上皆非。|1|針對機體硬體的審查，通過後民航局會發給「檢驗合格證或認可證明文件」。",
+            "63 遙控無人機之檢驗基準,由下列何者訂定?|(A)民航局。|(B)國家實驗研究院。|(C)工研院。|(D)標準檢驗局。|0|所有遙控無人機的官方檢驗與適航基準，皆由主管機關「民航局」統一訂定。",
+            "64 外國人領有外國政府之遙控無人機註冊、檢驗及操作證之證明文件者,得申請下列何者後依規定從事飛航活動?|(A)測驗。|(B)認可。|(C)面談。|(D)豁免。|1|外籍人士持外國合格證照，可向我國官方申請「認可」，核准後即可在台操作。",
+            "65 政府機關(構)、學校或法人之飛航活動應於活動日15日前檢附下列何者提出申請?|(A)飛航申請書。|(B)作業規畫書。|(C)活動計畫書。|(D)業務執行書。|2|法人團體申請飛航活動，依法需於 15 日前提交詳細的「活動計畫書」。",
+            "66 遙控無人機飛航活動之實際高度不得逾距地面或水面幾呎?|(A)100呎。|(B)200呎。|(C)400呎。|(D)600呎。|2|為隔離有人航空器，無人機一般操作高度上限為距地表或水面「400 呎」(約 120 公尺)。",
+            "67 不得以遙控無人機投擲或噴灑下列何者?|(A)爆炸物品。|(B)毒性物質。|(C)危險物品。|(D)包含以上之任何物件。|3|一般操作限制中，嚴禁無人機投擲或噴灑「任何物件」(法人農噴需經特殊申請除外)。",
+            "68 不得以遙控無人機裝載由下列何者公告之危險物品?|(A)民航局。|(B)航港局。|(C)觀光局。|(D)中央氣象局。|0|危險物品的清單與定義，統一由「民航局」依國際航空標準進行公告。",
+            "69 遙控無人機應遠離高速公路、快速公(道)路、鐵路、高架鐵路、地面或高架之大眾捷運系統、建築物及障礙物幾公尺以上?|(A)20公尺。|(B)30公尺。|(C)50公尺。|(D)80公尺。|1|為保障地面交通與設施安全，飛行時必須與上述交通要道保持「30 公尺以上」的安全距離。",
+            "70 遙控無人機不得於下列何處操作遙控無人機?|(A)地面上。|(B)固定之航空器、車輛或船艦上。|(C)移動中之航空器、車輛或船艦上。|(D)高山上。|2|操作人不得在「移動中」的車輛或船艦上操控無人機，避免空間迷向與失控風險。",
+            "71 最大起飛重量未達25公斤且裝置導航設備之遙控無人機最大飛行速度每小時不得超過下列何者?|(A)87海浬或160公里。|(B)81海浬或150公里。|(C)76海浬或140公里。|(D)70海浬或130公里。|0|為控制動能與撞擊風險，25公斤以下無人機最高時速限制為「87 海浬或 160 公里」。",
+            "72 遙控無人機延伸視距飛航最大範圍為以操作人為中心之半徑幾公尺?相對地面或水面高度低於幾呎內之區域?|(A)半徑500公尺/高度低於400呎。|(B)半徑900公尺/高度低於200呎。|(C)半徑500公尺/高度低於200呎。|(D)半徑900公尺/高度低於400呎。|3|延伸視距 (EVLOS) 範圍極限：半徑 900 公尺、高度低於 400 呎。",
+            "73 目視觀察員應與下列何者保持目視接觸,並提供操作人必要之飛行資訊?|(A)操作人。|(B)遙控無人機。|(C)航空站或飛行場。|(D)協調員。|1|目視觀察員的首要任務，是必須隨時用肉眼看著「遙控無人機」，掌握其姿態與位置。",
+            "74 延伸視距飛航作業屬操作限制,應以下列何種身分提出申請?|(A)自然人身分。|(B)法人身分。|(C)操作人身分。|(D)協調員身分。|1|排除操作限制(如延伸視距)的權利僅開放給「法人身分」，自然人不得申請。",
+            "75 遙控無人機不得於下列何處活動?|(A)人群聚集或室外集會遊行上空。|(B)海面上空。|(C)河川上空。|(D)山區上空。|0|為保障公眾安全，未經特殊申請核准，無人機嚴禁於「人群聚集或室外集會遊行上空」飛行。",
+            "76 遙控無人機不得於下列何者之時間飛航?|(A)月沒後至月出前。|(B)月出後至月沒前。|(C)日出後至日落前。|(D)日落後至日出前。|3|一般操作限制中，夜間 (即「日落後至日出前」) 為禁止飛航時段。",
+            "77 遙控無人機在目視範圍內操作,得以下列何工具延伸飛航作業距離?|(A)望遠鏡。|(B)遠距鏡頭。|(C)矯正鏡片。|(D)智慧型手機。|2|所謂的目視是指肉眼直視，僅允許佩戴一般度數的「矯正鏡片」(如近視眼鏡)，不得使用望遠鏡。",
+            "78 操作人不得在同一時間控制幾架以上遙控無人機?|(A)2架。|(B)3架。|(C)4架。|(D)5架。|0|為避免分心與操作失誤，法規明定一人一次最多只能控制 1 架，不得同時控制「2 架(含)以上」。",
+            "79 操作人應隨時監視該遙控無人機之下列何種狀況?|(A)噴漆及其標籤狀況。|(B)註冊及其檢驗狀況。|(C)價格及其銷售狀況。|(D)飛航及其周遭狀況。|3|飛行中，操作人必須專注監視無人機的「飛航狀態及其周遭的環境與空域狀況」。",
+            "80 操作人應防止遙控無人機發生下列何種狀況?|(A)顏色與其他航空器、建築物或障礙物背景無法明顯反襯。|(B)與其他航空器、建築物或障礙物接近或碰撞。|(C)噪音影響到其他航空器、建築物或障礙物。|(D)停放於其他航空器、建築物或障礙物之間。|1|飛安的最高原則：操作人必須主動避讓，防止無人機與「其他航空器或障礙物接近或碰撞」。",
+            "81 政府機關(構)、學校或法人遙控無人機於目視範圍外從事活動時,應採下列何種動作?|(A)應於活動日15日前檢附活動計畫書向航港局申請許可。|(B)應於活動日30日前檢附活動計畫書向民航局申請許可。|(C)應於活動日15日前檢附活動計畫書向民航局申請許可。|(D)應於活動日15日前檢附活動成果報告書向民航局申請許可。|2|法人欲執行視距外 (BVLOS) 任務，須提前「15 日」提交計畫書向「民航局」申請。",
+            "82 政府機關(構)、學校或法人遙控無人機於人群聚集或室外集會遊行上空從事活動時,應先取得下列何者之同意?|(A)活動場地之直轄市、縣(市)政府及相關中央主管機關。|(B)活動場地之警察局及相關地方機關。|(C)活動場地之村里長及相關地方人士。|(D)活動場地之所有權人及相關利益團體。|0|跨越人群上空屬高風險，除了民航局外，還須取得「當地縣市政府及相關中央主管機關」同意。",
+            "83 政府機關(構)、學校或法人遙控無人機於從事操作規範排除之作業前應投保責任險,賠償額為死亡者新臺幣若干?重傷者新臺幣若干?|(A)死亡者新臺幣1,000萬元/重傷者新臺幣500萬元。|(B)死亡者新臺幣500萬元/重傷者新臺幣250萬元。|(C)死亡者新臺幣300萬元/重傷者新臺幣150萬元。|(D)死亡者新臺幣200萬元/重傷者新臺幣100萬元。|2|法人保險最低額度規定：死亡者 300 萬元，重傷者 150 萬元。",
+            "84 政府機關為執行下列哪些法定職務,需於民航法第99條之13第1項公告之航空站或飛行場四周之一定距離範圍內、第2項公告之禁止、限制區域內從事遙控無人機飛航活動,經民航局同意者,不受第99條之13第3項及第4項規定之限制?|(A)觀光、教育業務等。|(B)災害防救、偵查、調查、矯正業務等。|(C)商業、民調業務等。|(D)醫療、通信業務等。|1|為搶救生命與維護治安，執行「災害防救、偵查、調查、矯正業務」之公務機關可獲飛航特權豁免。",
+            "85 政府機關為執行下列哪些法定職務,從事民航法第99條之14第1項第2款至第8款之活動,經民航局同意者,不受第99條之14第3項規定之限制?|(A)觀光、教育業務等。|(B)醫療、通信業務等。|(C)商業、民調業務等。|(D)災害防救、偵查、調查、矯正業務等。|3|同上，公務特權豁免條款主要針對緊急性質的「災害防救、偵查、調查、矯正業務」。",
+            "86 遙控無人機違反民航法第99條之13第1項規定,於禁航區、限航區及航空站或飛行場四周之一定距離範圍內從事飛航活動,罰鍰金額為下列何者?|(A)新臺幣30萬元以上150萬元以下。|(B)新臺幣6萬元以上30萬元以下。|(C)新臺幣3萬元以上15萬元以下。|(D)新臺幣1萬元以上150萬元以下。|0|闖入機場四周紅區(禁航區/限航區)嚴重威脅飛安，處最高罰鍰級距「30萬至150萬元」。",
+            "87 遙控無人機違反民航法第99條之14第1項第1款規定,逾距地表高度400呎從事飛航活動,罰鍰金額為下列何者?|(A)新臺幣30萬元以上150萬元以下。|(B)新臺幣6萬元以上30萬元以下。|(C)新臺幣3萬元以上15萬元以下。|(D)新臺幣1萬元以上150萬元以下。|0|超高飛行(逾400呎)容易撞擊有人客機，同樣處最高罰鍰級距「30萬至150萬元」。",
+            "88 違反民航法第99條之10第2項規定,未領有操作證而操作遙控無人機,罰鍰金額為下列何者?|(A)新臺幣30萬元以上150萬元以下。|(B)新臺幣6萬元以上30萬元以下。|(C)新臺幣3萬元以上15萬元以下。|(D)新臺幣1萬元以上150萬元以下。|1|無照駕駛(未領有操作證)的違規行為，處中段罰鍰級距「6萬至30萬元」。",
+            "89 違反民航法第99條之15第3項規定,未投保或未足額投保責任保險而從事遙控無人機活動,罰鍰金額為下列何者?|(A)新臺幣30萬元以上150萬元以下。|(B)新臺幣6萬元以上30萬元以下。|(C)新臺幣3萬元以上15萬元以下。|(D)新臺幣1萬元以上150萬元以下。|1|法人未投保或保額不足，處中段罰鍰級距「6萬至30萬元」。",
+            "90 違反民航法第99條之10第1項有關遙控無人機註冊或標明註冊號碼之規定,罰鍰金額為下列何者?|(A)新臺幣30萬元以上150萬元以下。|(B)新臺幣6萬元以上30萬元以下。|(C)新臺幣3萬元以上15萬元以下。|(D)新臺幣1萬元以上150萬元以下。|2|應註冊而未註冊或未標明號碼，處基層罰鍰級距「3萬至15萬元」。",
+            "91 遙控無人機違反民航法第99條之13第2項有關直轄市、縣(市)政府公告之區域、時間及其他管理事項之規定,罰鍰金額為下列何者?|(A)新臺幣30萬元以上150萬元以下。|(B)新臺幣6萬元以上30萬元以下。|(C)新臺幣3萬元以上15萬元以下。|(D)新臺幣1萬元以上150萬元以下。|2|違反地方政府公告的禁飛區或時間規定，處基層罰鍰級距「3萬至15萬元」。",
+            "92 違反民航法第99條之14第1項第2~10款有關遙控無人機飛航活動應遵守之規定,罰鍰金額為下列何者?|(A)新臺幣30萬元以上150萬元以下。|(B)新臺幣6萬元以上30萬元以下。|(C)新臺幣3萬元以上15萬元以下。|(D)新臺幣1萬元以上150萬元以下。|2|違反一般操作規範(如夜飛、飛越人群、未保持安全距離等)，處「3萬至15萬元」罰鍰。",
+            "93 違反依民航法第99條之17所定規則有關射頻識別、檢驗、認可、維修與檢查、飛航活動之活動許可及內容、製造者與進口者之登錄及責任、飛航安全相關事件之通報等事項規定,罰鍰金額為下列何者?|(A)新臺幣30萬元以上150萬元以下。|(B)新臺幣6萬元以上30萬元以下。|(C)新臺幣3萬元以上15萬元以下。|(D)新臺幣1萬元以上150萬元以下。|3|違反檢驗、登錄、通報等行政規定，處「1萬至150萬元」罰鍰。",
+            "94 遙控無人機活動申請分為下列哪幾種?|(A)甲級申請與乙級申請2種。|(B)初級申請與高級申請2種。|(C)平日申請與假日申請2種。|(D)一般申請與緊急申請2種。|3|法人活動申請流程分為常規的「一般申請」，與公務/救災專用的「緊急申請」。",
+            "95 遙控無人機活動之一般申請可參照下列何種參考文件申辦?|(A)「政府機關(構)、學校或法人於禁航區、限航區、航空站或飛行場四周之一定距離範圍內從事遙控無人機飛航活動申請說明」。|(B)「使用遙控無人機從事災害應變、災害預防、復原重建或災害以外之緊急情況申請書暨民用航空局同意書」。|(C)「使用遙控無人機從事災害預防、復原重建或災害以外之緊急情況申請書暨直轄市、縣(市)同意書」。|(D)「遙控無人機從事災害應變、災害之預防、復原重建或災害以外之緊急情況時,需取得/通知限航管理單位名冊」。|0|一般申請請參照「政府機關...從事遙控無人機飛航活動申請說明」文件辦理。",
+            "96 遙控無人機活動之緊急申請可參照下列何種參考文件申辦?|(A)「使用遙控無人機從事災害應變、災害預防、復原重建或災害以外之緊急情況申請書暨民用航空局同意書」。|(B)「使用遙控無人機從事災害預防、復原重建或災害以外之緊急情況申請書暨直轄市、縣(市)同意書」。|(C)「遙控無人機從事災害應變、災害之預防、復原重建或災害以外之緊急情況時,需取得/通知限航管理單位名冊」。|(D)以上皆是。|3|以上三份文件均為辦理「緊急情況申請」時需要參照與填寫的表單指南。",
+            "97 遙控無人機活動申請及飛航紀錄之經緯度位置資訊一律以下列何者表示?|(A)度分(DDM)。|(B)度分秒(DMS)。|(C)度(DD)。|(D)以上皆是。|1|民航局系統統一規定，經緯度座標一律採「度分秒 (DMS)」格式輸入。",
+            "98 經緯度的座標值可分為下列哪幾種表示方法?|(A)可分為3種表示方法,分別為度、度分、度分秒。|(B)可分為3種表示方法,分別為球座標、直角座標、圓柱座標。|(C)可分為2種表示方法,分別為英制、公制。|(D)可分為2種表示方法,分別為實數、複數。|0|常見經緯度格式有 3 種：度(DD)、度分(DDM)、度分秒(DMS)。",
+            "99 經緯度的座標值北緯25.1度,東經121.4度;以度分來表示其座標為下列何者?|(A)北緯25度10分,東經121度40分。|(B)北緯25度1分,東經121度4分。|(C)北緯25度6分,東經121度24分。|(D)北緯25度12分,東經121度48分。|2|換算：0.1度 = 0.1 * 60 = 6分；0.4度 = 0.4 * 60 = 24分。故為北緯25度6分，東經121度24分。",
+            "100 經緯度的座標值北緯25.11度,東經121.42度;以度分秒來表示其座標為下列何者?|(A)北緯25度1分1秒,東經121度40分2秒。|(B)北緯25度6分36秒,東經121度25分12秒。|(C)北緯25度6分6秒,東經121度24分12秒。|(D)北緯25度36分36秒,東經121度24分12秒。|1|換算：0.11度 = 6.6分 = 6分36秒；0.42度 = 25.2分 = 25分12秒。",
+            "101 經緯度的座標值平均每度緯線的距離約為下列何者?|(A)87浬(160 km)。|(B)49浬(91km)。|(C)55浬(102km)。|(D)60浬(111 km)。|3|地球子午線周長約4萬公里，除以360度，每度平均約為 60浬 (111 km)。",
+            "102 經緯度的座標值1秒的距離約為下列何者?|(A)100呎(30m)。|(B)112呎(34m)。|(C)115呎(35m)。|(D)118呎(36m)。|0|1度=60分=3600秒，111公里 / 3600 約等於 30.8 公尺 (約 100 呎)。",
+            "103 臺北飛航情報區轉換高度為下列何者?|(A)5,000呎。|(B)7,000呎。|(C)11,000呎。|(D)13,000呎。|2|我國飛航情報區之轉換高度 (Transition Altitude) 設定為 11,000 呎。",
+            "104 實際高度(AGL,above ground level) 即遙控無人機(非操作人所在位置)相對於下列何者之高度?|(A)平均海平面。|(B)地面或水面。|(C)操作人所在位置。|(D)操作人附近最高點。|1|AGL 即 Above Ground Level，指飛行器垂直正下方相距「地面或水面」的高度。",
+            "105 在400呎以下之遙控無人機活動或限制區域的劃設均以下列何者為準?|(A)密度高度。|(B)橢球高。|(C)平均海平面高度。|(D)實際高度。|3|無人機 400 呎紅黃綠區的限制，都是以「實際高度 (AGL)」為判定基準。",
+            "106 平均海平面高度(AMSL, above mean sea level)即為海拔高度,係以各地區人為設定的下列何者作為基準面測定的高度表示方式?|(A)平均海平面。|(B)操作人所在位置高度。|(C)操作人附近最高點高度。|(D)地面或水面高度。|0|AMSL 以「平均海平面」為 0 基準起算，即我們常說的海拔高度。",
+            "107 無人機飛航超過400呎時,應了解無人機下列何種資訊,以利空域協調?|(A)實際高度資訊。|(B)橢球高資訊。|(C)海拔高度資訊。|(D)密度高度資訊。|2|超過 400 呎進入有人機空域，必須改用與客機相同的「海拔高度 (AMSL)」以便航管協調。",
+            "108 橢球高(HAE, height above ellipsoid)又稱為大地高,係將地球假定為一理想橢球體,真實地表上任一點相對於橢球面的下列何者即為橢球高?|(A)平行距離。|(B)垂直距離。|(C)切線距離。|(D)圓弧距離。|1|橢球高是定位點相對於參考橢球面的「垂直距離」。",
+            "109 GPS高度測量係利用GPS測量技術直接測定地面點的下列何者?|(A)平均海平面高度。|(B)實際高度。|(C)密度高度。|(D)大地高。|3|GPS 衛星算出來的原始高度資料，在測量學上稱為「大地高 (橢球高)」。",
+            "110 無人機的動力系統大致分為哪2大類?|(A)氣冷式及水冷式等2大類。|(B)立式及臥式等2大類。|(C)馬達(電動式)及引擎(內燃機式)等2大類。|(D)迴轉式及往復式等2大類。|2|無人機動力來源兩大主流：吃電的「馬達(電動式)」與吃油的「引擎(內燃機式)」。",
+            "111 電動無人機的動力系統包括下列哪些部分?|(A)馬達、電池。|(B)調速系統(電子調速器)。|(C)螺旋槳。|(D)以上皆是。|3|電動力系統四大核心：電池(能源)、電調(控制)、馬達(轉換)、螺旋槳(輸出)。",
+            "112 無人機動力系統中的馬達大部分屬於下列哪一類?|(A)無刷直流馬達。|(B)有刷直流馬達。|(C)以上皆是。|(D)以上皆非。|0|無人機追求高效率與壽命，幾乎全面採用「無刷直流馬達 (Brushless DC Motor)」。",
+            "113 功率的定義為下列何者?|(A)每單位時間所施加的力。|(B)每單位時間所作的功或所消耗的能量。|(C)每單位時間所增加或減少的溫度。|(D)每單位時間所施加的扭矩。|1|物理學上，功率(Power)定義為「每單位時間所作的功或能量消耗速率」。",
+            "114 功率的常用單位有下列哪些?|(A)公制單位為瓦(W);英制單位為馬力(HP)。|(B)公制單位為焦耳(J);英制單位為BTU。|(C)公制單位為牛頓(N);英制單位為磅(lb)。|(D)以上皆是。|0|功率的公制單位是「瓦特(W)」，英制單位常稱為「馬力(HP)」。",
+            "115 在1,013.25 hPa、15℃時,空氣密度大約為下列何者?|(A)1.005 kg/m3。|(B)1.115 kg/m3。|(C)1.225 kg/m3。|(D)1.335 kg/m3。|2|國際標準大氣(ISA)規定，在海平面(1013.25hPa, 15℃)時空氣密度為 1.225 kg/m3。",
+            "116 升力公式中的升力係數的單位為下列何者?|(A)hPa。|(B)無因次(dimensionless)。|(C)m/s。|(D)kg/m2。|1|升力係數 (Cl) 是一個比例常數，屬於「無因次 (dimensionless)」沒有單位。",
+            "117 空氣密度與密度高度的關係為下列何者?|(A)空氣密度減少表示較低的密度高度,空氣密度增加表示較高的密度高度。|(B)空氣密度不論減少或增加均與密度高度無關。|(C)視狀況而定,空氣密度減少有時表示較高的密度高度,有時表示較低的密度高度。|(D)空氣密度減少表示較高的密度高度,空氣密度增加表示較低的密度高度。|3|兩者成反比。空氣變稀薄(密度減少)，飛機效能會變差，就如同飛在「較高」的密度高度一樣。",
+            "118 空氣密度與動力輸出的關係為下列何者?|(A)空氣密度減少,動力輸出隨之增加。|(B)空氣密度減少,動力輸出隨之降低。|(C)空氣密度與動力輸出無關。|(D)以上皆非。|1|空氣越稀薄(密度減少)，螺旋槳咬不到空氣、引擎吸不到氧，導致動力輸出「降低」。",
+            "119 空氣密度受下列哪些因素影響?|(A)高度、溫度、及濕度等。|(B)推力、升力、阻力、及重力等。|(C)空速、航向、及姿態等。|(D)以上皆是。|0|影響空氣密度的氣象三要素：「高度(氣壓)」、「溫度」與「濕度」。",
+            "120 高度如何影響空氣密度及無人機飛行?|(A)高度越高,空氣密度越高;在一定攻角、較高高度下為保持升力,須以較低的真空速飛行。|(B)高度越高,空氣密度越低;在一定攻角、較高高度下為保持升力,須以較低的真空速飛行。|(C)高度越高,空氣密度越低;在一定攻角、較高高度下為保持升力,須以較高的真空速飛行。|(D)高度越高,空氣密度越高;在一定攻角、較高高度下為保持升力,須以較高的真空速飛行。|2|高度越高空氣越稀薄(密度低)。空氣少，就需要飛「更快(高真空速)」才能產生足夠升力。",
+            "121 溫度如何影響空氣密度及無人機飛行?|(A)暖空氣的密度高於冷空氣;在一定攻角、較高溫度下為保持升力,須以較低的真空速飛行。|(B)暖空氣的密度高於冷空氣;在一定攻角、較高溫度下為保持升力,須以較高的真空速飛行。|(C)暖空氣的密度低於冷空氣;在一定攻角、較高溫度下為保持升力,須以較低的真空速飛行。|(D)暖空氣的密度低於冷空氣;在一定攻角、較高溫度下為保持升力,須以較高的真空速飛行。|3|熱脹冷縮，暖空氣膨脹故密度「低」。密度低效能差，因此需以「較高」的真空速來維持升力。",
+            "122 濕度如何影響空氣密度及無人機飛行?|(A)濕空氣的密度低於乾空氣;在一定攻角、較高濕度下為保持升力,須以較高的真空速飛行。|(B)濕空氣的密度高於乾空氣;在一定攻角、較高濕度下為保持升力,須以較高的真空速飛行。|(C)濕空氣的密度高於乾空氣;在一定攻角、較高濕度下為保持升力,須以較低的真空速飛行。|(D)濕空氣的密度低於乾空氣;在一定攻角、較高濕度下為保持升力,須以較低的真空速飛行。|0|水氣分子比空氣輕，故濕空氣密度「低」。同樣因密度低，需增加真空速以補足升力。",
+            "123 無人機所用的螺旋槳的型號代表的意義為下列何者?|(A)前兩碼為槳的直徑,後兩碼代表槳的螺距,單位皆為公分。|(B)前兩碼為槳的寬度,後兩碼代表槳的螺距,單位皆為公分。|(C)前兩碼為槳的直徑,後兩碼代表槳的螺距,單位皆為英吋。|(D)前兩碼為槳的寬度,後兩碼代表槳的厚度,單位皆為英吋。|2|槳葉型號(如 1045)前兩碼為「直徑」(10吋)，後兩碼為「螺距」(4.5吋)，單位皆為「英吋」。",
+            "124 無人機所用的螺旋槳槳葉數量與空氣動力效率的關係為何?|(A)槳葉數量越多,空氣動力效率越高。|(B)槳葉數量越少,空氣動力效率越高。|(C)槳葉數量與效率無關。|(D)以上皆有可能。|1|單看效率，槳葉數量「越少」(如單葉或雙葉)空氣擾流越少，動力效率「越高」。",
+            "125 螺旋槳螺距的意思為下列何者?|(A)想像螺旋槳在某個不能流動的介質中沿螺旋槳軸向旋轉往前,同一片槳葉旋轉一圈所產生螺旋的徑向距離即為螺距。|(B)想像螺旋槳在某個不能流動的介質中沿螺旋槳徑向旋轉往前,同一片槳葉旋轉一圈所產生螺旋的軸向距離即為螺距。|(C)想像螺旋槳在某個不能流動的介質中沿螺旋槳徑向旋轉往前,同一片槳葉旋轉一圈所產生螺旋的徑向距離即為螺距。|(D)想像螺旋槳在某個不能流動的介質中沿螺旋槳軸向旋轉往前,同一片槳葉旋轉一圈所產生螺旋的軸向距離即為螺距。|3|螺距(Pitch)指螺旋槳在不可壓縮介質中，旋轉一圈往前推進的「軸向距離」。",
+            "126 螺旋槳的材質為下列何者?|(A)一般為硬質塑膠、碳纖維、及硬質木頭等。|(B)一般為高速鋼、及合金鋼等。|(C)一般為鋁合金、及銅合金等。|(D)以上皆是。|0|為求輕量與強韌，常見材質包含硬質塑膠、碳纖維(Carbon)與硬木。",
+            "127 CW、CCW哪個是順時針哪個是逆時針?|(A)CW為逆時針,CCW為順時針。|(B)CW、CCW都是順時針。|(C)CW為順時針,CCW為逆時針。|(D)CW、CCW都是逆時針。|2|CW (Clockwise) 為順時針；CCW (Counter-Clockwise) 為逆時針。",
+            "128 電池的測電工具一般有下列何者?|(A)一般有頻譜分析儀、光學尺等。|(B)低電量警報器、分壓測電器及三用電表等。|(C)一般有示波器、電晶體等。|(D)一般有脈衝產生器、功率計等。|1|常用於量測鋰電池的工具為：低電量警報器(BB響)、分壓測電器及三用電表。",
+            "129 6s 電池的分壓接頭係由幾條電線構成?|(A)4條線。|(B)5條線。|(C)6條線。|(D)7條線。|3|6S電池代表有6顆電芯串聯。分壓線需要(電芯數+1)條線來量測每一芯的電壓，故為 7 條線。",
+            "130 電池並聯時,電壓和電容量為何種變化?|(A)電壓不變,電容量升高。|(B)電壓降低,電容量升高。|(C)電壓升高,電容量降低。|(D)電壓升高,電容量不變。|0|電池「並聯」可增加續航力：總「電壓不變」，但「總電容量相加升高」。",
+            "131 無人機的外轉無刷馬達之型號,其代表的意義為下列何者?|(A)前兩碼為馬達轉子繞線線圈的直徑,後兩碼為馬達轉子繞線線圈的高度。|(B)前兩碼為馬達轉子繞線線圈的直徑,後兩碼為馬達定子繞線線圈的高度。|(C)前兩碼為馬達定子繞線線圈的直徑,後兩碼為馬達轉子繞線線圈的高度。|(D)前兩碼為馬達定子繞線線圈的直徑,後兩碼為馬達定子繞線線圈的高度。|3|馬達型號(如2212)前兩碼為內部「定子」的直徑，後兩碼為「定子」的高度。",
+            "132 無人機馬達的KV值代表之意義為下列何者?|(A)其單位為kg/V,代表馬達在1V電壓下的離心力。|(B)其單位為rpm/V,代表馬達在1V電壓下的每分鐘轉速。|(C)其單位為C/V,代表馬達在1V電壓下的操作溫度。|(D)其單位為KW/V,代表馬達在1V電壓下的動力輸出。|1|KV值代表電壓每增加 1V 時，馬達「每分鐘增加的空轉轉速 (rpm/V)」。",
+            "133 螺旋槳可依下列何者作選配?|(A)不同的KV值。|(B)不同的操作溫度。|(C)不同的離心力。|(D)以上皆是。|0|螺旋槳的大小與螺距，必須嚴格搭配馬達「不同的KV值」來選用，以免燒毀電調。",
+            "134 如何選用高速槳或低速槳?|(A)KV值較大者選用低速槳,KV值較小者選用高速槳。|(B)不論KV值大小,選用高速槳就對了。|(C)KV值較大者選用高速槳,KV值較小者選用低速槳。|(D)不論KV值大小,選用低速槳就對了。|2|高KV馬達轉得快，扭力小，適合配小槳(高速槳)；低KV馬達轉得慢但扭力大，適合配大槳(低速槳)。",
+            "135 某無人機使用馬達KV值為400,標稱電壓為22.2V,其理論空轉轉速如何計算?|(A)400*√22.2=1,885轉。|(B)400*22.2=8,880轉。|(C)√400*22.22=9,857轉。|(D)400*22.2*75%=6,660轉。|1|理論空載轉速 = KV值 × 電壓。即 400 × 22.2 = 8,880 rpm。",
+            "136 有刷馬達的優點為下列何者?|(A)結構簡單、起動扭矩大。|(B)起動及煞車平穩、控制精度高。|(C)購置成本低、維修方便。|(D)以上皆是。|3|有刷馬達擁有結構簡單、啟動扭力大、成本低且維修方便等優點。",
+            "137 無刷馬達的優點為下列何者?|(A)無電刷、低干擾。|(B)噪音低、運轉摩擦力小。|(C)壽命長、維護成本低。|(D)以上皆是。|3|無刷馬達因沒有電刷摩擦，具備低干擾、低噪音、效率高且壽命極長的優點。",
+            "138 無人機的電子調速器型號是30A,其代表的意義為下列何者?|(A)代表飛控最大允許通過電流大小為30A。|(B)代表電池最大允許通過電流大小為30A。|(C)代表接收機最大允許通過電流大小為30A。|(D)代表電子調速器最大允許通過電流大小為30A。|3|30A 的電調 (ESC)，代表該「電子調速器本身」能承受的最大持續放電電流為 30 安培。",
+            "139 PWM (pulse-width modulation,脈波寬度調變)是下列何者?|(A)PWM是將數位訊號轉換為脈波的一種技術。|(B)PWM是將脈波訊號轉換為類比的一種技術。|(C)PWM是將類比訊號轉換為脈波的一種技術。|(D)PWM 是將脈波訊號轉換為數位的一種技術。|2|PWM 是一種透過改變脈波工作週期(Duty Cycle)，將「類比訊號(大小)轉換為數位脈波」來控制馬達轉速的技術。",
+            "140 電子調速器損壞後可用下列何者代替?|(A)用更大的或更小的電子調速器代替都可以。|(B)只能用更小的電子調速器代替。|(C)只能用更大的電子調速器代替。|(D)以上皆是。|2|若原本30A燒毀，只能換相同30A或「更大(如40A)」的電調，換更小的一催油門就會燒掉。",
+            "141 無人多旋翼機如何達到平穩飛行的目的?|(A)將所有螺旋槳旋轉方向設定相同,依據牛頓第3定律,螺旋槳所產生的反作用力互相抵銷,達到平穩飛行的目的。|(B)將相鄰的螺旋槳旋轉方向設定相反,依據牛頓第3定律,螺旋槳所產生的逆時針反作用力與順時針反作用力互相抵銷,達到平穩飛行的目的。|(C)將所螺旋槳旋轉方向設定相同,依據牛頓第1定律,螺旋槳所產生的反作用力互相抵銷,達到平穩飛行的目的。|(D)將所螺旋槳旋轉方向設定相同,依據牛頓第2定律,螺旋槳所產生的反作用力互相抵銷,達到平穩飛行的目的。|1|多旋翼透過「相鄰馬達旋轉方向相反」，利用牛頓第3定律的反作用力互相抵銷(抗扭矩)，讓機身不自旋。",
+            "142 無人多旋翼機如何實現各種動作?|(A)依據牛頓第3定律,以電子調速器調配各個螺旋槳的轉速來實現各種動作。|(B)依據牛頓第2定律,以電子調速器調配各個螺旋槳的轉速來實現各種動作。|(C)依據牛頓第1定律,以電子調速器調配各個螺旋槳的轉速來實現各種動作。|(D)以上皆是。|0|透過電調改變個別馬達的轉速，利用牛頓第3定律產生的不平衡反作用力(推力差)，完成俯仰、偏航等動作。",
+            "143 若某六軸無人機使用30A電子調速器,選擇下列何種規格電池合適?|(A)最大放電電流需小於6*30= 180A。|(B)最大放電電流需大於6*30= 180A。|(C)最大放電電流需小於6*√30=33A。|(D)最大放電電流需大於6*√30=33A。|0|考量安全係數，電池最大放電能力(持續電流)不應小於但也不應無限大。原題意以限制系統峰值考量，選(A)。",
+            "144 四軸無人機如何前後飛行?(依序將螺旋槳編號為#1、#2、#3、#4、#1、#3順時針旋轉,#2、#4逆時針旋轉)|(A)將螺旋槳#2、#3加速,同時將#1、#4減速,無人機向前飛行;反之則向後飛行。|(B)將螺旋槳#3、#4加速,同時將#1、#2減速,無人機向前飛行;反之則向後飛行。|(C)將螺旋槳#1、#3加速,同時將#2、#4減速,無人機向前飛行;反之則向後飛行。|(D)將所有螺旋槳同時加速,無人機向前飛行;反之則向後飛行。|1|機頭朝前。後方(#3,#4)加速、前方(#1,#2)減速，機尾抬起機頭下壓，推力向後，無人機即「向前飛行」。",
+            "145 四軸無人機如何側向飛行?(依序將螺旋槳編號為#1、#2、#3、#4、#1、#3順時針旋轉,#2、#4逆時針旋轉)|(A)將螺旋槳#2、#3加速,同時將#1、#4減速,無人機向左飛行;反之則向右飛行。|(B)將螺旋槳#3、#4加速,同時將#1、#2減速,無人機向左飛行;反之則向右飛行。|(C)將螺旋槳#1、#3加速,同時將#2、#4減速,無人機向左飛行;反之則向右飛行。|(D)將所有螺旋槳同時加速,無人機向左飛行;反之則向右飛行。|0|右側(#2,#3)加速、左側(#1,#4)減速，機身向左傾斜，推力向右，無人機即「向左飛行」。",
+            "146 四軸無人機如何原地轉向?(依序將螺旋槳編號為#1、#2、#3、#4、#1、#3順時針旋轉,#2、#4逆時針旋轉)|(A)將螺旋槳#2、#3加速,同時將#1、#4減速,無人機原地逆時針轉向;反之則原地順時針轉向。|(B)將螺旋槳#3、#4加速,同時將#1、#2減速,無人機原地逆時針轉向;反之則原地順時針轉向。|(C)將螺旋槳#1、#3加速,同時將#2、#4減速,無人機原地逆時針轉向;反之則原地順時針轉向。|(D)將所有螺旋槳同時加速,無人機原地逆時針轉向;反之則原地順時針轉向。|2|改變兩組不同旋轉方向馬達的轉速，破壞扭矩平衡。#1,#3(順)加速，產生逆時針反扭矩，故機身「逆時針轉向」。",
+            "147 四軸無人機如何垂直升降?(依序將螺旋槳編號為#1、#2、#3、#4、#1、#3順時針旋轉,#2、#4逆時針旋轉)|(A)將螺旋槳#2、#3加速,同時將#1、#4減速,無人機垂直上升;反之則垂直下降。|(B)將螺旋槳#3、#4加速,同時將#1、#2減速,無人機垂直上升;反之則垂直下降。|(C)將螺旋槳#1、#3加速,同時將#2、#4減速,無人機垂直上升;反之則垂直下降。|(D)將所有螺旋槳同時加速,無人機垂直上升;反之則垂直下降。|3|要維持水平垂直升降，必須「將所有螺旋槳同時加速」增加總推力上升；減速則下降。",
+            "148 四軸無人機在空中有幾個自由度?|(A)3個自由度。|(B)6個自由度。|(C)4個自由度。|(D)5個自由度。|1|任何飛行器在3D空間中皆有「6個自由度」(上下、前後、左右位移，以及俯仰、滾轉、偏航旋轉)。",
+            "149 四軸無人機在空中有下列哪幾種自由度?|(A)上下、前後。|(B)左右,滾轉。|(C)俯仰、偏航。|(D)以上皆是。|3|飛行器的6個自由度包含：空間三軸位移(上下左右前後)與三軸旋轉(俯仰、滾轉、偏航)。",
+            "150 無人機以下列何種方式飛行最省電?|(A)極速飛行。|(B)變速飛行。|(C)勻速飛行。|(D)以上皆是。|2|頻繁加減速最耗電，保持穩定平飛的「勻速飛行」能獲得最佳的續航效率。",
+            "151 直昇機揮舞運動的定義為何?|(A)槳葉扭轉運動(torsion)。|(B)槳葉上下撲動(flapping)。|(C)槳葉前後擺動動(lead&flag)。|(D)槳葉伸縮運動(tension & compression)。|1|直昇機旋翼在旋轉時，槳葉因升力不均而產生的「上下撲動(flapping)」稱為揮舞運動。",
+            "152 直昇機擺振運動的定義為何?|(A)槳葉扭轉運動(torsion)。|(B)槳葉上下撲動(flapping)。|(C)槳葉前後擺動(lead&flag)。|(D)槳葉伸縮運動(tension & compression)。|2|直昇機槳葉在旋轉平面內產生的「前後擺動(lead-lag / drag)」稱為擺振運動。",
+            "153 下列哪些為遙控無人機系統於飛行前應做之必要檢查?|(A)地面導控站、遙控器、無人機飛行前檢查及周邊環境及天氣等。|(B)空域管制、組員資源管理及風險管理等。|(C)任務規畫、機場協調及日出日落時間等。|(D)以上皆是。|0|起飛前必須完成系統硬體(導控站/機體)與現場環境(天氣/障礙物)的全面檢視。",
+            "154 下列何者不是無人機飛行前地面導控站檢查項目?|(A)GPS衛星數、地面導控站電量。|(B)數傳信號。|(C)告警訊息(羅盤、加速規等)。|(D)遙控動作與無人機匹配性。|3|「遙控動作匹配性」屬於手持遙控器的動態檢查項目，非純地面軟體導控站(GCS)的靜態數據。",
+            "155 下列何者不是無人機飛行前遙控器檢查項目?|(A)遙控器電量。|(B)GPS衛星數。|(C)搖桿微調位置合適性(如適用)。|(D)遙控動作與無人機匹配性。|1|「GPS衛星數」主要顯示在無人機本體或地面導控站上，非遙控器本身的硬體檢查重點。",
+            "156 下列何者不是無人機飛行前無人機機身(含電池)檢查項目?|(A)微調位置合適性。|(B)螺旋槳和機架完整。|(C)螺絲鎖接緊密、起落架功能正常。|(D)電池電量充足。|0|「搖桿微調」是遙控器的設定，不屬於無人機機身硬體的物理檢查項目。",
+            "157 下列何者不是電池使用檢查項目?|(A)合適的電池容量、合適的S數。|(B)安全的電池安裝。|(C)數傳信號。|(D)穩固的連結至系統。|2|「數傳信號」屬於通訊數據鏈路的狀態，與電池硬體安裝檢查無關。",
+            "158 下列何者不是無人機飛行前周邊環境檢查項目?|(A)風速與風向、障礙物。|(B)距離、地磁與其他干擾。|(C)避開人口聚集區域。|(D)螺旋槳和機架完整。|3|「螺旋槳和機架完整」屬於機身硬體檢查，而非周邊外在環境的評估項目。",
+            "159 無人多旋翼機一般由下列哪些部件組成?|(A)機架、中心板、馬達。|(B)電子調速器、槳葉、飛控。|(C)腳架、電池、遙控器。|(D)以上皆是。|3|多旋翼機是由機架、動力系統(馬達/電調/槳/電池)、飛控大腦與遙控器組合而成的完整系統。",
+            "160 下列何種感測器不是用來測量無人機方位、高度和速度?|(A)GPS、羅盤。|(B)氣壓計。|(C)溫度計。|(D)3軸陀螺儀/3軸加速規。|2|「溫度計」無法提供定位導航或姿態資訊(雖然溫度會影響氣壓，但非直接導航感測器)。",
+            "161 下列何者不是用來描述無人機的特性?|(A)軸距、重量、抗風能力。|(B)塗裝與價格。|(C)巡航速度與最大速度、升限。|(D)單人操作還是多人協同操作。|1|「塗裝與價格」屬於商業與外觀資訊，與無人機的飛行性能及技術特性無關。",
+            "162 最大起飛重量10公斤的無人多旋翼機約可載重幾公斤?|(A)2.5公斤。|(B)2公斤。|(C)1.5公斤。|(D)1公斤。|0|以常見多旋翼設計經驗值，酬載能力約為最大起飛重量的四分之一，故10公斤約可載重 2.5 公斤。",
+            "163 GPS天線為何需要天線支架?|(A)增加美觀。|(B)避開人口聚集區域。|(C)防止電磁干擾。|(D)減低風速與風向的影響。|2|架高 GPS 天線可以遠離底層飛控板與馬達大電流產生的「電磁干擾」，確保收訊品質。",
+            "164 IMU (inertial measurement unit,慣性量測單元)是用3個軸向的陀螺儀及加速規,來量測無人機的下列何者?|(A)3個軸向的高度及位置。|(B)3個軸向的姿態角及加速度。|(C)3個軸向的姿態角及速度。|(D)3個軸向的高度及加速度。|1|IMU 內部晶片專司負責測量機身的三軸「姿態角(傾斜)」與三軸「加速度(G力)」。",
+            "165 陀螺儀(gyroscope)主要由一個位於軸心的轉子構成,依據角動量守恆原理,轉子旋轉時產生的角動量有抗拒方位改變的特性,用此特性來感測和維持下列何者?|(A)方位及角速度。|(B)高度及角速度。|(C)方位及高度。|(D)以上皆是。|0|陀螺儀利用角動量守恆，專門用來感測物體的「方位」變化與「角速度(旋轉快慢)」。",
+            "166 加速規(accelerometer)又稱加速度計,利用壓電效應、壓阻效應、或電容式感應等作用原理,來測量下列何者?|(A)高度。|(B)位置。|(C)速度。|(D)加速度。|3|顧名思義，加速規(Accelerometer)的核心功能就是用來測量物體的「加速度」。",
+            "167 無人飛機在視距外發生「發電機失效(動力系統正常)」,緊急處置程序之一為下列何者?|(A)切入返航模式。|(B)立即關閉航機所有電力驅動之酬載裝置。|(C)立即關閉航機除第一人稱影像外之非必要酬載設備。|(D)開啟自動避障系統。|2|發電機失效代表靠備用電池硬撐，需「關閉非必要酬載(省電)」，但保留 FPV 影像以利導航返場。",
+            "168 無人飛機在視距外發生「發電機失效(動力系統正常)」時,關閉非必要酬載設備之目的下列何者為非?|(A)減緩蓄電池之電力消耗。|(B)將電力留存供伺服舵機使用。|(C)緩解發電機之振動影響航機穩定操作。|(D)將電力留存供飛控電腦等必要裝備使用。|2|關閉設備是為了「省電」，並非為了解決發電機的物理振動問題。",
+            "169 無人飛機在視距外發生「引擎或動力失效」,緊急處置程序之一為下列何者?|(A)切入自動駕駛模式。|(B)分析無人機現有高度與飄降距離。|(C)檢查確認地面導控站硬體接線。|(D)開啟慣性導航系統。|1|定翼機動力失效時會變成滑翔機，首要動作是「分析高度與飄降距離」，研判能否滑翔回場。",
+            "170 無人飛機在視距外發生「引擎或動力失效」,若高度不足以飄降回本場,則參考下列何者將無人機飛至安全區域迫降?|(A)姿態儀及酬載影像。|(B)壓力高度。|(C)風速風向。|(D)雲幕高及能見度。|0|無法回場時，操作人必須盯著「姿態儀(維持空速)及酬載影像(看地貌)」，選擇無人區進行迫降。",
+            "171 無人飛機在視距外發生「引擎或動力失效」,若操作人分析當下高度不足以飄降回本場,下列處置程序何者為非?|(A)參考姿態儀。|(B)參考酬載影像。|(C)帶桿增加航機攻角。|(D)儘速以飄降方式將航機飛至安全區域實施異地迫降。|2|無動力時「帶桿增加攻角」會導致空速急遽下降並引發失速墜毀，是非常危險的錯誤操作。",
+            "172 最佳飄降速度定義為下列何者?|(A)無風環境下,無動力之定翼機下降單位高度可定向飛行最大距離之空速。|(B)背風時一定的高度減少下,無動力之定翼機可定向飛行最大距離的速度。|(C)迎風時一定的高度減少下,無動力之定翼機可定向飛行最大距離之速度。|(D)無風環境下,無動力之定翼機下降單位高度可定向飛行最大距離之地速。|0|最佳飄降速度 (Best Glide Speed) 是指無動力時，能用最少的「高度損失」換取「最大水平飛行距離」的表空速。",
+            "173 無人飛機在視距內發生「引擎或動力失效」,緊急處置程序之一為下列何者?|(A)儘速以返航模式落地。|(B)檢查確認地面導控站硬體接線。|(C)開啟自動避障系統。|(D)切換至適當之操作模式,及時依現場風向風速妥適調整航向及各操縱面以保持空速及姿態。|3|視距內動力失效，操作人應立刻接手切換手動或姿態模式，調整操縱面以「維持滑翔空速與姿態」避免失速。",
+            "174 無人飛機在視距內發生「引擎或動力失效」,緊急處置程序之一為下列何者為非?|(A)立即切入適當之操作模式。|(B)依現場風向風速妥適調整航向以保持空速及姿態。|(C)依現場風向風速妥適調整各操縱面以保持空速及姿態。|(D)依現場風向風速妥適調整航向及各操縱面以保持航機高度。|3|失去動力後不可能「保持高度」，硬拉高度絕對會導致失速。應以犧牲高度來換取空速滑翔。",
+            "175 無人直昇機與多旋翼機在視距外發生「引擎或動力失效」,緊急處置程序之一為下列何者?|(A)立即切入自動駕駛模式。|(B)若航機尚存部份動力,應儘速穩定姿態並減緩下降率,以第一人稱方式尋找安全地點實施異地迫降。|(C)若尚存部份控制能力,應儘速大角度迴轉,拉高高度後以穩定姿態返場降落。|(D)檢查確認地面導控站GPS訊號品質。|1|旋翼機無動力無法滑翔，若還剩餘殘存動力，應全力減緩下降率並「找安全地點異地迫降」。",
+            "176 無人直昇機與多旋翼機在視距外發生「動力系統失效」之緊急處置程序為下列何者?|(A)開啟自動避障功能。|(B)若不足以返場降落,應避開人、車、物,循備降場或安全平坦處作預防性飄降。|(C)應立即記錄最終定位座標,儘速前往可能之墜落地點查看,視需要通報相關單位處理。|(D)切入返航模式。|2|完全失效代表已墜機，處置要務是「記錄最終座標並前往搜索」，確認有無造成地面傷亡或火災。",
+            "177 無人飛機在視距外發生「上傳鏈路失效」,緊急處置程序之一為下列何者?|(A)關閉無人飛機上不必要之電力裝置。|(B)開啟自動避障系統。|(C)飄降回本場。|(D)無人飛機自動或人為切入返航模式。|3|上傳鏈路(遙控訊號)斷線，飛機聽不到指令，應依賴失效保護機制自動觸發「返航模式 (RTH)」。",
+            "178 無人機操作模式之「返航模式」(return to home)指的是下列何者?|(A)飛向預先設定之歸航點,並於歸航點自動降落或盤旋/停懸至切出返航模式或油量/電量耗盡。|(B)在切入返航模式當時的位置,盤旋至切出返航模式或油量/電量耗盡。|(C)在切入返航模式當時的位置往東5km,盤旋至切出返航模式或油量/電量耗盡。|(D)在切入返航模式當時的位置往北5km,盤旋至切出返航模式或油量/電量耗盡。|0|返航模式定義：自動飛回「起飛前設定的Home點」，到達後盤旋或自動降落。",
+            "179 無人機飛行控制器系統,其上傳鏈路(遙控訊號)之失效保護(Fail Safe)預設值,其觸發動作下列何者為非?|(A)自主飛行。|(B)自動返航。|(C)原地降落。|(D)原地盤旋或懸停。|0|斷訊保護機制(Fail Safe)通常為返航、降落或懸停，絕不會讓飛機無控地繼續「自主飛行(亂飛)」。",
+            "180 無人飛機在視距外發生「上傳鏈路失效」,若無法恢復控制鏈路或航機接收端異常,其失效保護機制(Fail Safe)將觸發下列何者?|(A)自主飛行。|(B)自動拉高。|(C)自動降落。|(D)自動返航。|3|遙控訊號中斷的標準 Fail Safe 處置，系統預設會觸發「自動返航 (RTH)」。",
+            "181 無人飛機在視距外發生「上傳鏈路失效」,緊急處置程序之一為下列何者?|(A)關閉無人機上不必要之電力裝置。|(B)分析上傳鏈路失效原因為干擾/遮蔽、地面導控站(發射端)異常、或航機(接收端)異常。|(C)開啟自動避障系統。|(D)飄降回本場。|1|斷訊時，副手或操作人應立即檢視數據，分析是地形遮蔽、遙控器沒電、還是機上接收機故障。",
+            "182 無人飛機在視距外發生「上傳鏈路失效」,若失效原因為干擾/遮蔽,則等待無人飛機脫離干擾/遮蔽位置後應採取下列何種動作?|(A)檢查確認導控站硬體接線、更換模組、或重新開機。|(B)應立即以地圖介面或酬載影像檢視週遭遮蔽物及干擾源,待航機恢復控制後應立即轉向或爬升脫離。|(C)若干擾/遮蔽狀況持續,應立即切換自動導航模式,繼續飛行。|(D)關閉無人機上不必要之電力裝置。|1|因為無人機會自動返航脫離遮蔽區，一旦恢復連線，應「檢視干擾源並立即轉向或爬升脫離」以防再次斷訊。",
+            "183 無人飛機在視距外發生「上傳鏈路失效」,若失效原因為導控站(亦即上傳發射端)異常,則應採取下列何種動作?|(A)檢查確認導控站硬體接線、更換模組、或重新開機,嘗試恢復控制後飛回本場。|(B)關閉無人飛機上不必要之電力裝置。|(C)在歸航點盤旋至油量/電量耗盡。|(D)開啟自動避障系統。|0|確認是地面遙控器問題，應立即「檢查接線或重新開機」，這期間飛機會靠 Fail Safe 自動返航爭取時間。",
+            "184 無人直昇機與多旋翼機在視距外發生「上傳鏈路失效」,若失效原因為干擾/遮蔽,則等待無人飛機脫離干擾/遮蔽位置後應採取下列何種動作?|(A)檢查確認導控站硬體接線、更換模組、或重新開機。|(B)應立即以地圖介面或酬載影像檢視週遭遮蔽物及干擾源,待航機恢復控制後應立即轉向或升高脫離。|(C)若干擾/遮蔽狀況持續,應立即切換自動導航模式,繼續飛行。|(D)關閉無人機上不必要之電力裝置。|1|與定翼機處置相同：一旦恢復通訊，立刻操作旋翼機「轉向或升高」徹底遠離干擾區域。",
+            "185 無人飛機在視距外發生「上傳鏈路失效」,若失效原因為航機(亦即上傳接收端)異常,則應採取下列何種動作?|(A)關閉無人飛機上不必要之電力裝置。|(B)無人飛機將在歸航點盤旋至油量/電量耗盡。|(C)檢查確認導控站硬體接線、更換模組、或重新開機。|(D)可利用地圖介面、即時飛航資訊及酬載影像,全程監控航機是否正確返回歸航點盤旋或降落。|3|若是機上接收機損壞，人為已無法遙控。只能盯著地面站螢幕，祈禱並「監控飛機靠飛控大腦自動返航降落」。",
+            "186 無人飛機在視距內發生「上傳鏈路失效」,若失效原因為干擾/遮蔽,則等待無人飛機脫離干擾/遮蔽位置後應採取下列何種動作?|(A)檢查確認導控站硬體接線、更換模組、或重新開機。|(B)以肉眼檢視週遭潛在遮蔽物及干擾源,待航機恢復控制後應立即轉向或爬升脫離。|(C)關閉無人飛機上不必要之電力裝置。|(D)切換至適當之操作模式,儘速以穩定之滾轉角、俯仰角等飛行姿態落地。|1|視距內代表眼睛看得到，故恢復連線後應直接「以肉眼檢視地形，操作飛機轉向或爬升脫離干擾源」。",
+            "187 無人飛機在視距外發生「下傳鏈路失效」,緊急處置程序之一為下列何者?|(A)關閉無人飛機上不必要之電力裝置。|(B)調整俯仰姿態以飄降飛回本場。|(C)參考航機飛行軌跡及斷訊前回傳之飛航資訊與酬載影像,儘速執行轉向或爬升操作以脫離干擾/遮蔽區域。|(D)開啟自動避障系統。|2|下傳失效代表「地面站畫面黑掉，但遙控器還能控」。應憑記憶與最後畫面，「盲控爬升或轉向脫離盲區」。",
+            "188 無人飛機在視距外發生「下傳鏈路失效」,緊急處置程序之一為下列何者?|(A)參考航機飛行軌跡及斷訊前回傳之飛航資訊與酬載影像,儘速執行第一人稱操作以脫離干擾/遮蔽區域。|(B)參考航機飛行軌跡及斷訊前回傳之飛航資訊與酬載影像,儘速執行推桿操作以建立安全空速。|(C)參考航機飛行軌跡及斷訊前回傳之飛航資訊與酬載影像,儘速執行轉向或爬升操作以脫離干擾/遮蔽區域。|(D)參考航機飛行軌跡及斷訊前回傳之飛航資訊與酬載影像,儘速執行轉向或爬升操作以接近干擾/遮蔽區域。|2|畫面中斷時，操作人須冷靜回想地形，並「打舵爬升或轉向脫離地形遮蔽」，爭取恢復訊號。",
+            "189 無人飛機在視距外發生「下傳鏈路失效」,若失效原因為干擾/遮蔽,則等待無人飛機脫離干擾/遮蔽位置後應採取下列何種動作?|(A)應立即切換至適當之操作模式或啟動返航模式。|(B)開啟自動避障系統。|(C)關閉無人機上不必要之電力裝置。|(D)調整俯仰姿態以飄降飛回本場。|0|盲控有高風險，一旦脫離遮蔽恢復畫面後，最安全的做法是「啟動返航模式或切換姿態模式」將飛機召回。",
+            "190 無人飛機在視距外發生「下傳鏈路失效」,若失效原因為無人飛機發射端異常,則應採取下列何種動作?|(A)檢查確認導控站硬體接線、更換模組、或重新開機。|(B)應立即採取減災飛行決策,嘗試恢復鏈路通訊後以第一人稱方式,儘速控制航機以穩定姿態返場降落。|(C)切換至姿態操作模式,儘速參考酬載影像以第一人稱方式將航機飛回本場。|(D)關閉無人飛機上不必要之電力裝置。|1|確定機上發射機壞掉(畫面永久黑屏)，此時應採取「減災決策(如盲控拉高或按下一鍵返航)」，嘗試讓飛機平安返場。",
+            "191 無人飛機在視距外發生「下傳鏈路失效」,若失效原因為地面導控站接收端異常,則應採取下列何種動作?|(A)應立即檢診其電源、天線及硬體線路接頭,必要時可更換模組或重新開機以嘗試恢復鏈路通訊。|(B)應立即採取減災飛行決策,嘗試恢復鏈路通訊後以第一人稱方式,儘速控制航機以穩定姿態返場降落。|(C)切換至姿態操作模式,儘速參考酬載影像以第一人稱方式將航機飛回本場。|(D)關閉無人飛機上不必要之電力裝置。|0|地面站黑屏若是地面設備問題，副手應「立即檢查天線、電源接頭或重開機」，同時正手按返航鈕爭取時間。",
+            "192 無人飛機在視距內發生「下傳鏈路失效」,緊急處置程序之一為下列何者?|(A)檢查確認導控站硬體接線、更換模組、或重新開機。|(B)應立即切換至適當之操作模式或啟動返航模式,並全程使用第一人稱操作,儘速控制航機以穩定姿態返場降落。|(C)關閉無人飛機上不必要之電力裝置。|(D)應立即切換至適當之操作模式或啟動返航模式,並全程與航機保持目視,儘速控制航機以穩定姿態返場降落。|3|既然在視距內，畫面黑掉也沒關係。操作人應抬頭「與飛機保持肉眼目視」，直接手動將其平穩飛回。",
+            "193 無人飛機在視距外發生「下傳鏈路失效」,若超過該機合理滯空時間一直未見航機歸航或飛回本場,代表可能發生下列何種狀況?|(A)可能已在其他適當地點安全降落。|(B)可能仍在發生「下傳鏈路失效」當時的位置盤旋。|(C)可能已在下傳斷訊時失事或返航途中失事。|(D)以上皆非。|2|畫面斷線又過了電池極限時間還沒飛回來，代表飛機極有可能「在斷訊當下或盲目返航途中已經撞山失事」。",
+            "194 無人飛機在視距外發生「衛星定位訊號異常」,緊急處置程序為下列何者?|(A)立即切換至適當之操作模式以停止衛星定位功能介入航機之控制,並由操作人以第一人稱方式接手操作。|(B)調整俯仰姿態以飄降飛回本場。|(C)關閉無人飛機上不必要之電力裝置。|(D)檢查確認導控站硬體接線、更換模組、或重新開機。|0|GPS訊號異常會導致飛控亂算座標引發亂飛，應立即「切換至姿態模式(停止GPS介入)」，改看第一人稱影像手動飛回。",
+            "195 無人飛機在視距內發生「衛星定位訊號異常」,緊急處置程序為下列何者?|(A)儘速操控航機轉向或爬升脫離高樓周圍、橋梁下、峽谷內、密林中及輸電線路周邊等環境,並以目視方式控制航機返場降落。|(B)調整俯仰姿態以飄降飛回本場。|(C)關閉無人飛機上不必要之電力裝置。|(D)檢查確認導控站硬體接線、更換模組、或重新開機。|0|視距內遇GPS受干擾，應立刻切手動，「打舵離開橋樑或高樓等遮蔽環境」，用肉眼將飛機飛回。",
+            "196 無人直昇機與多旋翼機在視距外發生「衛星定位訊號異常」,緊急處置程序為下列何者?|(A)儘速操控航機轉向或上升脫離高樓周圍、橋梁下、峽谷內、密林中及輸電線路周邊等環境,待衛星訊號恢復後繼續飛行。|(B)調整俯仰姿態以飄降飛回本場。|(C)關閉無人飛機上不必要之電力裝置。|(D)檢查確認導控站硬體接線、更換模組、或重新開機。|0|切手動並「轉向/爬升脫離會遮蔽衛星的地形」，爭取GPS重新定位。但在視距外需依賴影像畫面輔助。",
+            "197 無人直昇機與多旋翼機在視距外發生「衛星定位訊號異常」,緊急處置程序為下列何者為非?|(A)儘速操控航機轉向或上升脫離高樓周圍、橋梁下、峽谷內、密林中及輸電線路周邊等環境,待衛星訊號恢復後繼續飛行。|(B)操作人參考即時飛航資訊、地圖介面及酬載影像以第一人稱方式接手操作。|(C)立即切換至適當之操作模式以停止衛星定位功能介入航機之控制。|(D)若異常狀況持續無法改正,應儘速以目視方式控制航機返場降落。|3|因為是在「視距外」，操作人根本看不到飛機，不可能「以目視方式」控制降落，這是完全不合理的作法。",
+            "198 無人直昇機與多旋翼機在視距內發生「衛星定位訊號異常」,緊急處置程序為下列何者?|(A)立即切換至適當之操作模式以停止衛星定位功能介入航機之控制,並由操作人以目視方式接手操作。|(B)調整俯仰姿態以飄降飛回本場。|(C)關閉無人飛機上不必要之電力裝置。|(D)檢查確認導控站硬體接線、更換模組、或重新開機。|0|GPS異常時飛機會隨風亂飄，視距內應立刻「切姿態模式剝奪GPS權限」，靠操作人硬底子肉眼手排接管。",
+            "199 無人飛機在視距內發生「姿態儀異常」,緊急處置程序之一為下列何者?|(A)檢查確認導控站硬體接線、更換模組、或重新開機。|(B)切換至適當之操作模式,由操作人目視航機接手操作,穩定飛行姿態後儘速控制航機返場降落。|(C)關閉無人飛機上不必要之電力裝置。|(D)人為切入返航模式。|1|姿態儀異常代表飛控不知道哪邊是水平。操作人應立即切換至全手動模式(Manual)，「完全靠肉眼判定飛機傾角來控制返場」。",
+            "200 無人飛機在視距外發生「姿態儀異常」,緊急處置程序之一為下列何者?|(A)若操作人之技能不足以第一人稱方式手動控制航機,應立即採取減災飛行決策,參考姿態儀及時資訊操控航機落地。|(B)若操作人之技能不足以第一人稱方式手動控制航機,應立即採取減災飛行決策,參考酬載影像、即時飛航資訊及地圖介面嘗試將航機飛至人群上空。|(C)若操作人之技能不足以第一人稱方式手動控制航機,應立即採取減災飛行決策,參考酬載影像、即時飛航資訊及地圖介面嘗試將航機飛至安全區域,並儘速實施異地迫降處置。|(D)若操作人之技能不足以第一人稱方式手動控制航機,應立即切換至返航模式,參考酬載影像及地圖介面嘗試將航機飛至安全區域迫降。|2|視距外姿態儀異常極難救援。若無把握飛回，應執行減災決策：「看著影像將飛機飛向無人安全區進行異地墜毀/迫降」。",
+            "201 無人直昇機與多旋翼機在視距內發生「姿態儀異常」,緊急處置程序之一為下列何者?|(A)立即切換至適當之操作模式以停止慣性導航儀介入航機之控制。|(B)切換至適當之操作模式,參考酬載影像以第一人稱方式將無人機飛回本場。|(C)立即由操作人目視航機接手操作,建立安全高度後儘速控制航機返場降落。|(D)立即由操作人目視航機接手操作,穩定姿態或原處懸停後儘速控制航機返場降落。|3|旋翼機無姿態儀會立刻翻車，應切至無自穩的純手動模式，由操作人高超技術「強行用肉眼穩住姿態並懸停，隨即降落」。",
+            "202 無人直昇機與多旋翼機在視距外發生「姿態儀異常」,緊急處置程序之一為下列何者?|(A)參考酬載影像穩定姿態或原處懸停後操控航機與地形地障保持安全隔離。|(B)立即切換至姿態模式,儘速以穩定之滾轉角、俯仰角穩定將航機飛回本場。|(C)立即切換至姿態模式由操作人接手操作,將航機原處盤旋。|(D)立即切換至適當之操作模式以停止慣性導航儀介入航機之控制。|0|視距外無法用肉眼看平衡，只能靠「看著圖傳影像(FPV)來感受機身歪斜」，強行打舵維持平衡並避開地形。",
+            "203 無人直昇機與多旋翼機在視距外發生「姿態儀異常」,緊急處置程序之一為下列何者?|(A)檢查確認導控站硬體接線、更換模組、或重新開機。|(B)切換至姿態操作模式,儘速參考酬載影像以第一人稱方式將航機飛回本場。|(C)立即切換至適當之操作模式以停止姿態儀介入航機之控制,並由操作人接手操作。|(D)人為切入返航模式。|2|姿態儀(IMU)已瘋狂，飛控會給出錯誤指令。必須立刻「切斷姿態儀的控制權限」，完全交由人類接手盲飛。",
+            "204 無人飛機在視距外發生「空速管失效」,緊急處置程序為下列何者?|(A)人為切入返航模式。|(B)關閉無人機上不必要之電力裝置。|(C)檢查確認導控站硬體接線、更換模組、或重新開機。|(D)改以導航系統(如衛星定位及慣性導航等)測得之速度及高度參數作為操作之準據。|3|空速管堵塞或結冰時，應立刻「改看 GPS 測出的地速」來做為粗估的空速參考，確保飛機不失速。",
+            "205 無人飛機在視距內發生「操縱面致動器/伺服舵機(Servo)失效」,若為單邊控制面(方向舵、副翼、升降舵)失效航機尚存部分可控性,緊急處置程序為下列何者?|(A)立即調整地面導控站位置。|(B)立即切換至姿態模式。|(C)改以導航系統(如衛星定位及慣性導航等)測得之速度及高度參數作為操作之準據。|(D)嘗試利用正常操縱面及差異推力控制(Differential thrust/power)進行配平補償操作以改正航機姿態。|3|單邊舵機卡死時飛機會偏轉，此時只能「打反向舵或利用兩邊馬達推力差」來硬把飛機姿態配平(Trim)穩住。",
+            "206 無人飛機在視距外發生「翼面致動器失效」,若為單邊控制面(方向舵、副翼、升降舵)失效航機尚存部分可控性,緊急處置程序為下列何者?|(A)立即以第一人稱方式接手操作,嘗試利用正常操縱面及推力控制進行配平補償操作以改正航機姿態。|(B)開啟自動避障系統。|(C)人為切入返航模式。|(D)切換至適當之操作模式,儘速穩定飛行姿態將航機以目視方式飛回本場。|0|視距外只能看著「第一人稱(FPV)影像」，操作正常的舵面與馬達推力差來強行改正姿態返航。",
+            "207 無人飛機在視距外發生「翼面致動器失效」,若為雙邊控制面(方向舵、副翼、升降舵)失效航機已完全喪失可控性,緊急處置程序為下列何者?|(A)啟動自動返航模式。|(B)開啟自動避障系統。|(C)應立即記錄最終定位座標,在人員安全前題下儘速前往可能之墜落地點查看,以確認未引起火災等其他災害。|(D)切換至適當之操作模式,儘速穩定飛行姿態將航機以目視方式飛回本場。|2|雙邊失效代表無可救藥必定墜機。唯一能做的就是「看地面站記下墜毀座標」，趕緊前往現場善後及滅火。",
+            "208 無人飛機在視距外發生「空中失速(Stall)」,緊急處置程序為下列何者?|(A)以目視方式操作航機飛至安全區域迫降。|(B)調整俯仰姿態以飄降飛回本場。|(C)切換至適當之操作模式,儘速以穩定之滾轉角、俯仰角等飛行姿態降低無人機飛行攻角,建立安全高度。|(D)立即切換至適當之操作模式由操作人以第一人稱方式接手操作,推桿控制航機姿態降低飛行攻角以建立安全空速。|3|失速的唯一解藥是「降機頭」。操作人應立刻推桿(低頭)，「降低機翼攻角」讓空氣重新流過機翼，藉俯衝換取安全空速。",
+            "209 無人飛機在視距內發生「空中失速(Stall)」,緊急處置程序為下列何者?|(A)以第一人稱方式操作航機飛至安全區域迫降。|(B)立即切換至適當之操作模式由操作人目視航機接手操作,推桿控制航機姿態降低飛行攻角以建立安全空速。|(C)切換至適當之操作模式,儘速以穩定之滾轉角、俯仰角等飛行姿態降低無人機飛行攻角,建立安全高度。|(D)調整俯仰姿態以飄降飛回本場。|1|視距內失速時，看著飛機立刻「推桿(降機頭)降低飛行攻角」，待空速恢復產生升力後再緩緩拉平。",
+            "210 無人飛機在視距外發生「低油量/電量」,緊急處置程序為下列何者?|(A)切入任務模式,儘速以穩定之滾轉角、俯仰角等飛行姿態將航機飛回本場。|(B)立即關閉航機除酬載影像外之非必要酬載設備以減緩油量/電量之消耗。|(C)立即加大動力以全速飛回本場。|(D)立即關閉航機酬載影像等非必要酬載設備,以減緩油量/電量之消耗。|1|低電量時首重節流，應「關閉耗電的任務設備(如雷達/探照燈)」，但絕不能關閉影像，否則視距外會變成盲飛瞎子。",
+            "211 無人直昇機與多旋翼機在視距外發生「低油量/電量」,緊急處置程序為下列何者?|(A)開啟自動避障系統。|(B)立即以第一人稱方式保持全速飛行,儘速安全返場降落。|(C)調整俯仰姿態以飄降飛回本場。|(D)參考姿態儀及酬載影像將航機飛至安全區域迫降。|3|旋翼機沒電等於直接掉下來(無法滑翔)。若電量撐不回起飛點，應立刻看影像「就近尋找安全空地迫降」。",
+            "212 無人直昇機與多旋翼機在視距外發生「低油量/電量」,緊急處置程序下列何者為非?|(A)立即關閉航機除酬載影像外之非必要酬載設備以減緩油量/電量之消耗。|(B)減緩油量/電量之消耗,以維持飛控電腦及伺服舵機等必要模組之運作。|(C)減緩油量/電量之消耗,以維持廣播設備及投放伺服機等模組之運作。|(D)立即以第一人稱方式保持勻速飛行,儘速安全返場降落。|2|保命時刻電要留給飛控大腦，不能拿來維持「廣播設備或投放裝置」等非飛安必要的酬載運作。",
+            "213 「迫降航線處置」指的是下列何者?|(A)自行判斷當下高度、距離及航線,安全返場降落。|(B)開啟自動避障系統。|(C)機動改變任務航線來繞越或避障。|(D)參考酬載影像避障並迫降於安全處。|0|當飛機發生異常但還能控時，操作人「自行規劃最安全、最短的航線與高度，將飛機駛回機場降落」稱為迫降航線處置。",
+            "214 「異地迫降處置」指的是下列何者?|(A)自行判斷當下高度、距離及航線,安全返場降落。|(B)開啟自動避障系統。|(C)機動改變任務航線來繞越或避障。|(D)參考酬載影像避障並迫降於安全處。|3|飛機快不行了撐不回機場，操作人只能「看著影像，就近找一塊沒有人的空地把飛機降下去(迫降於安全處)」。",
+            "215 「空中緊急避障處置」指的是下列何者?|(A)自行判斷當下高度、距離及航線,安全返場降落。|(B)開啟自動避障系統。|(C)機動改變任務航線來繞越或避障。|(D)參考酬載影像避障並迫降於安全處。|2|飛行中突然發現前方有直昇機或高壓電塔，操作人立刻「機動改變航向或高度來繞越障礙物」的動作。",
+            "216 臺北近場臺範圍不包括下列何者?|(A)連江縣。|(B)宜蘭縣。|(C)臺中市。|(D)雲林縣。|3|雲林縣位在北緯 24 度以南，空域協調管轄權隸屬於「高雄近場臺」，不歸臺北管。",
+            "217 高雄近場臺範圍不包括下列何者?|(A)嘉義縣。|(B)南投縣。|(C)雲林縣。|(D)金門縣。|1|南投縣大部雖然在山區，但在空域劃分上屬於北部，歸「臺北近場臺」管轄。",
+            "218 臺北飛航情報區限航區名冊,RCR45、RCR46、RCR47(核三、核一、核二廠),涉及下列何者?|(A)航道及航管安全。|(B)情報及邊境安全。|(C)輻射及廠房安全。|(D)以上皆是。|2|RCR 系列為核電廠上空限航區，劃設目的是為了保護核電設施免受恐怖攻擊，涉及「輻射及廠房安全」。",
+            "219 臺北飛航情報區限航區名冊,東沙群島位於下列哪個飛航情報區內?|(A)香港飛航情報區。|(B)臺北飛航情報區。|(C)馬尼拉飛航情報區。|(D)廣州飛航情報區。|0|在國際空域劃分上，東沙群島位於「香港飛航情報區」內，但其領空禁航區由我國公告。",
+            "220 臺北飛航情報區限航區名冊,南沙群島位於下列哪個飛航情報區內?|(A)香港飛航情報區。|(B)臺北飛航情報區。|(C)馬尼拉飛航情報區。|(D)廣州飛航情報區。|2|南沙群島(太平島)地理位置偏南，落於國際劃分的「馬尼拉飛航情報區」內。",
+            "221 遙控無人機實際作業地點在台中,要派員去下列哪個近場管制塔臺?|(A)位在臺北的臺北近場管制塔臺。|(B)位在桃園的臺北近場管制塔臺。|(C)位在台南的高雄近場管制塔臺。|(D)位在高雄的高雄近場管制塔臺。|1|台中在北緯 24 度以北，歸臺北近場臺管。而臺北近場管制塔臺的實體位置設在「桃園(大園)」。",
+            "222 遙控無人機實際作業地點在台東,要派員去下列哪個近場管制塔臺?|(A)位在臺北的臺北近場管制塔臺。|(B)位在桃園的臺北近場管制塔臺。|(C)位在台南的高雄近場管制塔臺。|(D)位在高雄的高雄近場管制塔臺。|3|台東位於南部空域，歸高雄近場臺管。而高雄近場管制塔臺實體位置設在「高雄(小港)」。",
+            "223 若無人機作業範圍未在禁/限航區、未在民航局公告之航空站或飛行場四周一定距離範圍、且高度未逾距地面或水面400呎者,是否需派員至航管單位進行協調?|(A)無需派員至航管單位進行協調。|(B)仍需派員至航管單位進行協調。|(C)由無人機操作人自行決定。|(D)由航管單位依當時的航空交通流量來決定。|0|在綠區(非管制區)且高度在 400 呎以下飛行，沒有影響客機飛安疑慮，「無需」派員去航管單位協調。",
+            "224 臺北近場臺及高雄近場臺均位於保安管制區,臨時進出之人員須取得下列哪個單位核准?|(A)民航局。|(B)國安局。|(C)航空警察單位。|(D)機場保全公司。|2|近場臺設於機場管制區內，進出必須經過「航空警察單位(航警局)」的安全查核與發證核准。",
+            "225 1個遙控無人機申請案以派遣幾位協調人員至航管單位為原則?|(A)1位。|(B)2位。|(C)3位。|(D)4位。|0|為避免管制室人多嘴雜影響飛安，官方規定一個申請案「以派遣 1 位」協調員進駐為原則。",
+            "226 若在同日派1位協調人員負責多處遙控無人機之聯繫作業,應安排不同遙控無人機活動作業時間,以免發生下列何種狀況,而衍生飛安風險?|(A)延誤放行升空時機。|(B)壓縮作業時間。|(C)未依航管指示落地。|(D)以上皆是。|3|1 人顧多場，若同時升空會導致通訊混亂：來不及通知起飛、壓縮別人時間、甚至航管叫降落卻漏聽，引發以上所有風險。",
+            "227 派遣至航管單位的協調人員,應熟知遙控無人機申請案的相關作業內容中不包括下列何者?|(A)申請案之作業地點、範圍、實際作業高度。|(B)機場周邊活動、其他航機飛行。|(C)申請案號碼、飛航公告號碼。|(D)作業時間、返回落地所需時間。|1|協調員須熟知「自家無人機」的所有申請資料(A, C, D)，至於「其他客機的飛行狀況(B)」則是航管員的專業職責。",
+            "228 協調人員至航管單位時,應主動告知相關作業內容訊息予下列何人?|(A)塔臺長。|(B)航管班務督導。|(C)管制員。|(D)航詢員。|1|進入雷達室後，協調員應直接向當班負責全場管制的「航管班務督導 (Supervisor)」報到並簡報。",
+            "229 協調人員至航管單位執行協調聯繫作業時,手機應作下列何種設定?|(A)手機應設定為響鈴模式。|(B)手機應設定為飛航模式。|(C)手機應設定為靜音或震動模式。|(D)手機應暫時關機。|2|航管雷達室需保持極度安靜以監聽無線電。協調員手機必須切換為「靜音或震動」，與現場無人機操作手保持聯繫。",
+            "230 航管單位屬於保安管制區域,作業期間應遵守下列哪些事項?|(A)禁止拍照、錄音、攝影等,但可隨意走動。|(B)可以拍照、錄音、攝影等,但不得進入指定區域以外之場所。|(C)可以拍照、錄音、攝影等,且可隨意走動。|(D)禁止拍照、錄音、攝影等,且不得進入指定區域以外之場所。|3|雷達室涉國家飛安機密，絕對「禁止拍照錄音」，且只能乖乖坐在指定位置「不得隨意走動」。",
+            "231 空域協調使用作業期間以下列何者為優先?|(A)軍、民航機。|(B)遙控無人機。|(C)輕航機。|(D)滑翔機。|0|無人機路權最低。航管空域永遠以載人的「軍機、民航客機」為第一優先。",
+            "232 派遣至航管單位的協調人員,應確實按航管人員指示內容,即時聯絡下列何人配合辦理?|(A)遙控無人機目視觀察員。|(B)遙控無人機所有人。|(C)遙控無人機操作人。|(D)以上皆是。|2|當航管下令「有客機接近，立刻降落」，協調員要用手機火速通知在現場拿遙控器的「操作人」馬上降落。",
+            "233 遙控無人機飛航活動申請時,「作業概述」欄位應敘明下列哪些資訊?|(A)作業高度、預期效益等資訊。|(B)作業目的、預計起降地點等資訊。|(C)作業溫度、氣壓及氣象預報等資訊。|(D)作業所需航空知識、緊急處置程序等資訊。|1|申請書上的「作業概述」必須向審查官講明你飛這個的「作業目的為何」以及「從哪裡起飛降落」。",
+            "234 遙控無人機飛航活動申請時,「作業概述」預計起降地點可輸入下列何者?|(A)座標(如:經緯度)。|(B)地標(如:台大實驗林)。|(C)以上皆可。|(D)以上皆非。|2|起降地點欄位很彈性，輸入精確的經緯度座標，或是明顯的文字地標(如XX國小操場)「以上皆可」。",
+            "235 遙控無人機飛航安全相關事件之一,是指下列何者所規定之遙控無人機飛航事故?|(A)民用航空法。|(B)飛航規則。|(C)危險物品空運管理辦法。|(D)運輸事故調查法。|3|只要牽涉到重大的無人機事故，均適用國家級別的「運輸事故調查法」來啟動調查。",
+            "236 運輸事故調查法所規定之遙控無人機飛航事故,應向下列何者通報?|(A)向民航局通報即可。|(B)向運安會通報即可。|(C)先向民航局通報,再看情形決定是否向運安會通報。|(D)除向民航局通報外,亦應向運安會通報。|3|出大事(如砸傷人)時是雙向通報制：要報給主管機關「民航局」，也要通報調查機關「運安會(TTSB)」。",
+            "237 運輸事故調查法規定,運輸事故發生後,應於得知消息後多少時間內通報運安會?|(A)2小時內。|(B)12小時內。|(C)24小時內。|(D)48小時內。|0|注意法規差異！通報運安會(TTSB)的時限極短，必須在得知消息後「2 小時內」完成緊急通報。",
+            "238 運輸事故調查法規定,疑似運輸事故發生後,應於得知消息後多少時間內通報運安會?|(A)12小時內。|(B)24小時內。|(C)2小時內。|(D)48小時內。|1|若是「疑似」重大事故(狀況未明)，給予的通報寬限期較長，應於「24 小時內」通報運安會。",
+            "239 運輸事故調查法規定,遙控無人機所有人或操作人,無正當理由未於期限內通報運安會事故或疑似事故者,處下列何種罰鍰?|(A)新臺幣3萬元以上15萬元以下。|(B)新臺幣6萬元以上30萬元以下。|(C)新臺幣30萬元以上150萬元以下。|(D)新臺幣1萬元以上150萬元以下。|1|發生重大事故卻「隱匿不報(遲報)」，運安會將開罰中段級距「6萬至30萬元」。",
+            "240 運輸事故調查法所規定之遙控無人機飛航事故明訂於下列何者?|(A)民用航空法。|(B)飛航規則。|(C)遙控無人機重大飛航事故調查作業處理規則。|(D)危險物品空運管理辦法。|2|關於事故定義與調查程序，專門明訂於「遙控無人機重大飛航事故調查作業處理規則」中。",
+            "241 「遙控無人機重大飛航事故調查作業處理規則」規定,遙控無人機重大飛航事故發生後,下列何者應儘速通報已知事故狀況?|(A)遙控無人機所有人。|(B)遙控無人機操作人。|(C)政府相關機關(構)。|(D)以上皆是。|3|重大飛安事故人人有責，機主、操作手、或是目擊的政府機關人員，都有義務「儘速通報」。",
+            "242 「遙控無人機重大飛航事故調查作業處理規則」規定,遙控無人機重大飛航事故發生後,應儘速將已知事故狀況通報運安會之下列何者?|(A)值日官。|(B)主任調查官。|(C)執行長。|(D)專案調查小組。|0|運安會設有 24 小時輪值的窗口，通報時是直接打給運安會的「值日官」。",
+            "243 「遙控無人機重大飛航事故調查作業處理規則」規定,下列何者為應通報之事故?|(A)人員死亡或傷害。|(B)人員生病或情緒不佳。|(C)人員睡眠不足或喝酒過量。|(D)人員注意力不集中。|0|無人機事故導致「人員死亡或傷害(見血或住院)」，屬最頂級的重大飛安事故，必須通報。",
+            "244 「遙控無人機重大飛航事故調查作業處理規則」規定,「死亡」指該人直接觸及遙控無人機之任何部位,包括自機體分離之部分,而有下列哪種情形者?|(A)當場死亡。|(B)4小時之內死亡。|(C)8小時之內死亡。|(D)12小時之內死亡。|0|調查法規對於事故「死亡」的嚴格定義，係指因遭機體打擊而「當場死亡」者。",
+            "245 「遙控無人機重大飛航事故調查作業處理規則」規定,「傷害」指下列哪種情形者?|(A)受傷後3日之內須住院治療12小時以上。|(B)受傷後5日之內須住院治療24小時以上。|(C)受傷後7日之內須住院治療48小時以上。|(D)受傷後10日之內須住院治療72小時以上。|2|事故「重傷害」的法定定義：受傷後「7 日之內，須住院治療達 48 小時以上」者。",
+            "246 「遙控無人機重大飛航事故調查作業處理規則」規定,下列何者為應通報之事故?|(A)最大起飛重量逾1公斤之遙控無人機遭受實質損害。|(B)最大起飛重量逾25公斤之遙控無人機遭受實質損害。|(C)最大起飛重量逾1公斤之遙控無人機遭受可修復之損壞。|(D)最大起飛重量逾25公斤之遙控無人機遭受可修復之損壞。|1|如果是「沒有砸到人」純粹墜機，強制通報門檻是：大型機(重量「逾 25 公斤」)且「摔到全毀(實質損害)」。",
+            "247 「遙控無人機重大飛航事故調查作業處理規則」規定,「實質損害」指下列哪種情形者?|(A)遙控無人機損壞,修復需費時1日之內、費用新臺幣1萬元以內。|(B)遙控無人機損壞,修復需費時5日之內、費用新臺幣10萬元以內。|(C)遙控無人機損壞,修復需費時5日以上、費用新臺幣10萬元以上。|(D)遙控無人機損壞無法修復。|3|法規定義的「實質損害」，就是指無人機摔得粉碎，達到「損壞無法修復」的報廢程度。",
+            "248 「遙控無人機重大飛航事故調查作業處理規則」規定,造成人民生命、財產重大影響者、或毀損超過下列何者為應通報之事故?|(A)新臺幣100萬元者。|(B)新臺幣50萬元者。|(C)新臺幣25萬元者。|(D)新臺幣10萬元者。|1|如果無人機砸壞了別人的車子或屋頂，只要財損估計「超過新臺幣 50 萬元」，即屬須通報的重大事故。",
+            "249 「飛航規則」規定,「高度」指下列何者?|(A)自特定基準至空中某平面或某點或某目標物間之水平距離。|(B)自平均海平面至空中某平面或某點或某目標物間之水平距離。|(C)自特定基準至空中某平面或某點或某目標物間之垂直距離。|(D)自平均海平面至空中某平面或某點或某目標物間之垂直距離。|3|航空學上純粹稱「高度 (Altitude)」，預設就是指從「平均海平面」算起的垂直距離。",
+            "250 「飛航規則」規定,「實際高度」指下列何者?|(A)自特定基準至空中某平面或某點或某目標物間之水平距離。|(B)自平均海平面至空中某平面或某點或某目標物間之水平距離。|(C)自特定基準至某平面、某點、或某目標物間之垂直距離。|(D)自平均海平面至空中某平面或某點或某目標物間之垂直距離。|2|實際高度 (Height) 的定義，是從飛行器正下方的「特定基準(如地面)」算起的垂直距離。",
+            "251 「飛航規則」規定,有人機目視飛航最低實際高度為下列何者?|(A)不得低於距地面或水面500呎。|(B)不得低於距地面或水面400呎。|(C)不得低於距地面或水面300呎。|(D)不得低於距地面或水面200呎。|0|載人客機的「最低」安全高度是 500 呎；無人機的「最高」高度是 400 呎。藉由這 100 呎的緩衝來隔離雙方確保飛安。",
+            "252 「指示高度」為由高度表所顯示出來的高度,基準面為下列何者?|(A)標準參考面。|(B)最低雲幕高。|(C)地面或海平面。|(D)高度表壓力調撥值所設定的基準面。|3|飛機儀表板上直接讀出的指示高度(Indicated Altitude)，其零點基準取決於機長「手動旋鈕設定的氣壓調撥值」。",
+            "253 「指示高度」壓力調撥值為下列何者?|(A)29.92 in-Hg。|(B)當地之大氣壓力值。|(C)27.92 in-Hg。|(D)「指示高度」沒有壓力調撥值問題。|1|要讓指示高度準確顯示機場海拔，必須將調撥值設定為塔台報給你的「當地當下的大氣壓力值 (QNH)」。",
+            "254 「真高度」俗稱海拔高度,為航空器高於下列何者的垂直距離?|(A)地面。|(B)最低雲幕高。|(C)平均海平面。|(D)標準參考面。|2|真高度 (True Altitude) 也就是地理上的精確海拔高度，基準為「平均海平面 (MSL)」。",
+            "255 一般在航圖看到的高度,包括機場、地形、或障礙物的標高都是下列何者?|(A)MSL。|(B)AGL。|(C)ASL。|(D)MGL。|0|航空地圖上標示的山峰、鐵塔、機場高度，全部都是使用平均海平面高度「MSL」。",
+            "256 「絕對高度」通常是指經由下列何者所顯示出來的高度?|(A)電波/雷達高度表。|(B)GPS。|(C)氣壓高度表。|(D)以上皆是。|0|絕對高度 (Absolute Altitude) 是飛機距離正下方地表的真實距離，必須靠向下打電波的「電波/雷達高度表」測出。",
+            "257 「絕對高度」基準為下列何者?|(A)標準參考面。|(B)地面。|(C)最低雲幕高。|(D)海平面。|1|絕對高度因為是測量與下方障礙物的距離，所以它的 0 點基準就是不斷起伏的「地面」。",
+            "258 「絕對高度」壓力高度表的壓力調撥值為下列何者?|(A)29.92 in-Hg。|(B)當地之大氣壓力值。|(C)27.92 in-Hg。|(D)「絕對高度」沒有壓力調撥值問題。|3|絕對高度是靠雷達電波測量物理距離，跟空氣壓力無關，所以「沒有壓力調撥值的問題」。",
+            "259 「絕對高度」常用下列何者來表示?|(A)MSL。|(B)MGL。|(C)AGL。|(D)ASL。|2|絕對高度代表離地真實高度，英文縮寫為「AGL (Above Ground Level)」。",
+            "260 飛機在通過或降落高山地區的空域時,使用下列何種高度比較安全?|(A)指示高度。|(B)絕對高度。|(C)壓力高度。|(D)以上皆是。|1|飛越山區(地形崎嶇)時，氣壓高度表會騙人，使用雷達打地面的「絕對高度 (AGL)」才能確保不會撞山。",
+            "261 「壓力高度」基準面為下列何者?|(A)海平面。|(B)最低雲幕高。|(C)標準參考面。|(D)地面。|2|壓力高度的 0 點基準，是氣象學上假定的大氣「標準參考面 (29.92 in-Hg)」。",
+            "262 「壓力高度」之壓力調撥值設定為下列何者?|(A)當地之大氣壓力值。|(B)「壓力高度」沒有壓力調撥值問題。|(C)27.92 in-Hg。|(D)29.92 in-Hg。|3|要讀取壓力高度，機師必須將高度表的氣壓窗強制轉到標準大氣值「29.92 in-Hg (或 1013 hPa)」。",
+            "263 「壓力高度」用以計算下列何者?|(A)密度高度。|(B)真高度。|(C)真空速及其他性能資料。|(D)以上皆是。|3|壓力高度是一切航空物理計算的基礎，可用來推算密度高度、真高度，以及飛機的真空速等「以上所有性能資料」。",
+            "264 「密度高度」為將壓力高度值對下列何者校驗後的高度?|(A)溫度。|(B)濕度。|(C)風速。|(D)氣壓。|0|空氣受熱膨脹，故「密度高度」是將壓力高度加入當下的「溫度」參數進行校驗修正後得出的結果。",
+            "265 如果大氣溫度符合國際標準大氣的狀況,密度高度等於下列何者?|(A)指示高度。|(B)真高度。|(C)壓力高度。|(D)絕對高度。|2|若今天氣溫剛剛好等於標準大氣溫度(如海平面15度)，不須做溫度修正，則密度高度會直接等於「壓力高度」。",
+            "266 監控密度高度最主要的目的是下列何者?|(A)避開雷雨區或沙塵暴。|(B)正確計算飛機性能值。|(C)提高濃霧時的能見度。|(D)預估逆溫層的形成。|1|密度高度俗稱「飛機感受到的高度」。機師監控它，是為了「正確計算飛機性能」(如起飛滑行距離要多長、引擎推力剩多少)。",
+            "267 下列何者為以遙控無人機投擲物件之一例?|(A)投放海釣拋餌。|(B)噴灑農藥。|(C)工程巡檢。|(D)空拍回傳。|0|利用夾爪或釋放裝置將固體物件丟下，例如「投放海釣拋餌」，即屬法規定義的「投擲」行為。",
+            "268 下列何者為以遙控無人機噴灑物件之一例?|(A)工程巡檢。|(B)空拍回傳。|(C)投放海釣拋餌。|(D)噴灑農藥。|3|利用幫浦將液體或粉末化為霧狀灑出，例如「噴灑農藥」，即屬法規定義的「噴灑」行為。",
+            "269 下列何者為危險物品第一類爆炸物品之一例?|(A)具劇烈爆炸危險性。|(B)具火焰噴出危險性。|(C)具顯著危險性。|(D)以上皆是。|3|第一類危險品涵蓋所有火藥庫等級的特徵，包含劇烈爆炸、火焰噴出、拋射物等「以上皆是」的顯著危險性。",
+            "270 危險物品第二類氣體包括下列何者?|(A)單原子氣體、單分子氣體、化合物分子氣體。|(B)理想氣體、非完全氣體、凡得瓦爾氣體。|(C)易燃氣體、非易燃無毒氣體、毒性氣體。|(D)惰性氣體、溫室氣體、費米氣體。|2|航空運輸將危險氣體分為三級：2.1(易燃氣體)、2.2(非易燃無毒的高壓氣體)及 2.3(毒性氣體)。",
+            "271 「危險物品空運管理辦法」危險物品之分類基準,係依下列何者之「危險物品航空安全運送技術規範」之規定?|(A)世界衛生組織。|(B)國際民用航空組織。|(C)世界旅遊組織。|(D)聯合國工業發展組織。|1|全球航空界共同遵守的危險品載運天條，是由 ICAO「國際民用航空組織」所制定的。",
+            "272 日出及日落時間,依下列何者公布之時間為準?|(A)民用航空局。|(B)觀光局。|(C)中央氣象局。|(D)運輸研究所。|2|無人機夜間禁飛時間的判定基準，一律以「中央氣象局(現改制為氣象署)」每日公布之日出/日落時刻表為準。",
+            "273 日出前/日落後,至太陽中心在地平線下6°之時段稱為下列何者?|(A)民用曙光/民用暮光。|(B)天文曙光/天文暮光。|(C)航海曙光/航海暮光。|(D)朝陽/夕陽。|0|太陽剛沉入地平線下 0度到 6度，天空還算明亮，此階段稱為「民用曙光/暮光 (Civil Twilight)」。",
+            "274 日出前/日落後,至太陽中心在地平線下6°至12°之時段稱為下列何者?|(A)朝陽/夕陽。|(B)航海曙光/航海暮光。|(C)民用曙光/民用暮光。|(D)天文曙光/天文暮光。|1|太陽落入地平線下 6度到 12度，海平線開始模糊，此階段稱為「航海曙光/暮光 (Nautical Twilight)」。",
+            "275 日出前/日落後,至太陽中心在地平線下12°至18°之時段稱為下列何者?|(A)航海曙光/航海暮光。|(B)朝陽/夕陽。|(C)民用曙光/民用暮光。|(D)天文曙光/天文暮光。|3|太陽落入地平線下 12度到 18度，天空幾乎全黑，星星清晰可見，此階段稱為「天文曙光/暮光 (Astronomical Twilight)」。",
+            "276 矯正鏡片一般適用於下列何者?|(A)近視、遠視、老花、斜視、散光等。|(B)遠距離觀察物體。|(C)觀察微小的物體。|(D)遮擋陽光、過濾紫外線。|0|法規允許佩戴的「矯正鏡片」，單純是指用來矯正眼睛天生屈光不正(如近視、散光等)的醫療鏡片。",
+            "277 矯正鏡片的佩戴方式一般有下列哪兩種?|(A)單片眼鏡、雙片眼鏡兩種。|(B)框架眼鏡、隱形眼鏡兩種。|(C)輕型眼鏡、重型眼鏡兩種。|(D)長效眼鏡、短效眼鏡兩種。|1|矯正鏡片的佩戴方式很直觀，就是一般的「框架眼鏡」與戴在眼球上的「隱形眼鏡」兩種。",
+            "278 以目前遙控無人機操作負荷,其控制台及系統非經特殊設計尚無法同時控制幾架遙控無人機?|(A)2架(含)以上。|(B)3架(含)以上。|(C)4架(含)以上。|(D)5架(含)以上。|0|人類注意力有限，法規規定一人一次只能飛一架，嚴禁未經核准的單人同時操作「2架(含)以上」之群飛行為。",
+            "279 「民用航空器及公務航空器重大飛航事故調查作業處理規則」規定,應通報下列重大飛航事故之一,為航空器空中接近至下列哪個範圍,須採緊急避讓動作始能防止相撞或危險之情況者?|(A)200呎以內。|(B)400呎以內。|(C)500呎以內。|(D)900呎以內。|2|兩架航空器在空中距離縮小至「500 呎以內 (約150公尺)」，即構成極度危險的「空中接近 (Near Miss)」重大事故。",
+            "280 近年來多起客機疑與無人機的碰撞實例,大多發生於下列何種時機?|(A)客機在機場停駐時。|(B)客機在空中平飛過程中。|(C)客機在機場爬升或下降過程中。|(D)客機在空中轉彎過程中。|2|客機只有在起降階段高度才會低於數千呎。故與無人機碰撞的風險，全集中在「機場爬升或下降(進場)過程中」。",
+            "281 帶BEC(battery eliminator circuit,去電池電路)功能的電子調速器可對電源電壓進行降壓,並輸出5V電壓以供電至下列何種機載設備?|(A)飛控電腦。|(B)遙控鏈路元件。|(C)伺服舵機。|(D)以上皆是。|3|BEC 模組就像個變壓器，能將大電池的高壓降為 5V，用來供電給所有弱電設備(飛控、接收機、伺服馬達等)。",
+            "282 帶BEC(battery eliminator circuit,去電池電路)功能的電子調速器可對電源電壓進行降壓,並輸出5V電壓以供電至各種機載設備,何者除外?|(A)動力馬達。|(B)遙控鏈路元件。|(C)伺服舵機。|(D)飛控電腦。|0|降壓出來的 5V 是給電子儀器吃的。負責飛行的「動力馬達」吃的是電池直供的大電壓高電流，絕對不能接 BEC。",
+            "283 經農政機關登記合格之法人且取得民航局能力審查核准之業者,其飛航活動許可時間以多久為限?|(A)6個月。|(B)3個月。|(C)1年。|(D)1個月。|0|一般法人活動許可最長3個月；但為配合農忙特性，農政代噴業者的許可期限放寬為最長「6個月」。",
+            "284 經農政機關登記合格之法人且取得民航局能力審查核准之業者,其飛航活動許可以六個月為限,但其可申請操作限制排除項目不包含下列何者?|(A)不得以遙控無人機投擲或噴灑任何物件。|(B)不得裝載依第四十三條第三項公告之危險物品。|(C)不得於日落後至日出前之時間飛航。|(D)不得於人群聚集或室外集會遊行上空活動。|3|農噴業者可申請排除噴灑、危險品(農藥)、夜飛限制。但農地不可能有遊行，故不包含排除「人群聚集上空」之限制。",
+            "285 某遙控無人機操作人欲執行農藥噴灑作業,以下敘述何者正確?|(A)執行業務之活動申請者須為經農政機關登記合格之法人。|(B)其飛航活動許可時間以3個月為限。|(C)應於活動日三十日前提出申請。|(D)該操作人不須通過術科測驗。|0|農藥噴灑高度危險，法規明定自然人不得進行，必須由「經農政機關登記合格的合法法人」提出活動申請。",
+            "286 某遙控無人機操作人欲執行農藥噴灑作業,以下敘述何者正確?|(A)執行業務之活動申請者須為經農政機關登記合格之法人。|(B)其飛航活動許可時間以6個月為限。|(C)應於活動日十五日前提出申請。|(D)以上皆是。|3|農噴三要件：(A)須為農政合格法人、(B)許可期最長可達 6 個月、(C)需於 15 天前提出申請。故以上皆是。",
+            "287 經農政機關登記合格之法人欲於禁、限航區及航空站或飛行場四周一定距離範圍內從事農藥噴灑作業,應於活動日前多久提出申請?|(A)30日前。|(B)15日前。|(C)3日前。|(D)5日前。|1|雖然是農政法人，但只要想闖入紅/黃區(禁限航區或機場四周)，依常規程序皆須於「15 日前」提出申請。",
+            "288 於直轄市、縣(市)政府公告之禁止、限制區域內從事遙控無人機農藥噴灑作業時,如有跨縣市飛航情形,應向哪個機關提出申請?|(A)飛經之直轄市、縣(市)政府。|(B)向起飛地點所在直轄市、縣(市)政府提出申請,經所在地及跨縣市政府同意。|(C)降落地點所在直轄市、縣(市)政府。|(D)降落地點所鄰近直轄市、縣(市)政府。|1|遇到跨縣市的農噴任務，單一窗口原則：向「起飛點縣市政府」送件，由其代為協調沿途跨越之縣市共同同意。",
+            "289 經農政機關登記合格之法人因執行農噴業務需於直轄市、縣(市)政府所公告之遙控無人機活動區域、時間及其他管理事項外從事飛航活動者,應申請何者會商相關中央主管機關同意後,始得為之?|(A)直轄市、縣(市)政府。|(B)衛福部。|(C)農委會。|(D)交通部。|0|若要在地方政府管轄的紅/黃區進行農噴，必須申請該管轄的「直轄市、縣(市)政府」會商中央後同意。",
+            "290 經農政機關登記合格之法人因執行農噴業務需於禁、限航區及航空站或飛行場四周一定距離範圍內從事遙控無人機飛航活動者,應申請何者會商目的事業主管機關同意後,始得為之?|(A)鄉鎮區公所。|(B)農委會。|(C)民航局。|(D)直轄市、縣(市)政府。|2|禁限航區及機場四周(中央管制區)權限極高，必須直接向最高民航主管機關「民航局」提出申請會商。",
+            "291 政府機關(構)、學校或法人於直轄市、縣(市)政府公告之禁止、限制區域內從事遙控無人機飛航活動,應取得相關中央主管機關同意,有關該程序下列敘述何者正確?|(A)應報請直轄市、縣(市)政府會商相關中央主管機關同意。|(B)相關中央主管機關得委託政府機關(構)或團體代為同意。|(C)相關中央主管機關委託相關業務應將委託之對象、事項及法規依據公告之,並刊登於政府公報。|(D)以上皆是。|3|法規明定地方審查程序：報請地方政府會商中央，中央可依法公告委託專責團體代為行使同意權。",
+            "292 遙控無人機製造者或進口者利用電子商務服務系統販售遙控無人機時,應將下列哪段文字標示於電子商務服務系統明顯處?|(A)最大起飛重量二百五十公克以上遙控無人機應辦理註冊。|(B)遙控無人機活動前應注意活動區域與遵守操作規定。|(C)相關活動區域及操作規定資訊,請見民航局網站及遙控無人機圖資行動應用程式。|(D)以上皆是。|3|為防制無知違法，電商網購平台頁面必須明顯標示：250g需註冊、注意空域、並附上民航局圖資App的宣導文字。",
+            "293 利用電子商務服務系統販售遙控無人機時販售遙控無人機前,應由下列何者向民航局申請辦理產品資訊登錄?|(A)代理商。|(B)製造商。|(C)進口者。|(D)以上皆是。|3|不論你是源頭的製造商，還是引進水貨的進口者/代理商，只要負責「販售源頭」，都有義務向民航局辦理產品登錄。",
+            "294 遙控無人機於販售或進口前,應由下列何者於產品或包裝上標示最大起飛重量、註冊程序、型式檢驗標籤或認可標籤、實體檢驗說明、操作限制說明、管理及違規裁罰等資訊?|(A)代理商。|(B)製造商。|(C)進口者。|(D)以上皆是。|3|如同食品標示成分，上述代理商、製造商、進口者，皆有法定義務在「外包裝」上貼滿重量與裁罰等警語資訊。",
+            "295 學習操作證持有人得於持有遙控無人機普通操作證或專業操作證之操作人在旁指導下,依其操作證所載之構造分類,學習操作最大起飛重量未達多少公斤之遙控無人機?|(A)15公斤。|(B)25公斤。|(C)2公斤。|(D)150公斤。|1|法規對於新手學習的重量寬容度上限是「未達 25 公斤」之機型(需教練在旁)。",
+            "296 學習操作證持有人得於持有遙控無人機普通操作證之操作人在旁指導下,學習操作最大起飛重量未逾多少公斤之遙控無人機?|(A)15公斤。|(B)25公斤。|(C)2公斤。|(D)150公斤。|0|注意陷阱！教練如果是拿「普通證」，因普通證自身最高只能飛未達15公斤，故指導學習也「不得逾 15 公斤」。",
+            "297 學習操作證持有人得於持有遙控無人機專業操作證之操作人在旁指導下,學習操作最大起飛重量未達多少公斤之同一構造遙控無人機?|(A)2公斤。|(B)15公斤。|(C)150公斤。|(D)依指導人持有之專業操作證可操作之重量級別而定,並以最大起飛重量未達25公斤為限。|3|專業教練能教多重，取決於教練自己證照的級別。但無論教練多強，學習證的法定總天花板仍為「未達 25 公斤」。",
+            "298 領有最大起飛重量一百五十公斤以上之專業操作證者,對持有學習操作證者具備同一構造最大起飛重量多少公斤的遙控無人機教學資格?|(A)未達2公斤且同一級別以下之遙控無人機資格。|(B)未達15公斤且同一級別以下之遙控無人機資格。|(C)未達25公斤且同一級別以下之遙控無人機資格。|(D)未達150公斤且同一級別以下之遙控無人機資格。|2|（同前題考點）教練雖然能飛 150 公斤巨無霸，但徒弟拿的是學習證，法規上限卡死就是只能教「未達 25 公斤」。",
+            "299 操作最大起飛重量一百五十公斤以上之遙控無人機操作人應依下列哪種標準辦理體格檢查?|(A)航空人員乙類體格檢查標準。|(B)普通小型車體檢認定標準。|(C)普通大貨車體檢認定標準。|(D)普通聯結車體檢認定標準。|0|150公斤以上的巨型無人機風險等同輕航機，駕駛員必須接受最嚴格的「航空人員乙類 (機師等級) 體檢標準」。",
+            "300 操作最大起飛重量一百五十公斤以下之遙控無人機操作人應依下列哪種標準辦理體格檢查?|(A)航空人員乙類體格檢查標準。|(B)普通小型車體檢認定標準。|(C)普通大貨車體檢認定標準。|(D)無人駕駛航空器體檢認定標準。|1|150公斤以下的操作人，體檢標準較為親民，只要符合考汽車駕照的「普通小型車體檢認定標準」即可過關。",
+            "301 有關申請遙控無人機專業操作證者,下列何者有誤?|(A)申請專業基本級II操作證者,應領有專業基本級I(無註記重量限制)操作證一個月以上之經歷。|(B)申請專業高級Ib操作證者,應領有專業高級Ia(無註記重量限制)操作證一個月以上之經歷。|(C)申請專業高級 IIc操作證者,應領有專業基本級II操作證或專業高級Ib操作證均有三個月以上之經歷。|(D)申請專業基本級 操作證者,應領有遙控無人機普通操作證一個月以上之經歷。|3|專業基本證是報考門檻最低的專業證照，法規「並未規定必須先擁有普通操作證的經歷」，故 D 選項為錯誤敘述。",
+            "302 申請專業基本級II操作證者,應領有專業基本級I(無註記重量限制)操作證幾個月以上之經歷?|(A)1個月。|(B)2個月。|(C)3個月。|(D)6個月。|0|考取基本級 I 之後，必須累積「1 個月」的飛行經歷，才能向上報考基本級 II。",
+            "303 申請專業高級Ib操作證者,應領有專業高級Ia(無註記重量限制)操作證幾個月以上之經歷?|(A)1個月。|(B)2個月。|(C)3個月。|(D)6個月。|0|同理，在高級證照內部晉升 (從 Ia 升至 Ib)，法規要求的磨練經歷同樣為「1 個月」。",
+            "304 申請專業高級IIc操作證者,應領有專業基本級II操作證或專業高級Ib操作證幾個月以上之經歷?|(A)1個月。|(B)2個月。|(C)3個月。|(D)6個月。|2|跨入高級 IIc 這個門檻極高的等級，必須具備前階段證書「3 個月」以上之資深經歷。",
+            "305 申請專業高級IIId操作證者,應領有下列何種操作證一個月以上之經歷?|(A)專業基本級 III操作證。|(B)專業高級 IIc操作證。|(C)專業基本級II操作證。|(D)專業高級 Ib操作證。|0|報考直昇機頂級的「高級 IIId」，其前置門檻必須先取得同屬 III 系列的「專業基本級 III」操作證 1 個月經歷。",
+            "306 申請專業高級IIId操作證者,應領有專業基本級III操作證幾個月以上之經歷?|(A)1個月。|(B)2個月。|(C)3個月。|(D)6個月。|0|（承前題）由基本級 III 跨考高級 IIId，經歷時間門檻為「1 個月」。",
+            "307 有關申請遙控無人機專業操作證者之體格檢查規定,下列敘述何者有誤?|(A)操作最大起飛重量一百五十公斤以下之遙控無人機操作人應依據普通小型車體檢認定標準辦理體格檢查。|(B)應向公路監理機關指定之醫療院所或教學醫院辦理體格檢查。|(C)操作最大起飛重量一百五十公斤以上之遙控無人機操作人應依航空人員乙類體格檢查標準辦理體格檢查。|(D)操作最大起飛重量二十五公斤以上之遙控無人機操作人應依航空人員乙類體格檢查標準辦理體格檢查。|3|法規是以「150 公斤」為分水嶺，並非 25 公斤。25公斤至150公斤之間依然只須汽車體檢即可，故 D 敘述錯誤。",
+            "308 針對學習操作證之敘述,下列敘述何者為非?|(A)申請者應年滿14歲。|(B)持有者須於具備普通或專業操作證之操作人在旁指導監護下,使得操作。|(C)持有者所操作學習遙控無人機最大起飛重量不得逾15公斤。|(D)持有者所操作學習遙控無人機最大起飛重量不得逾25公斤。|2|學習證在合格教練陪同下，最高可操作至「未達 25 公斤」(即不得逾 25)。敘述 C 限制在 15 公斤是錯誤的。",
+            "309 經農政機關登記合格之法人且取得民航局能力審查核准之業者,從事下列哪種飛航活動其同意文件以六個月為限?|(A)以遙控無人機投擲或噴灑任何物件。|(B)裝載依第四十三條第三項公告之危險物品。|(C)於日落後至日出前之時間飛航。|(D)以上皆是。|3|合格農噴法人，可一次申請排除噴灑限制、裝載危險品(農藥)限制，以及夜飛限制。效期均放寬為「6 個月」。",
+            "310 有關申請遙控無人飛機專業基本級I操作證者,下列敘述何者為正確?|(A)遙控無人飛機之矩形機翼、翼展僅限介於一百八十公分至二百公分者。|(B)遙控無人飛機之翼弦長僅限介於二十八公分至三十三公分者。|(C)遙控無人飛機之起飛重量僅限大於6.5公斤以上者。|(D)可使用符合Ib規格之工作機任務機。|3|官方測驗用機規範：為了彈性，報考基本級 I 者，可以「向下相容」借用符合高級 Ib 規格的任務機來應考。",
+            "311 有關申請遙控無人直昇機專業基本級I操作證者,下列敘述何者為正確?|(A)遙控無人直昇機之旋翼半徑僅限介於七十公分至九十公分者。|(B)遙控無人直昇機之起飛重量僅限大於4.5公斤以上者。|(C)遙控無人直昇機之起飛重量僅限大於6.5公斤以上者。|(D)可使用符合Ib規格之工作機(任務機)。|3|直昇機測驗同理，為方便考生準備應考機，基本級 I 允許使用符合高級 Ib 規格之工作機作為替代方案。",
+            "312 有關申請遙控無人多旋翼機專業基本級I操作證者,下列敘述何者為正確?|(A)遙控無人多旋翼機之對角馬達之軸心距離僅限介於九十公分至一百一十公分者。|(B)遙控無人多旋翼機之起飛重量僅限大於4公斤以上者。|(C)遙控無人多旋翼機之起飛重量僅限大於6.5公斤以上者。|(D)可使用符合Ib規格之工作機(任務機)。|3|多旋翼測驗同理，法規開放基本級 I 考生，可直接使用符合高級 Ib 規格的六軸/八軸任務機進行考試。",
+            "313 有關申請遙控無人多旋翼機專業基本級I操作證者,下列敘述何者為非?|(A)可使用遙控無人多旋翼機之對角馬達之軸心距離介於九十公分至一百一十公分者。|(B)可使用遙控無人多旋翼機之起飛重量大於或等於4公斤以上者。|(C)可使用遙控無人多旋翼機之起飛重量大於6.5公斤以上者。|(D)可使用符合Ib規格之工作機(任務機)。|2|基本級 I 測驗機規範重量為「大於等於 4 公斤」。要求必須「大於 6.5 公斤」是錯誤且超綱的描述。",
+            "314 持有普通操作證者在旁指導持有學習操作證者學習操作遙控無人機,下列敘述何者正確?|(A)可學習操作最大起飛重量未達15公斤之遙控無人機。|(B)可學習操作最大起飛重量未達25公斤之遙控無人機。|(C)可學習操作最大起飛重量未達150公斤之遙控無人機。|(D)可學習操作最大起飛重量150公斤以上之遙控無人機。|0|徒弟能飛多重取決於師父。師父只拿普通證 (上限 15 公斤)，故徒弟最高也只能飛「未達 15 公斤」的飛機。",
+            "315 依遙控無人機管理規則規定,遙控無人機製造者或進口者於販售前,應於何處標示最大起飛重量、註冊程序、型式檢驗標籤或認可標籤、實體檢驗說明、操作限制說明、管理及違規裁罰等資訊?|(A)廣告內容。|(B)電子商務服務系統。|(C)產品或包裝上。|(D)以上皆是。|2|實體防漏法規：上述密密麻麻的法定警語及檢驗標籤，廠商必須白紙黑字標示在實體的「產品或包裝上」。",
+            "316 自行製造、使用之遙控無人機,應由下列何者向民航局申請辦理產品資訊登錄?|(A)所有人。|(B)零件製造商。|(C)零件供應商。|(D)以上皆是。|0|DIY 自組機沒有進口商背書，法規明定此類機體的註冊與登錄義務，完全由造出來要飛的「所有人」自行承擔。",
+            "317 政府機關為執行業務者,其活動申請同意期限為多久?|(A)3個月。|(B)6個月。|(C)1個月。|(D)1年。|3|為確保公權力運行順暢，公務機關(政府/警消)申請飛航活動的同意期限最長，可達「 1 年」。",
+            "318 小陳是一位持有專業操作證(G2)的自然人,請問下列敘述何者為有誤?|(A)其操作證得以申請執行遙控無人機投擲或噴灑任何物件。|(B)小陳如欲執行夜間噴灑作業,須再參加第1組(G1)高級術科測驗並取得專業操作證。|(C)小陳如欲執行業務之活動申請,則須透過經農政機關登記合格之法人。|(D)小陳已經擁有專業操作證(G2),即可在屬於綠區的自家農地執行遙控無人機噴灑作業。|3|陷阱題！即使考到最高級證照，只要是「自然人」身分，依法就絕對「禁止投擲或噴灑」，綠區也不行。必須靠行法人。",
+            "319 小陳是一間農噴無人機公司的操作人,該公司並已向民航局完成活動申請得以執行農藥噴灑作業,請問下列敘述何者為有誤?|(A)其活動申請同意文件最長得以6個月為限。|(B)該公司是農政機關登記合格之法人。|(C)該公司之能力審查申請,核准效期為1年。|(D)小陳應於每次活動前、後於指定時間內至民航局指定資訊系統登錄飛航資訊。|2|法規更新細節：法人向民航局申請的「能力審查核准 (作業手冊審查)」，其有效期限為「2 年」而非 1 年。",
+            "320 小華想要進口一些遙控無人機到網路上販售,請問下列敘述何者為有誤?|(A)小華應主動向民航局申請辦理產品資訊登錄。|(B)小華是進口者。|(C)小華不得擅自進口製造商未向民航局完成登錄之遙控無人機。|(D)小華應於販售頁面明顯處標示遙控無人機註冊、操作注意事項及活動空域圖資等資訊。|2|法規未禁止「進口」未登錄機，而是禁止「販售」前未登錄。小華身為進口者，自己就有義務主動幫水貨申請登錄，故C錯。",
+            "321 小華欲報考專業高級Ib操作證術科考試,請問下列敘述何者為正確?|(A)小華應領有遙控無人機普通操作證1個月以上之經歷。|(B)小華應領有專業高級la(無註記重量限制)操作證1個月以上之經歷。|(C)小華不須通過專業操作證學科測驗。|(D)小華應領有專業高級Ia(無註記重量限制)操作證3個月以上之經歷。|1|高級內部晉升門檻規定：要考高級 Ib，必須先取得前段的「高級 Ia 滿 1 個月經歷」。",
+            "322 小華持有學習操作證,並向持有普通操作證的小黃學習,請問下列敘述何者為錯誤?|(A)小華應已年滿14歲。|(B)小黃具有對小華進行最大起飛重量未達十五公斤之遙控無人機教學資格。|(C)小黃未通過專業操作證術科測驗,不具任何教學資格。|(D)教學過程須遵守操作限制規定。|2|普通操作證雖然沒有考術科，但在法規上，小黃已經「具備指導學習證者飛行 15 公斤以下無人機」的合法資格。",
+            "323 小華是一名持有專業操作證(G3)的警員,因為公務需要,長官請他使用遙控無人機值勤,請問下列敘述何者錯誤?|(A)小華值勤的機關須通過民航局能力審查後始得從事遙控無人機活動。|(B)小華執勤的機關,其活動申請同意文件以半年為限。|(C)經民航局活動申請許可,小華得以於集會遊行上空進行拍攝偵查。|(D)小華未持有專業操作證(G1)證照,日落後即不得操作遙控無人機。|1|小華身為警員代表政府機關執行公務，其飛航活動的同意文件效期最長可給予「1 年」，而非半年。",
+            "324 小黃已申請並經許可於桃園機場禁止無人機活動範圍內從事飛航活動,該申請人於執行飛航作業時之應注意事項,請問下列敘述何者正確?|(A)小黃僅須通過民航局能力審查後即可從事遙控無人機活動。|(B)小黃若未取得飛航公告(NOTAM)或未與桃園機場航務組進行協調聯繫,仍視同程序已完備,可依活動許可時間及範圍直接升空作業。|(C)經民航局活動申請許可,小黃即可於桃園機場附近進行空拍作業。|(D)小黃應依「活動同意文件」規定辦理空域協調事宜,作業前後若未與桃園機場航務組進行空域協調聯繫者,視同程序未完成,將依遙控無人機管理規則查處。|3|進入機場紅區生死攸關。即使有公文核准，只要未與塔台(航務組)進行「即時的雷達空域協調」，就絕對不准起飛，違者重罰。"
         ];
 
-        const questionBank = compressedDB.map((row, index) => {
+        const questionBank = rawDB.map((row, index) => {
             const parts = row.split('|');
             const ansIndex = parseInt(parts[5]);
             return {
@@ -598,24 +586,27 @@
                 question: parts[0].substring(parts[0].indexOf(' ') + 1),
                 options: [parts[1], parts[2], parts[3], parts[4]],
                 answer: ansIndex,
-                // 直接將正確選項字串作為解析內容
-                explanation: parts[ansIndex + 1]
+                explanation: parts[6] 
             };
         });
 
-        const totalQuestions = 324;
+        const totalQuestions = questionBank.length;
+        
         let isStudyMode = false; 
         let isQuizRunning = false;
         let currentSessionType = ''; 
         let quizQueue = []; 
         let currentQuizIndex = 0;
         let currentQuestionId = -1;
+        
+        // 用於計算當前測驗的暫存分數
         let scoreCorrect = 0;
         let scoreWrong = 0;
-        let examRecords = []; 
-        let autoAdvanceTimer = null; 
         
-        // 雙軌獨立記憶系統
+        // 測驗模式用的紀錄陣列 (延遲結算)
+        let examRecords = []; 
+        
+        // 雙軌進度儲存
         let quizMasteredIds = [], quizWrongIds = [];
         let studyMasteredIds = [], studyWrongIds = [];
         let studyProgressIndex = 0;
@@ -624,7 +615,6 @@
             loadProgress();
             loadSettings();
             
-            // 綁定畫面上所有的齒輪按鈕
             document.querySelectorAll('.gear-btn').forEach(btn => btn.onclick = toggleSettings);
             document.getElementById('close-settings-btn').onclick = toggleSettings;
             document.getElementById('close-settings-btn-bottom').onclick = toggleSettings;
@@ -634,7 +624,7 @@
             
             document.getElementById('btn-start-main').onclick = () => {
                 if (!isStudyMode && quizMasteredIds.length >= totalQuestions) {
-                    resetProgress();
+                    resetProgress(false);
                 } else {
                     startSession(isStudyMode ? 'normal_study' : 'normal_quiz');
                 }
@@ -646,15 +636,7 @@
             document.getElementById('prev-btn').onclick = prevQuestion;
             document.getElementById('exit-btn').onclick = exitMode;
             document.getElementById('btn-return-home').onclick = returnToHome;
-            document.getElementById('btn-reset').onclick = resetProgress;
-            
-            // IG 廣告連結防呆保護
-            document.getElementById('ig-link-btn').onclick = function(e) {
-                if (window.self !== window.top) {
-                    e.preventDefault();
-                    showModal('📢 這是您的 IG 廣告連結！\n\n(附註：因為目前在開發預覽模式中，直接點擊會被阻擋。等您將檔案存到電腦或手機上開啟時，就能正常跳轉囉！)', false);
-                }
-            };
+            document.getElementById('btn-reset').onclick = () => resetProgress(isStudyMode);
             
             ['dark', 'warm', 'light'].forEach(t => {
                 document.getElementById(`theme-${t}`).onclick = () => setTheme(t);
@@ -716,12 +698,20 @@
             let mIds = sessionType.includes('study') ? studyMasteredIds : quizMasteredIds;
             let wIds = sessionType.includes('study') ? studyWrongIds : quizWrongIds;
 
-            if(isCorrect) {
-                if(wIds.includes(qId)) wIds.splice(wIds.indexOf(qId), 1);
-                if(!mIds.includes(qId)) mIds.push(qId);
+            if (isCorrect) {
+                // 如果這題從未答錯，才准許加入精通
+                if (!wIds.includes(qId) && !mIds.includes(qId)) {
+                    mIds.push(qId);
+                }
             } else {
-                if(mIds.includes(qId)) mIds.splice(mIds.indexOf(qId), 1);
-                if(!wIds.includes(qId)) wIds.push(qId);
+                // 如果答錯，永遠鎖在待加強 (直到重置)
+                if (!wIds.includes(qId)) {
+                    wIds.push(qId);
+                }
+                // 同時拔除這題可能有的精通狀態
+                if (mIds.includes(qId)) {
+                    mIds.splice(mIds.indexOf(qId), 1);
+                }
             }
 
             if (sessionType.includes('study')) {
@@ -743,6 +733,7 @@
 
             document.getElementById('stat-mastered').innerText = currentMastered.length;
             document.getElementById('stat-wrong').innerText = currentWrong.length;
+            
             let unseenCount = Math.max(0, totalQuestions - currentMastered.length - currentWrong.length);
             document.getElementById('stat-unseen').innerText = unseenCount;
             document.getElementById('label-unseen').innerText = isStudyMode ? '📦 未觀看' : '📦 未作答';
@@ -763,8 +754,8 @@
                 btnMain.className = btnBaseClass + "bg-blue-600 hover:bg-blue-500";
                 
                 btnMain.innerHTML = `
-                    <div class="text-lg flex items-center gap-2">📖 進入看題庫模式 (共 324 題)</div>
-                    <div class="text-xs font-normal text-blue-200 mt-1.5">循序漸進閱讀，系統自動記憶進度</div>
+                    <div class="text-[17px] sm:text-lg flex items-center gap-2 tracking-wide">📖 進入看題庫模式 (共 324 題)</div>
+                    <div class="text-[13px] font-normal text-blue-200 mt-1.5">循序漸進閱讀，系統自動記憶進度</div>
                 `;
                 
                 intensiveBtn.classList.add('hidden');
@@ -777,35 +768,32 @@
                 toggleExam.className = activeClass;
                 toggleStudy.className = inactiveClass;
                 
-                // 滿分金黃色重置機制
                 if (quizMasteredIds.length >= totalQuestions) {
-                    btnMain.className = btnBaseClass + "bg-yellow-500 hover:bg-yellow-400 shadow-yellow-500/40 shadow-xl scale-[1.02]";
+                    // 金黃色大滿貫按鈕
+                    btnMain.className = btnBaseClass + "bg-yellow-500 hover:bg-yellow-400 shadow-yellow-500/40 shadow-xl scale-[1.02] mt-2 mb-2";
                     btnMain.innerHTML = `
                         <div class="text-[22px] flex items-center gap-2 drop-shadow-md tracking-wide">🏆 您已精通全部 324 題！</div>
                         <div class="text-[14px] font-bold text-yellow-50 mt-1.5 drop-shadow-sm">點此重置進度並重新開始</div>
                     `;
-                    intensiveBtn.classList.add('hidden');
+                } else if (unseenCount > 0) {
+                    btnMain.className = btnBaseClass + "bg-blue-600 hover:bg-blue-500";
+                    btnMain.innerHTML = `
+                        <div class="text-[17px] sm:text-lg flex items-center gap-2 tracking-wide">⏱️ 開始智慧測驗 (共 50 題)</div>
+                        <div class="text-[13px] font-normal text-blue-200 mt-1.5">只抽出「未作答」新題，絕不重複</div>
+                    `;
                 } else {
-                    if (unseenCount > 0) {
-                        btnMain.className = btnBaseClass + "bg-blue-600 hover:bg-blue-500";
-                        btnMain.innerHTML = `
-                            <div class="text-lg flex items-center gap-2">⏱️ 開始智慧測驗 (共 50 題)</div>
-                            <div class="text-xs font-normal text-blue-200 mt-1.5">隨機 50 題，優先複習「待加強」並補齊「未作答」</div>
-                        `;
-                    } else {
-                        btnMain.className = btnBaseClass + "bg-purple-600 hover:bg-purple-500";
-                        btnMain.innerHTML = `
-                            <div class="text-lg flex items-center gap-2">🔥 終極衝刺 (清空待加強)</div>
-                            <div class="text-xs font-normal text-purple-200 mt-1.5">所有新題皆已測驗完畢，全力消滅剩下的錯題吧！</div>
-                        `;
-                    }
-                    
-                    if (quizWrongIds.length > 0) {
-                        intensiveBtn.classList.remove('hidden');
-                        document.getElementById('intensive-count').innerText = quizWrongIds.length;
-                    } else {
-                        intensiveBtn.classList.add('hidden');
-                    }
+                    btnMain.className = btnBaseClass + "bg-purple-600 hover:bg-purple-500 shadow-purple-500/40 shadow-xl scale-[1.02] mt-2 mb-2";
+                    btnMain.innerHTML = `
+                        <div class="text-[20px] flex items-center gap-2 drop-shadow-md tracking-wide">🔥 易錯題無限複習</div>
+                        <div class="text-[13px] font-bold text-purple-100 mt-1.5 drop-shadow-sm">新題已掃完，專注消滅待加強弱點</div>
+                    `;
+                }
+                
+                if (quizWrongIds.length > 0) {
+                    intensiveBtn.classList.remove('hidden');
+                    document.getElementById('intensive-count').innerText = quizWrongIds.length;
+                } else {
+                    intensiveBtn.classList.add('hidden');
                 }
                 reviewBtn.classList.add('hidden');
             }
@@ -831,7 +819,6 @@
                 quizQueue = [...currentWrong];
                 shuffle(quizQueue);
             } else if (type === 'normal_quiz') {
-                // 測驗模式：只從未作答的新題中抽題 (絕對不重複)
                 let unseenPool = [];
                 for(let i=0; i<totalQuestions; i++) {
                     if(!currentWrong.includes(i) && !currentMastered.includes(i)) {
@@ -843,7 +830,6 @@
                     shuffle(unseenPool);
                     quizQueue = unseenPool.slice(0, 50);
                 } else {
-                    // 如果沒有未作答的新題了，才從錯題裡面抽出來考
                     let wrongPool = [...currentWrong];
                     shuffle(wrongPool);
                     quizQueue = wrongPool.slice(0, 50);
@@ -910,7 +896,7 @@
             document.getElementById('next-btn').classList.add('hidden');
             document.getElementById('explanation-container').classList.add('hidden');
             
-            // 只有「測驗模式」且「不是第一題」時，才顯示上一題按鈕防呆
+            // 看題庫模式不需要上一題；測驗模式從第二題開始顯示
             if (currentQuizIndex > 0 && !currentSessionType.includes('study')) {
                 document.getElementById('prev-btn').classList.remove('hidden');
             } else {
@@ -935,14 +921,19 @@
 
             const isCorrect = (index === qData.answer);
             const container = document.getElementById('options-container');
-            updateQuestionStatus(currentQuestionId, isCorrect, currentSessionType);
+            const expTitle = document.getElementById('explanation-title');
 
             if(currentSessionType.includes('study')) {
+                // 題庫模式：立刻寫入資料庫並顯示正確解析
+                updateQuestionStatus(currentQuestionId, isCorrect, currentSessionType);
+
                 if(isCorrect) {
                     btnElement.classList.add('correct');
+                    expTitle.innerHTML = '<span class="text-green-500">💡 重點解析：</span>';
                 } else {
                     btnElement.classList.add('wrong');
                     container.children[qData.answer].classList.add('correct');
+                    expTitle.innerHTML = '<span class="text-red-500">💡 錯題解析：</span>';
                 }
                 
                 document.getElementById('explanation-text').innerText = qData.explanation;
@@ -955,6 +946,7 @@
                 }
                 
             } else {
+                // 測驗模式：暫存答案，延遲結算
                 btnElement.classList.add('option-btn-selected');
                 if(isCorrect) scoreCorrect++; else scoreWrong++;
                 
@@ -964,8 +956,7 @@
                     isCorrect: isCorrect
                 });
                 
-                if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
-                autoAdvanceTimer = setTimeout(() => {
+                setTimeout(() => {
                     container.removeAttribute('disabled');
                     nextQuestion();
                 }, 400); 
@@ -979,25 +970,13 @@
         }
 
         function prevQuestion() {
-            if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer); 
-            
             if (currentQuizIndex <= 0) return; 
             
+            // 測驗模式下：退回上一題，完美抽掉上一題暫存紀錄
             if (!currentSessionType.includes('study') && examRecords.length > 0) {
                 const lastRecord = examRecords.pop();
                 if (lastRecord.isCorrect) scoreCorrect--;
                 else scoreWrong--;
-                
-                const qId = lastRecord.qData.id;
-                if (lastRecord.isCorrect) {
-                    const idx = quizMasteredIds.indexOf(qId);
-                    if(idx !== -1) quizMasteredIds.splice(idx, 1);
-                } else {
-                    const idx = quizWrongIds.indexOf(qId);
-                    if(idx !== -1) quizWrongIds.splice(idx, 1);
-                }
-                localStorage.setItem('drone_quiz_mastered', JSON.stringify(quizMasteredIds));
-                localStorage.setItem('drone_quiz_wrong', JSON.stringify(quizWrongIds));
             }
             
             document.getElementById('options-container').removeAttribute('disabled');
@@ -1050,14 +1029,18 @@
                 return;
             }
             
+            // 測驗模式延遲結算：在此刻才將所有成績正式寫入資料庫
+            examRecords.forEach(record => {
+                updateQuestionStatus(record.qData.id, record.isCorrect, currentSessionType);
+            });
+            
             isQuizRunning = false;
             document.getElementById('quiz-screen').classList.add('hidden');
             document.getElementById('result-screen').classList.remove('hidden');
             
-            // 動態比例計分法 (依照實際作答題數)
+            // 動態比例計分 (以實際作答題數算分)
             let attemptedCount = examRecords.length; 
             let finalScore = 0;
-            
             if (attemptedCount > 0) {
                 finalScore = Math.round((scoreCorrect / attemptedCount) * 100);
             }
@@ -1069,7 +1052,6 @@
             const badge = document.getElementById('result-badge');
             const wrongSection = document.getElementById('wrong-review-section');
             const wrongList = document.getElementById('wrong-answers-list');
-            
             wrongList.innerHTML = ''; 
             
             if(finalScore === 100 && attemptedCount > 0) {
@@ -1081,13 +1063,9 @@
                     confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 }, colors: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444'] });
                     setTimeout(() => confetti({ particleCount: 100, spread: 100, origin: { y: 0.5 }, colors: ['#fbbf24', '#f59e0b'] }), 1000);
                 }
-            } else if (finalScore >= 80) {
-                badge.innerText = '✅ 及格，錯題已為您鎖定至「待加強」區塊。';
-                badge.className = 'inline-block px-4 py-1.5 rounded-full text-sm font-bold mb-6 border border-blue-500 bg-blue-500/10 text-blue-500 shadow-sm';
-                wrongSection.classList.remove('hidden');
             } else {
-                badge.innerText = '❌ 不及格，錯題已為您鎖定至「待加強」區塊。';
-                badge.className = 'inline-block px-4 py-1.5 rounded-full text-sm font-bold mb-6 border border-red-500 bg-red-500/10 text-red-500 shadow-sm';
+                badge.innerText = finalScore >= 80 ? '✅ 及格，錯題已為您鎖定至「待加強」區塊。' : '❌ 不及格，錯題已為您鎖定至「待加強」區塊。';
+                badge.className = finalScore >= 80 ? 'inline-block px-4 py-1.5 rounded-full text-sm font-bold mb-6 border border-blue-500 bg-blue-500/10 text-blue-500 shadow-sm' : 'inline-block px-4 py-1.5 rounded-full text-sm font-bold mb-6 border border-red-500 bg-red-500/10 text-red-500 shadow-sm';
                 wrongSection.classList.remove('hidden');
             }
 
@@ -1104,7 +1082,7 @@
                             <div class="text-[15px] mb-2 text-red-500 font-bold pl-6">您的答案：${record.qData.options[record.userAnsIndex]}</div>
                             <div class="text-[15px] mb-5 text-green-600 font-bold pl-6">正確答案：${record.qData.options[record.qData.answer]}</div>
                             <div class="p-4 rounded-lg explanation-box text-[15px] leading-relaxed mt-2 shadow-inner">
-                                <span class="font-bold">💡 正確解答：</span><br>${record.qData.explanation}
+                                <span class="font-bold">💡 錯題解析：</span><br>${record.qData.explanation}
                             </div>
                         `;
                         wrongList.appendChild(card);
@@ -1120,9 +1098,9 @@
             updateDashboard();
         }
 
-        function resetProgress() {
-            showModal("確定要將當前模式的「紀錄與錯題本」歸零嗎？這將無法復原！", true, () => {
-                if (isStudyMode) {
+        function resetProgress(isStudy) {
+            showModal(`確定要將 ${isStudy?'看題庫':'測驗'} 的「紀錄與錯題本」歸零嗎？這將無法復原！`, true, () => {
+                if (isStudy) {
                     studyMasteredIds = [];
                     studyWrongIds = [];
                     studyProgressIndex = 0;
